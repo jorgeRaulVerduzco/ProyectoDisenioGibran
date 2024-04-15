@@ -7,6 +7,7 @@ package Presentacion;
 import ComprarProducto.ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorTarjetaDTO;
+import IComprarProducto.IComprarProducto;
 import Negocio.PagoProvicional;
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author INEGI
  */
 public class PagoPorTarjeta extends javax.swing.JFrame {
-ComprarProducto comprarProcuto;
+IComprarProducto comprarProcuto;
     /**
      * Creates new form PagoPorTarjeta
      */

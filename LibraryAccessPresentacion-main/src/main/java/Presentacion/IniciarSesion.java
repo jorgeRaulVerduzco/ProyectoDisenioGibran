@@ -5,6 +5,7 @@
 package Presentacion;
 
 import DTO.UsuarioDTO;
+import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
 import IniciarSesionFuncionalidad.IniciarSesionFuncionalidad;
 import Negocio.UsuarioSesion;
 import RegistrarUsuarioFuncionalidad.UsuarioSingleton;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class IniciarSesion extends javax.swing.JFrame {
 
-    IniciarSesionFuncionalidad sesionIniciada;
+    IiniciarSesionFuncionalidad sesionIniciada;
     UsuarioDTO usuarioDTO;
 
     /**

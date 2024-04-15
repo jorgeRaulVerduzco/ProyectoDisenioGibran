@@ -4,10 +4,16 @@
  */
 package IDAO;
 
+import Dominio.Usuario;
+import java.util.List;
+
 /**
  *
  * @author INEGI
  */
 public interface IUsuarioDAO {
-    
+    public void agregarUsuario(Usuario usuario);
+    public boolean buscarUsuario(String nombreUsuario, String contraseña);
+    public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña);
+    public List<Usuario> obtenerTodosLosUsuarios();
 }

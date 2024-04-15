@@ -11,6 +11,5 @@ import Dominio.PagoPorTarjeta;
  * @author INEGI
  */
 public interface IPagoPorTarjetaDAO {
-         public void agregarPago(PagoPorTarjeta pago);
-
+public void agregarPago(PagoPorTarjeta pago);
 }

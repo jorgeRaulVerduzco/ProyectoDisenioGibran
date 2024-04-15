@@ -4,10 +4,15 @@
  */
 package IDAO;
 
+import Dominio.Producto;
+import java.util.List;
+
 /**
  *
  * @author INEGI
  */
 public interface IProductoDAO {
-    
+public void agregarProducto(Producto producto);    
+    public List<Producto> obtenerTodosProductos();
+    public List<Producto> buscarProductosPorNombre(String nombre);
 }

@@ -6,6 +6,7 @@ package DAO;
 
 import Dominio.Pago;
 import Dominio.Producto;
+import IDAO.IPagoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class PagoDAO {
- private static PagoDAO instancia;
+public class PagoDAO implements IPagoDAO {
+
+    private static PagoDAO instancia;
     private List<Pago> listaPagos;
     private int proximoId;
 
@@ -30,6 +32,7 @@ public class PagoDAO {
         return instancia;
     }
 
+    @Override
     public void agregarPago(Pago pago) {
         pago.setIdPago(proximoId);
         listaPagos.add(pago);

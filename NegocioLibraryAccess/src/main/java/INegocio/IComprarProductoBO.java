@@ -4,10 +4,16 @@
  */
 package INegocio;
 
+import DTO.PagoDTO;
+import DTO.PagoPorOxxoDTO;
+import DTO.PagoPorTarjetaDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IComprarProductoBO {
-    
+        public void ComprarProducto(PagoDTO pagoDTO);
+        public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO);
+          public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO);
 }

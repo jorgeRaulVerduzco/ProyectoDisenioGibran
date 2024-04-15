@@ -7,22 +7,26 @@ package Negocio;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import Dominio.Usuario;
+import IDAO.IUsuarioDAO;
+import INegocio.IiniciarSesionBO;
 
 /**
  *
  * @author INEGI
  */
-public class IniciarSesionBO {
- UsuarioDAO usuarioDAO;
+public class IniciarSesionBO implements IiniciarSesionBO {
+ IUsuarioDAO usuarioDAO;
 
     public IniciarSesionBO() {
         usuarioDAO = UsuarioDAO.getInstancia();
     }
 
+ @Override
    public boolean buscarUsuario(String nombreUsuario, String contraseña) {
         return usuarioDAO.buscarUsuario(nombreUsuario, contraseña);
     }
 
+ @Override
     public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) {
         Usuario usuario = usuarioDAO.UsuarioInicioSesion(nombreUsuario, contraseña);
         if (usuario != null) {

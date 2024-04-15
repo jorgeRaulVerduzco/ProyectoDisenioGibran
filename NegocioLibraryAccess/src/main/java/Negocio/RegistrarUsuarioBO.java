@@ -7,13 +7,15 @@ package Negocio;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import Dominio.Usuario;
+import IDAO.IUsuarioDAO;
+import INegocio.IRegistarUsuarioBO;
 
 /**
  *
  * @author INEGI
  */
-public class RegistrarUsuarioBO {
- UsuarioDAO usuarioDAO;
+public class RegistrarUsuarioBO implements IRegistarUsuarioBO{
+ IUsuarioDAO usuarioDAO;
     DTOaEntidadBO dtoaEntidadBO;
 
     public RegistrarUsuarioBO() {
@@ -21,6 +23,7 @@ public class RegistrarUsuarioBO {
         dtoaEntidadBO = new DTOaEntidadBO();
     }
 
+ @Override
     public void agregarUsuario(UsuarioDTO usuarioDTO) {
         usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
     }

@@ -6,6 +6,7 @@ package Presentacion;
 
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
+import IFuncionalidadGestionUsuarios.IRegistrarUsuarioFuncionalidad;
 import IniciarSesionFuncionalidad.IniciarSesionFuncionalidad;
 import RegistrarUsuarioFuncionalidad.RegistrarUsuarioFuncionalidad;
 import RegistrarUsuarioFuncionalidad.UsuarioSingleton;
@@ -17,7 +18,7 @@ import RegistrarUsuarioFuncionalidad.UsuarioSingleton;
 public class RegistrarUsuario extends javax.swing.JFrame {
 
     UsuarioDTO usuarioDTO;
-    RegistrarUsuarioFuncionalidad RegistrarUsuarioFuncionalidad;
+    IRegistrarUsuarioFuncionalidad RegistrarUsuarioFuncionalidad;
 
     /**
      * Creates new form RegistrarUsuario

@@ -13,17 +13,21 @@ import DTO.PagoPorTarjetaDTO;
 import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
+import IDAO.IPagoDAO;
+import IDAO.IPagoPorOxxoDAO;
+import IDAO.IPagoPorTarjetaDAO;
+import INegocio.IComprarProductoBO;
 
 /**
  *
  * @author INEGI
  */
-public class ComprarProductoBO {
+public class ComprarProductoBO implements IComprarProductoBO{
 
-    PagoDAO pagoDAO;
-    PagoPorOxxoDAO pagoPorOxxoDAO;
+    IPagoDAO pagoDAO;
+    IPagoPorOxxoDAO pagoPorOxxoDAO;
     DTOaEntidadBO dtoAentidad;
-    PagoPorTarjetaDAO pagoPorTarjetaDAO;
+    IPagoPorTarjetaDAO pagoPorTarjetaDAO;
 
     public ComprarProductoBO() {
         pagoDAO = PagoDAO.getInstancia();
@@ -32,6 +36,7 @@ public class ComprarProductoBO {
         pagoPorTarjetaDAO = PagoPorTarjetaDAO.getInstancia();
     }
 
+    @Override
     public void ComprarProducto(PagoDTO pagoDTO) {
         Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
 
@@ -46,6 +51,7 @@ public class ComprarProductoBO {
         pagoDAO.agregarPago(pago);
     }
 
+    @Override
     public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
         PagoPorOxxo pagoPorOxxo = dtoAentidad.ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
 
@@ -60,6 +66,7 @@ public class ComprarProductoBO {
         pagoPorOxxoDAO.agregarPago(pagoPorOxxo);
     }
 
+    @Override
     public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         PagoPorTarjeta pagoPorTarjeta = dtoAentidad.convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
 

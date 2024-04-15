@@ -4,10 +4,13 @@
  */
 package INegocio;
 
+import DTO.ProductoDTO;
+import java.util.List;
+
 /**
  *
  * @author INEGI
  */
 public interface IBuscarProductoPorNombreBO {
-    
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre);
 }

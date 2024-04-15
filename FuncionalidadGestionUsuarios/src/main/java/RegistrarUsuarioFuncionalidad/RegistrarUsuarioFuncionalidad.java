@@ -5,14 +5,16 @@
 package RegistrarUsuarioFuncionalidad;
 
 import DTO.UsuarioDTO;
+import IFuncionalidadGestionUsuarios.IRegistrarUsuarioFuncionalidad;
+import INegocio.IRegistarUsuarioBO;
 import Negocio.RegistrarUsuarioBO;
 
 /**
  *
  * @author INEGI
  */
-public class RegistrarUsuarioFuncionalidad {
-      RegistrarUsuarioBO registrarUsuarioBO;
+public class RegistrarUsuarioFuncionalidad implements IRegistrarUsuarioFuncionalidad{
+      IRegistarUsuarioBO registrarUsuarioBO;
 
     public RegistrarUsuarioFuncionalidad() {
         registrarUsuarioBO = new RegistrarUsuarioBO();

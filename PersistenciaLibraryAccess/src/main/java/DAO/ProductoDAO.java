@@ -5,6 +5,7 @@
 package DAO;
 
 import Dominio.Producto;
+import IDAO.IProductoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class ProductoDAO {
+public class ProductoDAO implements IProductoDAO{
    private static ProductoDAO instancia;
     private List<Producto> listaProductos;
 
@@ -27,10 +28,12 @@ public class ProductoDAO {
         return instancia;
     }
 
+   @Override
     public void agregarProducto(Producto producto) {
         listaProductos.add(producto);
     }
 
+   @Override
     public List<Producto> buscarProductosPorNombre(String nombre) {
         List<Producto> productosEncontrados = new ArrayList<>();
         for (Producto producto : listaProductos) {
@@ -43,6 +46,7 @@ public class ProductoDAO {
     
    
 
+   @Override
     public List<Producto> obtenerTodosProductos() {
         return listaProductos;
     }

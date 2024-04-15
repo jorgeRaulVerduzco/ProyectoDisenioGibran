@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package IDAO;
+package IAgregaProducto;
 
-import Dominio.PagoPorOxxo;
+import DTO.ProductoDTO;
 
 /**
  *
  * @author INEGI
  */
-public interface IPagoPorOxxo {
-    public void agregarPago(PagoPorOxxo pago);
+public interface IAgregaProducto {
+    public void agregarProducto(ProductoDTO productoDTO);
 }

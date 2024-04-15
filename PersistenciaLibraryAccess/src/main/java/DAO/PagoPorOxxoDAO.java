@@ -5,7 +5,7 @@
 package DAO;
 
 import Dominio.PagoPorOxxo;
-import IDAO.IPagoPorOxxo;
+import IDAO.IPagoPorOxxoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class PagoPorOxxoDAO implements IPagoPorOxxo{
+public class PagoPorOxxoDAO implements IPagoPorOxxoDAO{
      private static PagoPorOxxoDAO instancia;
     private List<PagoPorOxxo> listaPagosPorOxxo;
     private int proximoId;

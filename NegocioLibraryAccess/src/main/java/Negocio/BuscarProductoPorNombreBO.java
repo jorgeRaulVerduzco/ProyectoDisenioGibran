@@ -7,6 +7,8 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import IDAO.IProductoDAO;
+import INegocio.IBuscarProductoPorNombreBO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,9 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class BuscarProductoPorNombreBO {
+public class BuscarProductoPorNombreBO implements IBuscarProductoPorNombreBO{
 
-    private ProductoDAO productoDAO;
+    private IProductoDAO productoDAO;
     private DTOaEntidadBO dtoAentidad;
 
     public BuscarProductoPorNombreBO() {
@@ -24,6 +26,7 @@ public class BuscarProductoPorNombreBO {
         dtoAentidad = new DTOaEntidadBO();
     }
 
+    @Override
     public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
         List<Producto> productos = productoDAO.buscarProductosPorNombre(nombre);
         List<ProductoDTO> productosDTO = new ArrayList<>();

@@ -3,7 +3,7 @@ Dominio\Usuario.class
 DAO\UsuarioDAO.class
 Dominio\PagoPorTarjeta.class
 Dominio\Pago.class
-IDAO\IPagoPorOxxo.class
+IDAO\IPagoPorOxxoDAO.class
 IDAO\IProductoDAO.class
 DAO\PagoPorOxxoDAO.class
 IDAO\ITicketDAO.class

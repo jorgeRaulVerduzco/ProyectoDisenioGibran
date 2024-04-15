@@ -5,6 +5,7 @@
 package DAO;
 
 import Dominio.Usuario;
+import IDAO.IUsuarioDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements IUsuarioDAO {
 private static UsuarioDAO instancia;
     private List<Usuario> listaUsuarios;
     private int proximoId;
@@ -29,12 +30,14 @@ private static UsuarioDAO instancia;
         return instancia;
     }
 
+@Override
     public void agregarUsuario(Usuario usuario) {
         usuario.setIdUsuario(proximoId);
         listaUsuarios.add(usuario);
         proximoId++;
     }
 
+@Override
     public boolean buscarUsuario(String nombreUsuario, String contraseña) {
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getNombreUsuario().trim().equalsIgnoreCase(nombreUsuario.trim()) && usuario.getContraseña().equals(contraseña)) {
@@ -44,6 +47,7 @@ private static UsuarioDAO instancia;
         return false;
     }
 
+@Override
     public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña) {
         for (Usuario usuario : listaUsuarios) {
             if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario) && usuario.getContraseña().equalsIgnoreCase(contraseña)) {
@@ -53,6 +57,7 @@ private static UsuarioDAO instancia;
         return null;
     }
 
+@Override
     public List<Usuario> obtenerTodosLosUsuarios() {
         return listaUsuarios;
     }

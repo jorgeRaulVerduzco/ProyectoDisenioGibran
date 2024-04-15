@@ -5,6 +5,8 @@
 package AgregaProducto;
 
 import DTO.ProductoDTO;
+import IAgregaProducto.IAgregaProducto;
+import INegocio.IAgregarProductoBO;
 import Negocio.AgregarProductoBO;
 import Negocio.ComprarProductoBO;
 
@@ -12,14 +14,15 @@ import Negocio.ComprarProductoBO;
  *
  * @author INEGI
  */
-public class AgregaProducto {
+public class AgregaProducto implements IAgregaProducto{
 
-    AgregarProductoBO agregarProductoBO;
+    IAgregarProductoBO agregarProductoBO;
 
     public AgregaProducto() {
         agregarProductoBO = new AgregarProductoBO();
     }
 
+    @Override
     public void agregarProducto(ProductoDTO productoDTO) {
         agregarProductoBO.agregarProducto(productoDTO);
     }

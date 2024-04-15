@@ -5,25 +5,29 @@
 package IniciarSesionFuncionalidad;
 
 import DTO.UsuarioDTO;
+import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
+import INegocio.IiniciarSesionBO;
 import Negocio.IniciarSesionBO;
 
 /**
  *
  * @author INEGI
  */
-public class IniciarSesionFuncionalidad {
+public class IniciarSesionFuncionalidad implements IiniciarSesionFuncionalidad {
 
-    IniciarSesionBO iniciarSesionBO;
+    IiniciarSesionBO iniciarSesionBO;
 
     public IniciarSesionFuncionalidad() {
         iniciarSesionBO = new IniciarSesionBO();
 
     }
 
+    @Override
     public boolean iniciarSesion(String nombreUsuario, String contraseña) {
         return iniciarSesionBO.buscarUsuario(nombreUsuario, contraseña);
     }
 
+    @Override
     public UsuarioDTO obtenerUsuarioDTO(String nombreUsuario, String contraseña) {
         return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
     }

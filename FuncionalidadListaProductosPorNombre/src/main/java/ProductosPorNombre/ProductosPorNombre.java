@@ -5,6 +5,8 @@
 package ProductosPorNombre;
 
 import DTO.ProductoDTO;
+import INegocio.IBuscarProductoPorNombreBO;
+import IProductosPorNombre.IProductosPorNombre;
 import Negocio.BuscarProductoPorNombreBO;
 import java.util.List;
 
@@ -12,15 +14,16 @@ import java.util.List;
  *
  * @author INEGI
  */
-public class ProductosPorNombre {
+public class ProductosPorNombre implements IProductosPorNombre{
 
-    BuscarProductoPorNombreBO buscarProductosPorNombreBO;
+    IBuscarProductoPorNombreBO buscarProductosPorNombreBO;
 
     public ProductosPorNombre() {
 
         buscarProductosPorNombreBO = new BuscarProductoPorNombreBO();
     }
 
+    @Override
     public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
         return buscarProductosPorNombreBO.buscarProductosPorNombre(nombre);
     }

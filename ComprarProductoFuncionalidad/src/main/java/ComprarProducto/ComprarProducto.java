@@ -7,28 +7,33 @@ package ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
+import IComprarProducto.IComprarProducto;
+import INegocio.IComprarProductoBO;
 import Negocio.ComprarProductoBO;
 
 /**
  *
  * @author INEGI
  */
-public class ComprarProducto {
+public class ComprarProducto implements IComprarProducto {
 
-    ComprarProductoBO comprarProductoBO;
+    IComprarProductoBO comprarProductoBO;
 
     public ComprarProducto() {
         comprarProductoBO = new ComprarProductoBO();
     }
 
+    @Override
     public void comprarProducto(PagoDTO pagoDTO) {
         comprarProductoBO.ComprarProducto(pagoDTO);
     }
 
+    @Override
     public void comprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
         comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
     }
 
+    @Override
     public void comprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
     }

@@ -7,6 +7,7 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import IDAO.IProductoDAO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class ListaProductosBO {
 
-    private ProductoDAO productoDAO;
+    private IProductoDAO productoDAO;
 
     public ListaProductosBO() {
         productoDAO = ProductoDAO.getInstancia();

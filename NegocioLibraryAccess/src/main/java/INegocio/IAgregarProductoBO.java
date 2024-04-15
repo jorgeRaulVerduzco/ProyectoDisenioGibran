@@ -4,10 +4,12 @@
  */
 package INegocio;
 
+import DTO.ProductoDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IAgregarProductoBO {
-    
+    public void agregarProducto(ProductoDTO productoDTO);
 }

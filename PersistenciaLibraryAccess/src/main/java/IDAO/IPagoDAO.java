@@ -4,10 +4,12 @@
  */
 package IDAO;
 
+import Dominio.Pago;
+
 /**
  *
  * @author INEGI
  */
 public interface IPagoDAO {
-    
+    public void agregarPago(Pago pago);
 }

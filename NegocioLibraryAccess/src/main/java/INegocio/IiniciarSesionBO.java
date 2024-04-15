@@ -4,10 +4,13 @@
  */
 package INegocio;
 
+import DTO.UsuarioDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IiniciarSesionBO {
-    
+    public boolean buscarUsuario(String nombreUsuario, String contraseña);
+    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña);
 }

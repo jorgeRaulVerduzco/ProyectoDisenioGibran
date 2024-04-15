@@ -4,10 +4,12 @@
  */
 package INegocio;
 
+import DTO.UsuarioDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IRegistarUsuarioBO {
-    
+    public void agregarUsuario(UsuarioDTO usuarioDTO);
 }

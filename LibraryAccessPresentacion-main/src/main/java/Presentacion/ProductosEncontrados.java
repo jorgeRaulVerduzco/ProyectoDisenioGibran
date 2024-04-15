@@ -5,6 +5,7 @@
 package Presentacion;
 
 import DTO.ProductoDTO;
+import IProductosPorNombre.IProductosPorNombre;
 import Negocio.ProductoSeleccionado;
 import ProductosPorNombre.ProductosPorNombre;
 import java.awt.BorderLayout;
@@ -25,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ProductosEncontrados extends javax.swing.JFrame {
 
-    ProductosPorNombre productos;
+    IProductosPorNombre productos;
     private String nombreLibroBuscado;
 
     /**

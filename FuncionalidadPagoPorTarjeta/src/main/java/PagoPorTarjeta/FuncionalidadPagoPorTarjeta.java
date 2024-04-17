@@ -4,9 +4,9 @@ package PagoPorTarjeta;
 
 import DTO.PagoPorTarjetaDTO;
 import INegocio.IComprarProductoBO;
-import Negocio.ComprarProductoBO;
+import IPagoPorTarjeta.IPagoPorTarjeta;
 
-public class FuncionalidadPagoPorTarjeta {
+public class FuncionalidadPagoPorTarjeta implements IPagoPorTarjeta{
     
     IComprarProductoBO comprarProductoBO;
     

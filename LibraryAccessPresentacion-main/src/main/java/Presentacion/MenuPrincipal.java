@@ -45,6 +45,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ProductoDTO libroCienAñosSoledad = new ProductoDTO(48641, "Cien años de soledad", "Gabriel García Márquez", "Libro", "Harper & Row", 8.99, "Realismo mágico", "Ficción", 30);
         agregarProductos.agregarProducto(libroCienAñosSoledad);
 
+        ProductoDTO libroElPrincipito1 = new ProductoDTO(1, "El Principito", "Antoine de Saint-Exupéry", "Libro", "Editorial", 10.99, "Ficción", "Aventura", 50);
+    agregarProductos.agregarProducto(libroElPrincipito1);
+
+    // Segundo libro de El Principito
+    ProductoDTO libroElPrincipito2 = new ProductoDTO(2, "El Principito", "Otro Autor", "Libro", "Otra Editorial", 8.99, "Fábula", "Fantasía", 30);
+    agregarProductos.agregarProducto(libroElPrincipito2);
+
+    // Tercer libro de El Principito
+    ProductoDTO libroElPrincipito3 = new ProductoDTO(3, "El Principito", "Otro Autor Más", "Libro", "Otra Editorial Más", 12.99, "Filosofía", "Aventura", 40);
+    agregarProductos.agregarProducto(libroElPrincipito3);
         ListaProductosBO listaProductos = new ListaProductosBO();
         System.out.println(listaProductos.toString());
     }

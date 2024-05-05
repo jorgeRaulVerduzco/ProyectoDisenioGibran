@@ -205,12 +205,13 @@ public class VentanaProductos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnComprarActionPerformed
 
-    private void btnAgregarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarritoActionPerformed
-JOptionPane.showMessageDialog(rootPane, "Se agrego al carrito");    }//GEN-LAST:event_btnAgregarCarritoActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnAgregarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarritoActionPerformed
+
+    }//GEN-LAST:event_btnAgregarCarritoActionPerformed
 
     /**
      * @param args the command line arguments

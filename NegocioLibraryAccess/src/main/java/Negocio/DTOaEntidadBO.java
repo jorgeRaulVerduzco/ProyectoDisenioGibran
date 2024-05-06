@@ -25,7 +25,7 @@ import java.util.List;
  * @author INEGI
  */
 public class DTOaEntidadBO implements iDTOaEntidadbo {
-
+    
     @Override
     public Producto ConvertirProductoDTO(ProductoDTO productoDTO) {
         Producto producto = new Producto();
@@ -39,30 +39,35 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setCantidad(productoDTO.getCantidad());
         return producto;
     }
-
+    
     @Override
     public Usuario ConvertirUsuarioDTO(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
         usuario.setContraseña(usuarioDTO.getContraseña());
+        
+        List<Producto> productos = new ArrayList<>();
+        for (ProductoDTO productoDTO : usuarioDTO.getProductos()) {
+            Producto producto = ConvertirProductoDTO(productoDTO);
+            productos.add(producto);
+        }
+        usuario.setProductosVendidos(productos);
         return usuario;
     }
-
+    
     @Override
     public Pago ConvertirPagoDTO(PagoDTO pagoDTO) {
-Pago pago = new Pago();
+        Pago pago = new Pago();
         pago.setCantidad(pagoDTO.getCantidad());
         pago.setCostoTotal(pagoDTO.getCostoTotal());
-
-        // Convertir lista de UsuarioDTO a lista de Usuario
+        pago.setFechaDePago(pagoDTO.getFechaDePago());
         List<Usuario> usuarios = new ArrayList<>();
         for (UsuarioDTO usuarioDTO : pagoDTO.getUsuarioDTO()) {
             Usuario usuario = ConvertirUsuarioDTO(usuarioDTO);
             usuarios.add(usuario);
         }
         pago.setUsuario(usuarios);
-
-        // Convertir lista de ProductoDTO a lista de Producto
+        
         List<Producto> productos = new ArrayList<>();
         for (ProductoDTO productoDTO : pagoDTO.getProductoDTO()) {
             Producto producto = ConvertirProductoDTO(productoDTO);
@@ -85,21 +90,20 @@ Pago pago = new Pago();
             pagoPorTarjetas.add(pagoPorTarjeta);
         }
         pago.setPagoPorTarjeta(pagoPorTarjetas);
-
-
+        
         return pago;
     }
-
+    
     @Override
     public PagoPorOxxo ConnvertirPagoOxxoDTO(PagoPorOxxoDTO pagoOxxoDTO) {
         PagoPorOxxo pagoOxxo = new PagoPorOxxo();
         pagoOxxo.setCodigoBarrasOxxo(pagoOxxoDTO.getCodigoBarrasOxxo());
         return pagoOxxo;
     }
-
+    
     @Override
     public PagoPorTarjeta convertirPagoPorTarjetaDTO(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
-        PagoPorTarjeta pagoTarjeta= new PagoPorTarjeta();
+        PagoPorTarjeta pagoTarjeta = new PagoPorTarjeta();
         pagoTarjeta.setCodigoSeguridad(pagoPorTarjetaDTO.getCodigoSeguridad());
         pagoTarjeta.setFechaExpiracion(pagoPorTarjetaDTO.getFechaExpiracion());
         pagoTarjeta.setNumeroTarjeta(pagoPorTarjetaDTO.getNumeroTarjeta());
@@ -107,10 +111,10 @@ Pago pago = new Pago();
         
         return pagoTarjeta;
     }
-
+    
     @Override
     public Ticket convertirTicketDTO(TicketDTO ticketDTO) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }

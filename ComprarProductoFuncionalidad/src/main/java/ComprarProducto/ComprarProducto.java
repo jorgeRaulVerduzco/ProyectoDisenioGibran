@@ -28,28 +28,16 @@ public class ComprarProducto implements IComprarProducto {
 
     @Override
     public void comprarProducto(PagoDTO pagoDTO) {
-        try {
-            comprarProductoBO.ComprarProducto(pagoDTO);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        comprarProductoBO.ComprarProducto(pagoDTO);
     }
 
     @Override
     public void comprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
-        try {
-            comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
     }
 
     @Override
     public void comprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
-        try {
-            comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
     }
 }

@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -13,16 +14,18 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Pago {
-  private ObjectId idPago;
-    private List<Usuario>  usuario;
+
+    private ObjectId idPago;
+    private List<Usuario> usuario;
     private List<Producto> producto;
     private int cantidad;
     private double costoTotal;
     private List<PagoPorOxxo> pagoPorOxxo;
     private List<PagoPorTarjeta> pagoPorTarjeta;
+    private Date FechaDePago;
 
     public Pago() {
-           this.usuario = new ArrayList<>();
+        this.usuario = new ArrayList<>();
         this.producto = new ArrayList<>();
         this.pagoPorOxxo = new ArrayList<>();
         this.pagoPorTarjeta = new ArrayList<>();
@@ -30,6 +33,14 @@ public class Pago {
 
     public Pago(ObjectId idPago) {
         this.idPago = idPago;
+    }
+
+    public Date getFechaDePago() {
+        return FechaDePago;
+    }
+
+    public void setFechaDePago(Date FechaDePago) {
+        this.FechaDePago = FechaDePago;
     }
 
     public ObjectId getIdPago() {
@@ -90,9 +101,9 @@ public class Pago {
 
     @Override
     public String toString() {
-        return "Pago{" + "idPago=" + idPago + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + '}';
+        return "Pago{" + "idPago=" + idPago + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + ", FechaDePago=" + FechaDePago + '}';
     }
 
-
+   
 
 }

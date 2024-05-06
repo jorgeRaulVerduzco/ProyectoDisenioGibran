@@ -24,10 +24,7 @@ public class RegistrarUsuarioFuncionalidad implements IRegistrarUsuarioFuncional
     }
 
     public void registrarNuevoUsuario(UsuarioDTO usuarioDTO) {
-          try {
               registrarUsuarioBO.agregarUsuario(usuarioDTO);
-          } catch (PersistenciaException ex) {
-              Logger.getLogger(RegistrarUsuarioFuncionalidad.class.getName()).log(Level.SEVERE, null, ex);
-          }
+          
     }
 }

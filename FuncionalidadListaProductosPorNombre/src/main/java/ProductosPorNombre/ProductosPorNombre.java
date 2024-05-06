@@ -28,11 +28,6 @@ public class ProductosPorNombre implements IProductosPorNombre{
 
     @Override
     public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
-        try {
-            return buscarProductosPorNombreBO.buscarProductosPorNombre(nombre);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(ProductosPorNombre.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        return buscarProductosPorNombreBO.buscarProductosPorNombre(nombre);
     }
 }

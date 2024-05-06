@@ -19,6 +19,8 @@ import IDAO.IPagoDAO;
 import IDAO.IPagoPorOxxoDAO;
 import IDAO.IPagoPorTarjetaDAO;
 import INegocio.IComprarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +41,7 @@ public class ComprarProductoBO implements IComprarProductoBO {
     }
 
     @Override
-    public void ComprarProducto(PagoDTO pagoDTO) throws PersistenciaException {
+    public void ComprarProducto(PagoDTO pagoDTO) {
        Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
 
     Producto producto = pago.getProducto().get(0);
@@ -52,20 +54,32 @@ public class ComprarProductoBO implements IComprarProductoBO {
 
     pago.setCostoTotal(costoTotal);
 
-    pagoDAO.agregarPago(pago);
+        try {
+            pagoDAO.agregarPago(pago);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) throws PersistenciaException {
+    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO)  {
         PagoPorOxxo pagoPorOxxo = dtoAentidad.ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
 
-        pagoPorOxxoDAO.agregarPago(pagoPorOxxo);
+        try {
+            pagoPorOxxoDAO.agregarPago(pagoPorOxxo);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
-    public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) throws PersistenciaException {
+    public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         PagoPorTarjeta pagoPorTarjeta = dtoAentidad.convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
 
-        pagoPorTarjetaDAO.agregarPago(pagoPorTarjeta);
+        try {
+            pagoPorTarjetaDAO.agregarPago(pagoPorTarjeta);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

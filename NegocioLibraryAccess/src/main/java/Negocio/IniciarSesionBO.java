@@ -10,6 +10,8 @@ import Dominio.Usuario;
 import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
 import INegocio.IiniciarSesionBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,20 +25,31 @@ public class IniciarSesionBO implements IiniciarSesionBO {
     }
 
  @Override
-   public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException{
-        return usuarioDAO.buscarUsuario(nombreUsuario, contraseña);
+   public boolean buscarUsuario(String nombreUsuario, String contraseña) {
+     try {
+         return usuarioDAO.buscarUsuario(nombreUsuario, contraseña);
+     } catch (PersistenciaException ex) {
+         Logger.getLogger(IniciarSesionBO.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return false;
     }
 
  @Override
-    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) throws PersistenciaException {
-        Usuario usuario = usuarioDAO.UsuarioInicioSesion(nombreUsuario, contraseña);
-        if (usuario != null) {
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setNombreUsuario(usuario.getNombreUsuario());
-            usuarioDTO.setContraseña(usuario.getContraseña());
-            return usuarioDTO;
-        } else {
-            return null;
-        }
+    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) {
+     try {
+         Usuario usuario = usuarioDAO.UsuarioInicioSesion(nombreUsuario, contraseña);
+         if (usuario != null) {
+             UsuarioDTO usuarioDTO = new UsuarioDTO();
+             usuarioDTO.setNombreUsuario(usuario.getNombreUsuario());
+             usuarioDTO.setContraseña(usuario.getContraseña());
+             return usuarioDTO;
+         } else {
+             return null;
+         }
+     } catch (PersistenciaException ex) {
+         Logger.getLogger(IniciarSesionBO.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     
+     return null;
     }
 }

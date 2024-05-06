@@ -10,6 +10,8 @@ import Dominio.Usuario;
 import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
 import INegocio.IRegistarUsuarioBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,7 +27,11 @@ public class RegistrarUsuarioBO implements IRegistarUsuarioBO{
     }
 
  @Override
-    public void agregarUsuario(UsuarioDTO usuarioDTO) throws PersistenciaException {
-        usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
+    public void agregarUsuario(UsuarioDTO usuarioDTO)  {
+     try {
+         usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
+     } catch (PersistenciaException ex) {
+         Logger.getLogger(RegistrarUsuarioBO.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
 }

@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +13,19 @@ import java.util.List;
  * @author INEGI
  */
 public class PagoDTO {
-
     private List<UsuarioDTO> usuarioDTO;
     private List<ProductoDTO> productoDTO;
     private int cantidad;
     private double costoTotal;
     private List<PagoPorOxxoDTO> pagoPorOxxoDTO;
     private List<PagoPorTarjetaDTO> pagoPorTarjetaDTO;
+    private Date FechaDePago;
 
     public PagoDTO() {
         this.pagoPorOxxoDTO = new ArrayList<>();
         this.pagoPorTarjetaDTO = new ArrayList<>();
         this.productoDTO = new ArrayList<>();
-        this.usuarioDTO= new ArrayList<>();
+        this.usuarioDTO = new ArrayList<>();
     }
 
     public List<UsuarioDTO> getUsuarioDTO() {
@@ -75,9 +76,19 @@ public class PagoDTO {
         this.pagoPorTarjetaDTO = pagoPorTarjetaDTO;
     }
 
+    public Date getFechaDePago() {
+        return FechaDePago;
+    }
+
+    public void setFechaDePago(Date FechaDePago) {
+        this.FechaDePago = FechaDePago;
+    }
+
     @Override
     public String toString() {
-        return "PagoDTO{" + "usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + '}';
+        return "PagoDTO{" + "usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + ", FechaDePago=" + FechaDePago + '}';
     }
+
+   
 
 }

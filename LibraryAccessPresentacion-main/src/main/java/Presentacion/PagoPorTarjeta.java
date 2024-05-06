@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author INEGI
  */
 public class PagoPorTarjeta extends javax.swing.JFrame {
-    
+
     IComprarProducto comprarProcuto;
 
     /**
@@ -180,14 +180,17 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             pagoPorTarjetaDTO.setNumeroTarjeta(numeroTarjeta);
             pagoPorTarjetaDTO.setCodigoSeguridad(ccv);
             java.sql.Date fechas5 = new java.sql.Date(new GregorianCalendar(2043, Calendar.FEBRUARY, 8).getTimeInMillis());
-            
+            java.util.Calendar calendario = java.util.Calendar.getInstance();
+            java.sql.Date fechaSistema = new java.sql.Date(calendario.getTimeInMillis());
             pagoPorTarjetaDTO.setFechaExpiracion(fechas5);
             comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
-            
+
             PagoDTO pagoDTO = PagoProvicional.getPagoProvicional();
             List<PagoPorTarjetaDTO> pagosTarjeta = new ArrayList<>();
             pagosTarjeta.add(pagoPorTarjetaDTO);
             pagoDTO.setPagoPorTarjetaDTO(pagosTarjeta);
+                        pagoDTO.setFechaDePago(fechaSistema);
+
             comprarProcuto.comprarProducto(pagoDTO);
             // Mostrar un mensaje de éxito
             JOptionPane.showMessageDialog(rootPane, "Compra realizada con éxito");

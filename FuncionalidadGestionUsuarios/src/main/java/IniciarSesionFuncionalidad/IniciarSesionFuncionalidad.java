@@ -27,21 +27,11 @@ public class IniciarSesionFuncionalidad implements IiniciarSesionFuncionalidad {
 
     @Override
     public boolean iniciarSesion(String nombreUsuario, String contraseña) {
-        try {
-            return iniciarSesionBO.buscarUsuario(nombreUsuario, contraseña);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(IniciarSesionFuncionalidad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        return iniciarSesionBO.buscarUsuario(nombreUsuario, contraseña);
     }
 
     @Override
     public UsuarioDTO obtenerUsuarioDTO(String nombreUsuario, String contraseña) {
-        try {
             return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(IniciarSesionFuncionalidad.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 }

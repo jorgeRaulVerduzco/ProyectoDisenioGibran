@@ -170,6 +170,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "NO SE ENCONTRÓ EL USUARIO O CONTRASEÑA INCORRECTA");
         }
+        
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

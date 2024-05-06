@@ -12,5 +12,5 @@ import Excepciones.PersistenciaException;
  * @author INEGI
  */
 public interface IRegistarUsuarioBO {
-    public void agregarUsuario(UsuarioDTO usuarioDTO) throws PersistenciaException;
+    public void agregarUsuario(UsuarioDTO usuarioDTO) ;
 }

@@ -12,5 +12,5 @@ import Excepciones.PersistenciaException;
  * @author INEGI
  */
 public interface IAgregarProductoBO {
-    public void agregarProducto(ProductoDTO productoDTO) throws PersistenciaException ;
+    public void agregarProducto(ProductoDTO productoDTO)  ;
 }

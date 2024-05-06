@@ -13,10 +13,10 @@ import Excepciones.PersistenciaException;
  */
 public interface IUsuarioBO {
 
-    public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException;
+    public boolean buscarUsuario(String nombreUsuario, String contraseña) ;
 
-    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) throws PersistenciaException;
+    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña);
 
-    public void agregarUsuario(UsuarioDTO usuarioDTO) throws PersistenciaException;
+    public void agregarUsuario(UsuarioDTO usuarioDTO);
 
 }

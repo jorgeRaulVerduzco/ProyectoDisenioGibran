@@ -13,5 +13,5 @@ import java.util.List;
  * @author INEGI
  */
 public interface IBuscarProductoPorNombreBO {
-    public List<ProductoDTO> buscarProductosPorNombre(String nombre)  throws PersistenciaException;
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre)  ;
 }

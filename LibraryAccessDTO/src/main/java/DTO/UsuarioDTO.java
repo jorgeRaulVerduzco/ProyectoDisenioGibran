@@ -4,22 +4,27 @@
  */
 package DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author INEGI
  */
 public class UsuarioDTO {
+
     private String nombreUsuario;
     private String contraseña;
+    private List<ProductoDTO> productos;
 
-    public UsuarioDTO( String nombreUsuario, String contraseña) {
+    public UsuarioDTO(String nombreUsuario, String contraseña) {
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
     }
 
     public UsuarioDTO() {
+        productos  = new ArrayList<>();
     }
-  
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -37,10 +42,17 @@ public class UsuarioDTO {
         this.contraseña = contraseña;
     }
 
+    public List<ProductoDTO> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoDTO> productos) {
+        this.productos = productos;
+    }
+
     @Override
     public String toString() {
-        return "UsuarioDTO{" +", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña + '}';
+        return "UsuarioDTO{" + ", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña + '}';
     }
-    
-    
+
 }

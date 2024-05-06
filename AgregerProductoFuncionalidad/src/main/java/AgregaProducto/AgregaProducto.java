@@ -27,11 +27,7 @@ public class AgregaProducto implements IAgregaProducto{
 
     @Override
     public void agregarProducto(ProductoDTO productoDTO) {
-        try {
-            agregarProductoBO.agregarProducto(productoDTO);
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(AgregaProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        agregarProductoBO.agregarProducto(productoDTO);
     }
 
     

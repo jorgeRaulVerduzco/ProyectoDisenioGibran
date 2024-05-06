@@ -5,9 +5,12 @@
 package IniciarSesionFuncionalidad;
 
 import DTO.UsuarioDTO;
+import Excepciones.PersistenciaException;
 import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
 import INegocio.IiniciarSesionBO;
 import Negocio.IniciarSesionBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,11 +27,21 @@ public class IniciarSesionFuncionalidad implements IiniciarSesionFuncionalidad {
 
     @Override
     public boolean iniciarSesion(String nombreUsuario, String contraseña) {
-        return iniciarSesionBO.buscarUsuario(nombreUsuario, contraseña);
+        try {
+            return iniciarSesionBO.buscarUsuario(nombreUsuario, contraseña);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(IniciarSesionFuncionalidad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
     public UsuarioDTO obtenerUsuarioDTO(String nombreUsuario, String contraseña) {
-        return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
+        try {
+            return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(IniciarSesionFuncionalidad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

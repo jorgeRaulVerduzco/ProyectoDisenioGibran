@@ -6,6 +6,7 @@ package Dominio;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 /**
@@ -13,7 +14,7 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Pago {
-
+@BsonProperty("_id")
     private ObjectId idPago;
     private List<Usuario>  usuario;
     private List<Producto> producto;

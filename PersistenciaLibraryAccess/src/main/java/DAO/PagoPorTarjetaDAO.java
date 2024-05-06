@@ -25,10 +25,9 @@ public class PagoPorTarjetaDAO implements IPagoPorTarjetaDAO {
     }
 
     @Override
-    public void agregarPago(PagoPorTarjeta pago) throws PersistenciaException {
+    public void agregarPago(PagoPorTarjeta pagoPorTarjeta) throws PersistenciaException {
         try {
-            pago.setIdPago(new ObjectId());
-            this.coleccionPagoTarjeta.insertOne(pago);
+            this.coleccionPagoTarjeta.insertOne(pagoPorTarjeta);
         } catch (MongoException e) {
             throw new PersistenciaException("No se pudo insertar al pago: ");
         }

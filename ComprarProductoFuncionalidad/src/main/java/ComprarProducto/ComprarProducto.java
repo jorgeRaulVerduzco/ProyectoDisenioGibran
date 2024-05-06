@@ -7,9 +7,12 @@ package ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
+import Excepciones.PersistenciaException;
 import IComprarProducto.IComprarProducto;
 import INegocio.IComprarProductoBO;
 import Negocio.ComprarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,16 +28,28 @@ public class ComprarProducto implements IComprarProducto {
 
     @Override
     public void comprarProducto(PagoDTO pagoDTO) {
-        comprarProductoBO.ComprarProducto(pagoDTO);
+        try {
+            comprarProductoBO.ComprarProducto(pagoDTO);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void comprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
-        comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
+        try {
+            comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void comprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
-        comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
+        try {
+            comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComprarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

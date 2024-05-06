@@ -28,7 +28,6 @@ public class PagoPorOxxoDAO implements IPagoPorOxxoDAO{
     @Override
     public void agregarPago(PagoPorOxxo pago) throws PersistenciaException {
         try {
-            pago.setIdOxxo(new ObjectId());
             this.coleccionPagoOxxo.insertOne(pago);
         } catch (MongoException e) {
             throw new PersistenciaException("No se pudo insertar el pago por Oxxo: " + e.getMessage());

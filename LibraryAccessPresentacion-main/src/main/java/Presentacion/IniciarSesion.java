@@ -8,7 +8,6 @@ import DTO.UsuarioDTO;
 import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
 import IniciarSesionFuncionalidad.IniciarSesionFuncionalidad;
 import Negocio.UsuarioSesion;
-import RegistrarUsuarioFuncionalidad.UsuarioSingleton;
 import javax.swing.JOptionPane;
 
 /**
@@ -157,15 +156,9 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // Obtener la instancia del singleton UsuarioSingleton
-        UsuarioSingleton usuarioSingleton = UsuarioSingleton.getInstancia();
+        
 
-        // Establecer los datos del usuario en el singleton
-        usuarioSingleton.getUsuarioDTO().setNombreUsuario(txtNombreUsuario.getText());
-        usuarioSingleton.getUsuarioDTO().setContraseña(txtContraseña.getText());
-
-        boolean sesionIniciada2 = sesionIniciada.iniciarSesion(usuarioSingleton.getUsuarioDTO().getNombreUsuario(), usuarioSingleton.getUsuarioDTO().getContraseña());
-        // Si la sesión se inicia correctamente, abrir el menú principal
+        boolean sesionIniciada2 = sesionIniciada.iniciarSesion(txtNombreUsuario.getText(),txtContraseña.getText());
         if (sesionIniciada2) {
            UsuarioDTO usuarioDTO= new UsuarioDTO();
            usuarioDTO.setNombreUsuario(txtNombreUsuario.getText());
@@ -175,7 +168,6 @@ public class IniciarSesion extends javax.swing.JFrame {
             menu.setVisible(true);
             this.dispose();
         } else {
-            // Si la sesión no se inicia correctamente, mostrar un mensaje de error
             JOptionPane.showMessageDialog(rootPane, "NO SE ENCONTRÓ EL USUARIO O CONTRASEÑA INCORRECTA");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed

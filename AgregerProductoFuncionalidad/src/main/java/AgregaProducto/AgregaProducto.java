@@ -5,10 +5,13 @@
 package AgregaProducto;
 
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 import IAgregaProducto.IAgregaProducto;
 import INegocio.IAgregarProductoBO;
 import Negocio.AgregarProductoBO;
 import Negocio.ComprarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +27,11 @@ public class AgregaProducto implements IAgregaProducto{
 
     @Override
     public void agregarProducto(ProductoDTO productoDTO) {
-        agregarProductoBO.agregarProducto(productoDTO);
+        try {
+            agregarProductoBO.agregarProducto(productoDTO);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AgregaProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

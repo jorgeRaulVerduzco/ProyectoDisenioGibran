@@ -9,7 +9,6 @@ import DTO.UsuarioDTO;
 import IFuncionalidadGestionUsuarios.IRegistrarUsuarioFuncionalidad;
 import IniciarSesionFuncionalidad.IniciarSesionFuncionalidad;
 import RegistrarUsuarioFuncionalidad.RegistrarUsuarioFuncionalidad;
-import RegistrarUsuarioFuncionalidad.UsuarioSingleton;
 
 /**
  *
@@ -168,19 +167,18 @@ public class RegistrarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       UsuarioSingleton usuarioSingleton = UsuarioSingleton.getInstancia();
-    
-    // Establecer los datos del usuario en el singleton
-    usuarioSingleton.getUsuarioDTO().setNombreUsuario(txtNombreUsuario.getText());
-    usuarioSingleton.getUsuarioDTO().setContraseña(txtContraseña.getText());
-    
-    // Llamar al método para registrar el nuevo usuario
-    RegistrarUsuarioFuncionalidad.registrarNuevoUsuario(usuarioSingleton.getUsuarioDTO());
-System.out.println("Nombre de usuario: " + usuarioSingleton.getUsuarioDTO().getNombreUsuario());
-System.out.println("Contraseña: " + usuarioSingleton.getUsuarioDTO().getContraseña());  
-IniciarSesion iniciar = new IniciarSesion();
-    iniciar.setVisible(true);
-    this.dispose();
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+        // Establecer los datos del usuario en el singleton
+        usuarioDTO.setNombreUsuario(txtNombreUsuario.getText());
+        usuarioDTO.setContraseña(txtContraseña.getText());
+
+        RegistrarUsuarioFuncionalidad.registrarNuevoUsuario(usuarioDTO);
+        System.out.println("Nombre de usuario: " + usuarioDTO.getNombreUsuario());
+        System.out.println("Contraseña: " + usuarioDTO.getContraseña());
+        IniciarSesion iniciar = new IniciarSesion();
+        iniciar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 /**
@@ -11,6 +12,7 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Usuario {
+@BsonProperty("_id")
  private ObjectId idUsuario;
     private String nombreUsuario;
     private String contraseña;

@@ -32,13 +32,20 @@ private final MongoCollection<Producto> coleccionProductos;
 
    @Override
     public void agregarProducto(Producto producto) throws PersistenciaException {
-       try {
-           producto.setIdProdcuto(new ObjectId());
-            this.coleccionProductos.insertOne(producto);
-
-        } catch (MongoException e) {
-            throw new PersistenciaException("No se pudo insertar al producto: " + producto.getIsbn());
+          try {
+        Bson filtroISBN = Filters.eq("isbn", producto.getIsbn());
+        if (coleccionProductos.countDocuments(filtroISBN) > 0) {
+            System.out.println("ya esta ese producto");       
+        return;
         }
+        
+        
+        this.coleccionProductos.insertOne(producto);
+
+    } catch (MongoException e) {
+        throw new PersistenciaException("No se pudo insertar al producto: " + producto.getIsbn());
+    }
+
     }
 
     @Override

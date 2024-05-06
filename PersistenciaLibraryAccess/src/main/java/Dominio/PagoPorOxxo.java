@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 /**
@@ -11,8 +12,10 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class PagoPorOxxo {
+
+@BsonProperty("_id")
     private ObjectId idOxxo;
-       private String codigoBarrasOxxo;
+    private String codigoBarrasOxxo;
 
     public PagoPorOxxo(ObjectId idOxxo, String codigoBarrasOxxo) {
         this.idOxxo = idOxxo;
@@ -47,5 +50,4 @@ public class PagoPorOxxo {
         return "PagoPorOxxo{" + "idOxxo=" + idOxxo + ", codigoBarrasOxxo=" + codigoBarrasOxxo + '}';
     }
 
-    
 }

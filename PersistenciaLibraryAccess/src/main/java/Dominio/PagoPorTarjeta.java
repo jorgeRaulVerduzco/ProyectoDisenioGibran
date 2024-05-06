@@ -5,16 +5,17 @@
 package Dominio;
 
 import java.sql.Date;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
-
 
 /**
  *
  * @author INEGI
  */
 public class PagoPorTarjeta {
+@BsonProperty("_id")
     private ObjectId idPagoPorTarjeta;
-     private String tipoTarjeta;
+    private String tipoTarjeta;
     private String numeroTarjeta;
     private Date fechaExpiracion;
     private String codigoSeguridad;
@@ -30,11 +31,22 @@ public class PagoPorTarjeta {
         this.codigoSeguridad = codigoSeguridad;
     }
 
-    public ObjectId getidPagoPorTarjeta() {
+    public PagoPorTarjeta(ObjectId idPagoPorTarjeta) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
+    }
+
+    public PagoPorTarjeta(String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
+        this.tipoTarjeta = tipoTarjeta;
+        this.numeroTarjeta = numeroTarjeta;
+        this.fechaExpiracion = fechaExpiracion;
+        this.codigoSeguridad = codigoSeguridad;
+    }
+
+    public ObjectId getIdPagoPorTarjeta() {
         return idPagoPorTarjeta;
     }
 
-    public void setIdPago(ObjectId idPagoPorTarjeta) {
+    public void setIdPagoPorTarjeta(ObjectId idPagoPorTarjeta) {
         this.idPagoPorTarjeta = idPagoPorTarjeta;
     }
 
@@ -72,8 +84,9 @@ public class PagoPorTarjeta {
 
     @Override
     public String toString() {
-        return "PagoPorTarjeta{" + "ididPagoPorTarjeta=" + idPagoPorTarjeta + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
+        return "PagoPorTarjeta{" + "idPagoPorTarjeta=" + idPagoPorTarjeta + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
 
   
+
 }

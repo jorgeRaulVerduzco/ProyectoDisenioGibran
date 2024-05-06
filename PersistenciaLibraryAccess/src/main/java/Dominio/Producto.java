@@ -5,6 +5,7 @@
 package Dominio;
 
 import java.util.Arrays;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 /**
@@ -12,6 +13,7 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Producto {
+@BsonProperty("_id")
 private ObjectId idProdcuto;
     private int isbn;
     private String titulo;

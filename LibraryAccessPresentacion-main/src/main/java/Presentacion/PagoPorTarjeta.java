@@ -9,6 +9,10 @@ import DTO.PagoDTO;
 import DTO.PagoPorTarjetaDTO;
 import IComprarProducto.IComprarProducto;
 import Negocio.PagoProvicional;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +20,9 @@ import javax.swing.JOptionPane;
  * @author INEGI
  */
 public class PagoPorTarjeta extends javax.swing.JFrame {
-IComprarProducto comprarProcuto;
+
+    IComprarProducto comprarProcuto;
+
     /**
      * Creates new form PagoPorTarjeta
      */
@@ -24,7 +30,7 @@ IComprarProducto comprarProcuto;
         comprarProcuto = new ComprarProducto();
         initComponents();
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,26 +166,33 @@ IComprarProducto comprarProcuto;
     }//GEN-LAST:event_bnAtrasActionPerformed
 
     private void bnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnFinalizarCompraActionPerformed
-    if ( txtCCV.getText().equals("") && txtCaducidad.getText().equals("") && txtNumeroTarjeta.getText().equals("")) {
-        JOptionPane.showMessageDialog(rootPane, "Campo de texto vacío");
-    } else {
-        PagoDTO pagoDto = PagoProvicional.getPagoProvicional();
-        PagoPorTarjetaDTO  pagoTarjeta = new PagoPorTarjetaDTO(pagoDto.getUsuario(),pagoDto.getProducto(),pagoDto.getCantidad(),pagoDto.getCostoTotal(),"visa",txtNumeroTarjeta.getText(),txtCaducidad.getText(),txtCCV.getText());
-        comprarProcuto.comprarProductoPorTarjeta(pagoTarjeta);
-        String usuario = pagoDto.getUsuario().getNombreUsuario();
- String mensaje = "¡Pago realizado con éxito "+usuario+"!\n\n"
-                + "Producto: " + pagoDto.getProducto().getTitulo() + "\n"
-                + "Cantidad: " + pagoDto.getCantidad() + "\n"
-                + "Precio unitario: " + pagoDto.getProducto().getPrecio() + "\n"
-                + "Total: " + pagoDto.getCostoTotal() + "\n"
-                + "Tarjeta: **** **** **** " + txtNumeroTarjeta.getText().substring(txtNumeroTarjeta.getText().length() - 4) + "\n"
-                + "Caducidad: " + txtCaducidad.getText() + "\n"
-                + "CCV: " + txtCCV.getText();
+        // Verificar si los campos están vacíos
+        if (txtCCV.getText().isEmpty() || txtCaducidad.getText().isEmpty() || txtNumeroTarjeta.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Debe completar todos los campos");
+        } else {
+            // Obtener los valores ingresados por el usuario
+            String numeroTarjeta = txtNumeroTarjeta.getText();
+            String ccv = txtCCV.getText();
+            String caducidad = txtCaducidad.getText();
 
-        JOptionPane.showMessageDialog(rootPane, mensaje);        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
-        this.setVisible(false);
-    }
+            // Crear un objeto PagoPorTarjetaDTO con los valores ingresados
+            PagoPorTarjetaDTO pagoPorTarjetaDTO = new PagoPorTarjetaDTO();
+            pagoPorTarjetaDTO.setNumeroTarjeta(numeroTarjeta);
+            pagoPorTarjetaDTO.setCodigoSeguridad(ccv);
+            java.sql.Date fechas5 = new java.sql.Date(new GregorianCalendar(2043, Calendar.FEBRUARY, 8).getTimeInMillis());
+
+            pagoPorTarjetaDTO.setFechaExpiracion(fechas5);
+            comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
+
+            PagoDTO pagoDTO = PagoProvicional.getPagoProvicional();
+            List<PagoPorTarjetaDTO> pagosTarjeta = new ArrayList<>();
+            pagosTarjeta.add(pagoPorTarjetaDTO);
+            pagoDTO.setPagoPorTarjetaDTO(pagosTarjeta);
+            comprarProcuto.comprarProducto(pagoDTO);
+            // Mostrar un mensaje de éxito
+            JOptionPane.showMessageDialog(rootPane, "Compra realizada con éxito");
+
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_bnFinalizarCompraActionPerformed
 

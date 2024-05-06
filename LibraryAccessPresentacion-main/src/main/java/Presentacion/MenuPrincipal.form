@@ -121,7 +121,7 @@
                       </Group>
                       <Component id="bnMejorValorados" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bnBusquedaNombre" min="-2" pref="78" max="-2" attributes="0"/>
                       <Component id="bnBusquedaCategoria" min="-2" pref="78" max="-2" attributes="0"/>

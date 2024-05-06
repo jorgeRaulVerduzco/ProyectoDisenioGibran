@@ -32,7 +32,6 @@ public class UsuarioDAO implements IUsuarioDAO {
     @Override
     public void agregarUsuario(Usuario usuario) throws PersistenciaException {
         try {
-            usuario.setIdUsuario(new ObjectId());
             this.coleccionUsuarios.insertOne(usuario);
         } catch (MongoException e) {
             throw new PersistenciaException("No se pudo insertar al usuario: " + usuario.getNombreUsuario());

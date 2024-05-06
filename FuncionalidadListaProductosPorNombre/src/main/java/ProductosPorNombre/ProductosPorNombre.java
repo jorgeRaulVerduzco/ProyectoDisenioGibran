@@ -5,10 +5,13 @@
 package ProductosPorNombre;
 
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 import INegocio.IBuscarProductoPorNombreBO;
 import IProductosPorNombre.IProductosPorNombre;
 import Negocio.BuscarProductoPorNombreBO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +28,11 @@ public class ProductosPorNombre implements IProductosPorNombre{
 
     @Override
     public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
-        return buscarProductosPorNombreBO.buscarProductosPorNombre(nombre);
+        try {
+            return buscarProductosPorNombreBO.buscarProductosPorNombre(nombre);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ProductosPorNombre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

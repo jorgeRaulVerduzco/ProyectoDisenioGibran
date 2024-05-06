@@ -17,6 +17,8 @@ import Dominio.Producto;
 import Dominio.Ticket;
 import Dominio.Usuario;
 import INegocio.iDTOaEntidadbo;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,7 +35,6 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setTipo(productoDTO.getTipo());
         producto.setEditorial(productoDTO.getEditorial());
         producto.setPrecio(productoDTO.getPrecio());
-        producto.setValoracion(productoDTO.getValoracion());
         producto.setCategoria(productoDTO.getCategoria());
         producto.setCantidad(productoDTO.getCantidad());
         return producto;
@@ -49,38 +50,62 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
 
     @Override
     public Pago ConvertirPagoDTO(PagoDTO pagoDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoDTO.getProducto());
-
-        Pago pago = new Pago();
-        pago.setIdPago(pagoDTO.getIdPago());
-        pago.setUsuario(usuario);
-        pago.setProducto(producto);
+Pago pago = new Pago();
         pago.setCantidad(pagoDTO.getCantidad());
-        pago.setMetodoPago(pagoDTO.getMetodoPago());
         pago.setCostoTotal(pagoDTO.getCostoTotal());
+
+        // Convertir lista de UsuarioDTO a lista de Usuario
+        List<Usuario> usuarios = new ArrayList<>();
+        for (UsuarioDTO usuarioDTO : pagoDTO.getUsuarioDTO()) {
+            Usuario usuario = ConvertirUsuarioDTO(usuarioDTO);
+            usuarios.add(usuario);
+        }
+        pago.setUsuario(usuarios);
+
+        // Convertir lista de ProductoDTO a lista de Producto
+        List<Producto> productos = new ArrayList<>();
+        for (ProductoDTO productoDTO : pagoDTO.getProductoDTO()) {
+            Producto producto = ConvertirProductoDTO(productoDTO);
+            productos.add(producto);
+        }
+        pago.setProducto(productos);
+
+        // Convertir lista de PagoPorOxxoDTO a lista de PagoPorOxxo
+        List<PagoPorOxxo> pagoPorOxxos = new ArrayList<>();
+        for (PagoPorOxxoDTO pagoPorOxxoDTO : pagoDTO.getPagoPorOxxoDTO()) {
+            PagoPorOxxo pagoPorOxxo = ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
+            pagoPorOxxos.add(pagoPorOxxo);
+        }
+        pago.setPagoPorOxxo(pagoPorOxxos);
+
+        // Convertir lista de PagoPorTarjetaDTO a lista de PagoPorTarjeta
+        List<PagoPorTarjeta> pagoPorTarjetas = new ArrayList<>();
+        for (PagoPorTarjetaDTO pagoPorTarjetaDTO : pagoDTO.getPagoPorTarjetaDTO()) {
+            PagoPorTarjeta pagoPorTarjeta = convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
+            pagoPorTarjetas.add(pagoPorTarjeta);
+        }
+        pago.setPagoPorTarjeta(pagoPorTarjetas);
+
 
         return pago;
     }
 
     @Override
     public PagoPorOxxo ConnvertirPagoOxxoDTO(PagoPorOxxoDTO pagoOxxoDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoOxxoDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoOxxoDTO.getProducto());
-
-        PagoPorOxxo pagoOxxo = new PagoPorOxxo(usuario, producto, pagoOxxoDTO.getCantidad(), pagoOxxoDTO.getCostoTotal(), pagoOxxoDTO.getCodigoBarrasOxxo());
-
+        PagoPorOxxo pagoOxxo = new PagoPorOxxo();
+        pagoOxxo.setCodigoBarrasOxxo(pagoOxxoDTO.getCodigoBarrasOxxo());
         return pagoOxxo;
     }
 
     @Override
     public PagoPorTarjeta convertirPagoPorTarjetaDTO(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoPorTarjetaDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoPorTarjetaDTO.getProducto());
-
-        PagoPorTarjeta pagoPorTarjeta = new PagoPorTarjeta(usuario, producto, pagoPorTarjetaDTO.getCantidad(), pagoPorTarjetaDTO.getCostoTotal(), pagoPorTarjetaDTO.getTipoTarjeta(), pagoPorTarjetaDTO.getNumeroTarjeta(), pagoPorTarjetaDTO.getFechaExpiracion(), pagoPorTarjetaDTO.getCodigoSeguridad());
-
-        return pagoPorTarjeta;
+        PagoPorTarjeta pagoTarjeta= new PagoPorTarjeta();
+        pagoTarjeta.setCodigoSeguridad(pagoPorTarjetaDTO.getCodigoSeguridad());
+        pagoTarjeta.setFechaExpiracion(pagoPorTarjetaDTO.getFechaExpiracion());
+        pagoTarjeta.setNumeroTarjeta(pagoPorTarjetaDTO.getNumeroTarjeta());
+        pagoTarjeta.setTipoTarjeta(pagoPorTarjetaDTO.getTipoTarjeta());
+        
+        return pagoTarjeta;
     }
 
     @Override

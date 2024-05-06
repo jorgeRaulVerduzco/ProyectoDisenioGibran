@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import java.sql.Date;
 import org.bson.types.ObjectId;
 
 
@@ -12,29 +13,29 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class PagoPorTarjeta {
-    private ObjectId idPago;
+    private ObjectId idPagoPorTarjeta;
      private String tipoTarjeta;
     private String numeroTarjeta;
-    private String fechaExpiracion;
+    private Date fechaExpiracion;
     private String codigoSeguridad;
 
     public PagoPorTarjeta() {
     }
 
-    public PagoPorTarjeta(ObjectId idPago, String tipoTarjeta, String numeroTarjeta, String fechaExpiracion, String codigoSeguridad) {
-        this.idPago = idPago;
+    public PagoPorTarjeta(ObjectId idPagoPorTarjeta, String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
         this.tipoTarjeta = tipoTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaExpiracion = fechaExpiracion;
         this.codigoSeguridad = codigoSeguridad;
     }
 
-    public ObjectId getIdPago() {
-        return idPago;
+    public ObjectId getidPagoPorTarjeta() {
+        return idPagoPorTarjeta;
     }
 
-    public void setIdPago(ObjectId idPago) {
-        this.idPago = idPago;
+    public void setIdPago(ObjectId idPagoPorTarjeta) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
     }
 
     public String getTipoTarjeta() {
@@ -53,11 +54,11 @@ public class PagoPorTarjeta {
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public String getFechaExpiracion() {
+    public Date getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public void setFechaExpiracion(String fechaExpiracion) {
+    public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
 
@@ -71,7 +72,7 @@ public class PagoPorTarjeta {
 
     @Override
     public String toString() {
-        return "PagoPorTarjeta{" + "idPago=" + idPago + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
+        return "PagoPorTarjeta{" + "ididPagoPorTarjeta=" + idPagoPorTarjeta + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
 
   

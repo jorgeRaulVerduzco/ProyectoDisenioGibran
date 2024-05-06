@@ -7,6 +7,7 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
 import INegocio.IAgregarProductoBO;
 
@@ -20,12 +21,12 @@ public class AgregarProductoBO implements IAgregarProductoBO {
     DTOaEntidadBO dtoaAentidad;
 
     public AgregarProductoBO() {
-        productoDao = ProductoDAO.getInstancia();
+        productoDao = new ProductoDAO();
         dtoaAentidad = new DTOaEntidadBO();
     }
 
     @Override
-    public void agregarProducto(ProductoDTO productoDTO) {
+    public void agregarProducto(ProductoDTO productoDTO) throws PersistenciaException {
         Producto producto = dtoaAentidad.ConvertirProductoDTO(productoDTO);
         productoDao.agregarProducto(producto);
     }

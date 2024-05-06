@@ -9,31 +9,17 @@ package DTO;
  * @author INEGI
  */
 public class UsuarioDTO {
-    private int idUsuario;
     private String nombreUsuario;
     private String contraseña;
 
-    public UsuarioDTO(int idUsuario, String nombreUsuario, String contraseña) {
-        this.idUsuario = idUsuario;
+    public UsuarioDTO( String nombreUsuario, String contraseña) {
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
     }
 
     public UsuarioDTO() {
     }
-
-    public UsuarioDTO(String nombreUsuario, String contraseña) {
-        this.nombreUsuario = nombreUsuario;
-        this.contraseña = contraseña;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+  
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -53,7 +39,7 @@ public class UsuarioDTO {
 
     @Override
     public String toString() {
-        return "UsuarioDTO{" + "idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", contrase\u00f1a=" + contraseña + '}';
+        return "UsuarioDTO{" +", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña + '}';
     }
     
     

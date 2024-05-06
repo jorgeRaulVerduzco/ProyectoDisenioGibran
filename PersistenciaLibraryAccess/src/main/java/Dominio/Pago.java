@@ -4,6 +4,7 @@
  */
 package Dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -22,6 +23,10 @@ public class Pago {
     private List<PagoPorTarjeta> pagoPorTarjeta;
 
     public Pago() {
+           this.usuario = new ArrayList<>();
+        this.producto = new ArrayList<>();
+        this.pagoPorOxxo = new ArrayList<>();
+        this.pagoPorTarjeta = new ArrayList<>();
     }
 
     public Pago(ObjectId idPago) {

@@ -13,6 +13,8 @@ import DTO.PagoPorTarjetaDTO;
 import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
+import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IPagoDAO;
 import IDAO.IPagoPorOxxoDAO;
 import IDAO.IPagoPorTarjetaDAO;
@@ -22,7 +24,7 @@ import INegocio.IComprarProductoBO;
  *
  * @author INEGI
  */
-public class ComprarProductoBO implements IComprarProductoBO{
+public class ComprarProductoBO implements IComprarProductoBO {
 
     IPagoDAO pagoDAO;
     IPagoPorOxxoDAO pagoPorOxxoDAO;
@@ -30,53 +32,39 @@ public class ComprarProductoBO implements IComprarProductoBO{
     IPagoPorTarjetaDAO pagoPorTarjetaDAO;
 
     public ComprarProductoBO() {
-        pagoDAO = PagoDAO.getInstancia();
+        pagoDAO = new PagoDAO();
         dtoAentidad = new DTOaEntidadBO();
-        pagoPorOxxoDAO = PagoPorOxxoDAO.getInstancia();
-        pagoPorTarjetaDAO = PagoPorTarjetaDAO.getInstancia();
+        pagoPorOxxoDAO = new PagoPorOxxoDAO();
+        pagoPorTarjetaDAO = new PagoPorTarjetaDAO();
     }
 
     @Override
-    public void ComprarProducto(PagoDTO pagoDTO) {
-        Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
+    public void ComprarProducto(PagoDTO pagoDTO) throws PersistenciaException {
+       Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
 
-        double precioProducto = pago.getProducto().getPrecio();
+    Producto producto = pago.getProducto().get(0);
 
-        int cantidad = pago.getCantidad();
+    double precioProducto = producto.getPrecio();
 
-        double costoTotal = precioProducto * cantidad;
+    int cantidad = pago.getCantidad();
 
-        pago.setCostoTotal(costoTotal);
+    double costoTotal = precioProducto * cantidad;
 
-        pagoDAO.agregarPago(pago);
+    pago.setCostoTotal(costoTotal);
+
+    pagoDAO.agregarPago(pago);
     }
 
     @Override
-    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
+    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) throws PersistenciaException {
         PagoPorOxxo pagoPorOxxo = dtoAentidad.ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
-
-        double precioProducto = pagoPorOxxo.getProducto().getPrecio();
-
-        int cantidad = pagoPorOxxo.getCantidad();
-
-        double costoTotal = precioProducto * cantidad;
-
-        pagoPorOxxo.setCostoTotal(costoTotal);
 
         pagoPorOxxoDAO.agregarPago(pagoPorOxxo);
     }
 
     @Override
-    public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
+    public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) throws PersistenciaException {
         PagoPorTarjeta pagoPorTarjeta = dtoAentidad.convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
-
-        double precioProducto = pagoPorTarjeta.getProducto().getPrecio();
-
-        int cantidad = pagoPorTarjeta.getCantidad();
-
-        double costoTotal = precioProducto * cantidad;
-
-        pagoPorTarjeta.setCostoTotal(costoTotal);
 
         pagoPorTarjetaDAO.agregarPago(pagoPorTarjeta);
     }

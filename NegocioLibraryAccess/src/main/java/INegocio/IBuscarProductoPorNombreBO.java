@@ -5,6 +5,7 @@
 package INegocio;
 
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
  * @author INEGI
  */
 public interface IBuscarProductoPorNombreBO {
-    public List<ProductoDTO> buscarProductosPorNombre(String nombre);
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre)  throws PersistenciaException;
 }

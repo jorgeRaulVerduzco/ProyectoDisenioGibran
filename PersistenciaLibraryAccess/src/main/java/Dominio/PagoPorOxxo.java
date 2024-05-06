@@ -34,6 +34,14 @@ public class PagoPorOxxo {
         this.codigoBarrasOxxo = codigoBarrasOxxo;
     }
 
+    public ObjectId getIdOxxo() {
+        return idOxxo;
+    }
+
+    public void setIdOxxo(ObjectId idOxxo) {
+        this.idOxxo = idOxxo;
+    }
+
     @Override
     public String toString() {
         return "PagoPorOxxo{" + "idOxxo=" + idOxxo + ", codigoBarrasOxxo=" + codigoBarrasOxxo + '}';

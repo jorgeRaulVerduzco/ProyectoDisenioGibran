@@ -4,60 +4,43 @@
  */
 package DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author INEGI
  */
 public class PagoDTO {
-      private int idPago;
-    private UsuarioDTO usuario;
-    private ProductoDTO producto;
+
+    private List<UsuarioDTO> usuarioDTO;
+    private List<ProductoDTO> productoDTO;
     private int cantidad;
     private double costoTotal;
-    private String metodoPago;
-
-    public PagoDTO(int idPago, UsuarioDTO usuario, ProductoDTO producto, int cantidad, double costoTotal, String metodoPago) {
-        this.idPago = idPago;
-        this.usuario = usuario;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.costoTotal = costoTotal;
-        this.metodoPago = metodoPago;
-    }
-
-    public PagoDTO(UsuarioDTO usuario, ProductoDTO producto, int cantidad, double costoTotal, String metodoPago) {
-        this.usuario = usuario;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.costoTotal = costoTotal;
-        this.metodoPago = metodoPago;
-    }
+    private List<PagoPorOxxoDTO> pagoPorOxxoDTO;
+    private List<PagoPorTarjetaDTO> pagoPorTarjetaDTO;
 
     public PagoDTO() {
+        this.pagoPorOxxoDTO = new ArrayList<>();
+        this.pagoPorTarjetaDTO = new ArrayList<>();
+        this.productoDTO = new ArrayList<>();
+        this.usuarioDTO= new ArrayList<>();
     }
 
-    public int getIdPago() {
-        return idPago;
+    public List<UsuarioDTO> getUsuarioDTO() {
+        return usuarioDTO;
     }
 
-    public void setIdPago(int idPago) {
-        this.idPago = idPago;
+    public void setUsuarioDTO(List<UsuarioDTO> usuarioDTO) {
+        this.usuarioDTO = usuarioDTO;
     }
 
-    public UsuarioDTO getUsuario() {
-        return usuario;
+    public List<ProductoDTO> getProductoDTO() {
+        return productoDTO;
     }
 
-    public void setUsuario(UsuarioDTO usuario) {
-        this.usuario = usuario;
-    }
-
-    public ProductoDTO getProducto() {
-        return producto;
-    }
-
-    public void setProducto(ProductoDTO producto) {
-        this.producto = producto;
+    public void setProductoDTO(List<ProductoDTO> productoDTO) {
+        this.productoDTO = productoDTO;
     }
 
     public int getCantidad() {
@@ -76,23 +59,25 @@ public class PagoDTO {
         this.costoTotal = costoTotal;
     }
 
-    public String getMetodoPago() {
-        return metodoPago;
+    public List<PagoPorOxxoDTO> getPagoPorOxxoDTO() {
+        return pagoPorOxxoDTO;
     }
 
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
+    public void setPagoPorOxxoDTO(List<PagoPorOxxoDTO> pagoPorOxxoDTO) {
+        this.pagoPorOxxoDTO = pagoPorOxxoDTO;
+    }
+
+    public List<PagoPorTarjetaDTO> getPagoPorTarjetaDTO() {
+        return pagoPorTarjetaDTO;
+    }
+
+    public void setPagoPorTarjetaDTO(List<PagoPorTarjetaDTO> pagoPorTarjetaDTO) {
+        this.pagoPorTarjetaDTO = pagoPorTarjetaDTO;
     }
 
     @Override
     public String toString() {
-        return "PagoDTO{" +
-                "idPago=" + idPago +
-                ", usuario=" + usuario +
-                ", producto=" + producto +
-                ", cantidad=" + cantidad +
-                ", costoTotal=" + costoTotal +
-                ", metodoPago='" + metodoPago + '\'' +
-                '}';
+        return "PagoDTO{" + "usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + '}';
     }
+
 }

@@ -4,6 +4,8 @@
  */
 package DTO;
 
+import java.sql.Date;
+
 /**
  *
  * @author INEGI
@@ -11,11 +13,13 @@ package DTO;
 public class PagoPorTarjetaDTO extends PagoDTO {
     private String tipoTarjeta;
     private String numeroTarjeta;
-    private String fechaExpiracion;
+    private Date fechaExpiracion;
     private String codigoSeguridad;
 
-    public PagoPorTarjetaDTO(UsuarioDTO usuario, ProductoDTO producto, int cantidad, double costoTotal, String tipoTarjeta, String numeroTarjeta, String fechaExpiracion, String codigoSeguridad) {
-        super(usuario, producto, cantidad, costoTotal, "Tarjeta");
+    public PagoPorTarjetaDTO() {
+    }
+
+    public PagoPorTarjetaDTO(String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
         this.tipoTarjeta = tipoTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaExpiracion = fechaExpiracion;
@@ -38,11 +42,11 @@ public class PagoPorTarjetaDTO extends PagoDTO {
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public String getFechaExpiracion() {
+    public Date getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public void setFechaExpiracion(String fechaExpiracion) {
+    public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
 
@@ -58,6 +62,7 @@ public class PagoPorTarjetaDTO extends PagoDTO {
     public String toString() {
         return "PagoPorTarjetaDTO{" + "tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
+
 
 
 }

@@ -11,6 +11,7 @@ import Excepciones.PersistenciaException;
 import IDAO.IPagoDAO;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -27,6 +28,7 @@ public class PagoDAO implements IPagoDAO {
     @Override
     public void agregarPago(Pago pago) throws PersistenciaException {
         try {
+             pago.setIdPago(new ObjectId());
             coleccionPago.insertOne(pago);
             for (Producto producto : pago.getProducto()) {
                 producto.restarCantidad(pago.getCantidad());

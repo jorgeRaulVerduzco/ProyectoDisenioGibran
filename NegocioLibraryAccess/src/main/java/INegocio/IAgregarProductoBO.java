@@ -5,11 +5,12 @@
 package INegocio;
 
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 
 /**
  *
  * @author INEGI
  */
 public interface IAgregarProductoBO {
-    public void agregarProducto(ProductoDTO productoDTO);
+    public void agregarProducto(ProductoDTO productoDTO) throws PersistenciaException ;
 }

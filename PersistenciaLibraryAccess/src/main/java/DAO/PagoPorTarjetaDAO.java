@@ -10,6 +10,7 @@ import Excepciones.PersistenciaException;
 import IDAO.IPagoPorTarjetaDAO;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -26,6 +27,7 @@ public class PagoPorTarjetaDAO implements IPagoPorTarjetaDAO {
     @Override
     public void agregarPago(PagoPorTarjeta pago) throws PersistenciaException {
         try {
+            pago.setIdPago(new ObjectId());
             this.coleccionPagoTarjeta.insertOne(pago);
         } catch (MongoException e) {
             throw new PersistenciaException("No se pudo insertar al pago: ");

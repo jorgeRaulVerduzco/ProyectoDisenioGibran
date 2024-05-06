@@ -7,6 +7,7 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
 import INegocio.IBuscarProductoPorNombreBO;
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class BuscarProductoPorNombreBO implements IBuscarProductoPorNombreBO{
     private DTOaEntidadBO dtoAentidad;
 
     public BuscarProductoPorNombreBO() {
-        productoDAO = ProductoDAO.getInstancia();
+        productoDAO = new ProductoDAO();
         dtoAentidad = new DTOaEntidadBO();
     }
 
     @Override
-    public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre)  throws PersistenciaException{
         List<Producto> productos = productoDAO.buscarProductosPorNombre(nombre);
         List<ProductoDTO> productosDTO = new ArrayList<>();
 
@@ -47,7 +48,6 @@ public class BuscarProductoPorNombreBO implements IBuscarProductoPorNombreBO{
         productoDTO.setTipo(producto.getTipo());
         productoDTO.setEditorial(producto.getEditorial());
         productoDTO.setPrecio(producto.getPrecio());
-        productoDTO.setValoracion(producto.getValoracion());
         productoDTO.setCategoria(producto.getCategoria());
         productoDTO.setCantidad(producto.getCantidad());
         return productoDTO;

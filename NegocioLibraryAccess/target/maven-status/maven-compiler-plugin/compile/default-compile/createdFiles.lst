@@ -1,9 +1,11 @@
 Negocio\ComprarProductoBO.class
+Negocio\UsuarioBO.class
 INegocio\IReseñaBO.class
 Negocio\GenerarTicketBO.class
 Negocio\RegistrarUsuarioBO.class
 INegocio\IiniciarSesionBO.class
 Negocio\ReseñaBO.class
+INegocio\IUsuarioBO.class
 Negocio\UsuarioSesion.class
 INegocio\IComprarProductoBO.class
 Negocio\ListaProductosBO.class

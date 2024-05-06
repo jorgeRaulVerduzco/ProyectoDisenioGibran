@@ -7,6 +7,7 @@ package Negocio;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import Dominio.Usuario;
+import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
 import INegocio.IiniciarSesionBO;
 
@@ -18,20 +19,19 @@ public class IniciarSesionBO implements IiniciarSesionBO {
  IUsuarioDAO usuarioDAO;
 
     public IniciarSesionBO() {
-        usuarioDAO = UsuarioDAO.getInstancia();
+        usuarioDAO = new  UsuarioDAO();
     }
 
  @Override
-   public boolean buscarUsuario(String nombreUsuario, String contraseña) {
+   public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException{
         return usuarioDAO.buscarUsuario(nombreUsuario, contraseña);
     }
 
  @Override
-    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) {
+    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña) throws PersistenciaException {
         Usuario usuario = usuarioDAO.UsuarioInicioSesion(nombreUsuario, contraseña);
         if (usuario != null) {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setIdUsuario(usuario.getIdUsuario());
             usuarioDTO.setNombreUsuario(usuario.getNombreUsuario());
             usuarioDTO.setContraseña(usuario.getContraseña());
             return usuarioDTO;

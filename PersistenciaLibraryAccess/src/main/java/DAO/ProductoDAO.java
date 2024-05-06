@@ -15,6 +15,7 @@ import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -32,6 +33,7 @@ private final MongoCollection<Producto> coleccionProductos;
    @Override
     public void agregarProducto(Producto producto) throws PersistenciaException {
        try {
+           producto.setIdProdcuto(new ObjectId());
             this.coleccionProductos.insertOne(producto);
 
         } catch (MongoException e) {

@@ -11,31 +11,27 @@ import java.util.Arrays;
  * @author INEGI
  */
 public class ProductoDTO {
-
-    private int isbn;
+ private int isbn;
     private String titulo;
     private String autor;
     private String tipo;
     private String editorial;
     private double precio;
-    private String valoracion;
     private String categoria;
     private int cantidad;
 
     public ProductoDTO() {
     }
 
-    // Constructor con todos los atributos incluyendo la portada
-    public ProductoDTO(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String valoracion, String categoria,int cantidad) {
+    public ProductoDTO(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String categoria, int cantidad) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.tipo = tipo;
         this.editorial = editorial;
         this.precio = precio;
-        this.valoracion = valoracion;
         this.categoria = categoria;
-        this.cantidad=cantidad;
+        this.cantidad = cantidad;
     }
 
     public int getIsbn() {
@@ -86,14 +82,6 @@ public class ProductoDTO {
         this.precio = precio;
     }
 
-    public String getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(String valoracion) {
-        this.valoracion = valoracion;
-    }
-
     public String getCategoria() {
         return categoria;
     }
@@ -108,27 +96,6 @@ public class ProductoDTO {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public void restarCantidad(int cantidadVendida) {
-        this.cantidad -= cantidadVendida;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "ProductoDTO{"
-                + "isbn=" + isbn
-                + ", titulo='" + titulo + '\''
-                + ", autor='" + autor + '\''
-                + ", tipo='" + tipo + '\''
-                + ", editorial='" + editorial + '\''
-                + ", precio=" + precio
-                + ", valoracion='" + valoracion + '\''
-                + ", categoria='" + categoria + '\''
-                + ", cantidad=" + cantidad
-                + '}';
     }
 
 }

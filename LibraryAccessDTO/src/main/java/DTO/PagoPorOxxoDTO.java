@@ -8,13 +8,13 @@ package DTO;
  *
  * @author INEGI
  */
-public class PagoPorOxxoDTO extends PagoDTO{
-       private String codigoBarrasOxxo;
+public class PagoPorOxxoDTO {
+     private String codigoBarrasOxxo;
 
-    
+    public PagoPorOxxoDTO() {
+    }
 
-    public PagoPorOxxoDTO(UsuarioDTO usuario, ProductoDTO producto, int cantidad, double costoTotal, String codigoBarrasOxxo) {
-        super(usuario, producto, cantidad, costoTotal, "Oxxo");
+    public PagoPorOxxoDTO(String codigoBarrasOxxo) {
         this.codigoBarrasOxxo = codigoBarrasOxxo;
     }
 
@@ -30,7 +30,5 @@ public class PagoPorOxxoDTO extends PagoDTO{
     public String toString() {
         return "PagoPorOxxoDTO{" + "codigoBarrasOxxo=" + codigoBarrasOxxo + '}';
     }
-
-    
 
 }

@@ -7,6 +7,7 @@ package Negocio;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import Dominio.Usuario;
+import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
 import INegocio.IRegistarUsuarioBO;
 
@@ -19,12 +20,12 @@ public class RegistrarUsuarioBO implements IRegistarUsuarioBO{
     DTOaEntidadBO dtoaEntidadBO;
 
     public RegistrarUsuarioBO() {
-        usuarioDAO = UsuarioDAO.getInstancia();
+        usuarioDAO = new UsuarioDAO ();
         dtoaEntidadBO = new DTOaEntidadBO();
     }
 
  @Override
-    public void agregarUsuario(UsuarioDTO usuarioDTO) {
+    public void agregarUsuario(UsuarioDTO usuarioDTO) throws PersistenciaException {
         usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
     }
 }

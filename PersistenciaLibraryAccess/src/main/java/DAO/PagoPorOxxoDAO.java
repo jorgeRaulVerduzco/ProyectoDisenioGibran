@@ -4,36 +4,32 @@
  */
 package DAO;
 
+import Conexion.ConexionBD;
 import Dominio.PagoPorOxxo;
+import Excepciones.PersistenciaException;
 import IDAO.IPagoPorOxxoDAO;
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
+
 
 /**
  *
  * @author INEGI
  */
 public class PagoPorOxxoDAO implements IPagoPorOxxoDAO{
-     private static PagoPorOxxoDAO instancia;
-    private List<PagoPorOxxo> listaPagosPorOxxo;
-    private int proximoId;
+      private final MongoCollection<PagoPorOxxo> coleccionPagoOxxo;
 
-    private PagoPorOxxoDAO() {
-        this.listaPagosPorOxxo = new ArrayList<>();
-        this.proximoId = 1;
+    public PagoPorOxxoDAO() {
+            this.coleccionPagoOxxo =  ConexionBD.getDatabase().getCollection("PagoPorOxxo", PagoPorOxxo.class);
     }
 
-    public static PagoPorOxxoDAO getInstancia() {
-        if (instancia == null) {
-            instancia = new PagoPorOxxoDAO();
-        }
-        return instancia;
-    }
 
     @Override
-    public void agregarPago(PagoPorOxxo pago) {
-        pago.setIdPago(proximoId);
-        listaPagosPorOxxo.add(pago);
-        proximoId++;
+    public void agregarPago(PagoPorOxxo pago) throws PersistenciaException {
+        try {
+            this.coleccionPagoOxxo.insertOne(pago);
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo insertar el pago por Oxxo: " + e.getMessage());
+        }
     }
 }

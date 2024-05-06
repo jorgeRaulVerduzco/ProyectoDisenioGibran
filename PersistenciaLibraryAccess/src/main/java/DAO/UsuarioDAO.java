@@ -4,61 +4,70 @@
  */
 package DAO;
 
+import Conexion.ConexionBD;
 import Dominio.Usuario;
+import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
+import com.mongodb.MongoException;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.conversions.Bson;
 
 /**
  *
  * @author INEGI
  */
 public class UsuarioDAO implements IUsuarioDAO {
-private static UsuarioDAO instancia;
-    private List<Usuario> listaUsuarios;
-    private int proximoId;
 
-    private UsuarioDAO() {
-        this.listaUsuarios = new ArrayList<>();
-        this.proximoId = 1;
+    private final MongoCollection<Usuario> coleccionUsuarios;
+
+    public UsuarioDAO() {
+        this.coleccionUsuarios = ConexionBD.getDatabase().getCollection("Usuario", Usuario.class);
     }
 
-    public static UsuarioDAO getInstancia() {
-        if (instancia == null) {
-            instancia = new UsuarioDAO();
+    @Override
+    public void agregarUsuario(Usuario usuario) throws PersistenciaException {
+        try {
+            this.coleccionUsuarios.insertOne(usuario);
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo insertar al usuario: " + usuario.getNombreUsuario());
         }
-        return instancia;
     }
 
-@Override
-    public void agregarUsuario(Usuario usuario) {
-        usuario.setIdUsuario(proximoId);
-        listaUsuarios.add(usuario);
-        proximoId++;
+    @Override
+    public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException {
+        try {
+            Bson filtro = Filters.and(Filters.eq("nombreUsuario", nombreUsuario), Filters.eq("contraseña", contraseña));
+            return coleccionUsuarios.countDocuments(filtro) > 0;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar usuario: " + e.getMessage());
+        }
     }
 
-@Override
-    public boolean buscarUsuario(String nombreUsuario, String contraseña) {
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getNombreUsuario().trim().equalsIgnoreCase(nombreUsuario.trim()) && usuario.getContraseña().equals(contraseña)) {
-                return true;
+    @Override
+    public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña) throws PersistenciaException {
+        try {
+            Bson filtro = Filters.and(Filters.eq("nombreUsuario", nombreUsuario), Filters.eq("contraseña", contraseña));
+            return coleccionUsuarios.find(filtro).first();
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al iniciar sesión: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Usuario> obtenerTodosLosUsuarios() throws PersistenciaException {
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            FindIterable<Usuario> resultados = coleccionUsuarios.find();
+            for (Usuario usuario : resultados) {
+                usuarios.add(usuario);
             }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al obtener todos los usuarios: " + e.getMessage());
         }
-        return false;
-    }
-
-@Override
-    public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña) {
-        for (Usuario usuario : listaUsuarios) {
-            if (usuario.getNombreUsuario().equalsIgnoreCase(nombreUsuario) && usuario.getContraseña().equalsIgnoreCase(contraseña)) {
-                return usuario;
-            }
-        }
-        return null;
-    }
-
-@Override
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        return listaUsuarios;
+        return usuarios;
     }
 }

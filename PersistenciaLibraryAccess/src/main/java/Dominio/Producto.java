@@ -5,13 +5,14 @@
 package Dominio;
 
 import java.util.Arrays;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author INEGI
  */
 public class Producto {
-
+private ObjectId idProdcuto;
     private int isbn;
     private String titulo;
     private String autor;
@@ -23,6 +24,10 @@ public class Producto {
     private int cantidad;
 
     public Producto() {
+    }
+
+    public Producto(ObjectId idProdcuto) {
+        this.idProdcuto = idProdcuto;
     }
 
     public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String valoracion, String categoria,int cantidad) {
@@ -117,16 +122,8 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{"
-                + "isbn=" + isbn
-                + ", titulo='" + titulo + '\''
-                + ", autor='" + autor + '\''
-                + ", tipo='" + tipo + '\''
-                + ", editorial='" + editorial + '\''
-                + ", precio=" + precio
-                + ", valoracion='" + valoracion + '\''
-                + ", categoria='" + categoria + '\''
-                + ", cantidad=" + cantidad
-                + '}';
+        return "Producto{" + "idProdcuto=" + idProdcuto + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", valoracion=" + valoracion + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
     }
+
+  
 }

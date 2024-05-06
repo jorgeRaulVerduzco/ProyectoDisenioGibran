@@ -4,23 +4,37 @@
  */
 package Dominio;
 
+import org.bson.types.ObjectId;
+
 
 /**
  *
  * @author INEGI
  */
-public class PagoPorTarjeta extends Pago{
+public class PagoPorTarjeta {
+    private ObjectId idPago;
      private String tipoTarjeta;
     private String numeroTarjeta;
     private String fechaExpiracion;
     private String codigoSeguridad;
 
-    public PagoPorTarjeta(Usuario usuario, Producto producto, int cantidad, double costoTotal, String tipoTarjeta, String numeroTarjeta, String fechaExpiracion, String codigoSeguridad) {
-        super(usuario, producto, cantidad, costoTotal, "Tarjeta");
+    public PagoPorTarjeta() {
+    }
+
+    public PagoPorTarjeta(ObjectId idPago, String tipoTarjeta, String numeroTarjeta, String fechaExpiracion, String codigoSeguridad) {
+        this.idPago = idPago;
         this.tipoTarjeta = tipoTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaExpiracion = fechaExpiracion;
         this.codigoSeguridad = codigoSeguridad;
+    }
+
+    public ObjectId getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(ObjectId idPago) {
+        this.idPago = idPago;
     }
 
     public String getTipoTarjeta() {
@@ -57,17 +71,8 @@ public class PagoPorTarjeta extends Pago{
 
     @Override
     public String toString() {
-        return "PagoPorTarjeta{" +
-                "tipoTarjeta='" + tipoTarjeta + '\'' +
-                ", numeroTarjeta='" + numeroTarjeta + '\'' +
-                ", fechaExpiracion='" + fechaExpiracion + '\'' +
-                ", codigoSeguridad='" + codigoSeguridad + '\'' +
-                ", idPago=" + getIdPago() +
-                ", usuario=" + getUsuario() +
-                ", producto=" + getProducto() +
-                ", cantidad=" + getCantidad() +
-                ", costoTotal=" + getCostoTotal() +
-                ", metodoPago='" + getMetodoPago() + '\'' +
-                '}';
+        return "PagoPorTarjeta{" + "idPago=" + idPago + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
+
+  
 }

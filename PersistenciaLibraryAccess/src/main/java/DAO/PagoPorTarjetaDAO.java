@@ -4,36 +4,31 @@
  */
 package DAO;
 
+import Conexion.ConexionBD;
 import Dominio.PagoPorTarjeta;
+import Excepciones.PersistenciaException;
 import IDAO.IPagoPorTarjetaDAO;
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
 
 /**
  *
  * @author INEGI
  */
-public class PagoPorTarjetaDAO implements  IPagoPorTarjetaDAO {
-  private static PagoPorTarjetaDAO instancia;
-    private List<PagoPorTarjeta> listaPagosPorTarjeta;
-    private int proximoId;
+public class PagoPorTarjetaDAO implements IPagoPorTarjetaDAO {
 
-    private PagoPorTarjetaDAO() {
-        this.listaPagosPorTarjeta = new ArrayList<>();
-        this.proximoId = 1;
-    }
+    private final MongoCollection<PagoPorTarjeta> coleccionPagoTarjeta;
 
-    public static PagoPorTarjetaDAO getInstancia() {
-        if (instancia == null) {
-            instancia = new PagoPorTarjetaDAO();
-        }
-        return instancia;
+    public PagoPorTarjetaDAO() {
+        this.coleccionPagoTarjeta = ConexionBD.getDatabase().getCollection("PagoPorTarjeta", PagoPorTarjeta.class);
     }
 
     @Override
-    public void agregarPago(PagoPorTarjeta pago) {
-        pago.setIdPago(proximoId);
-        listaPagosPorTarjeta.add(pago);
-        proximoId++;
+    public void agregarPago(PagoPorTarjeta pago) throws PersistenciaException {
+        try {
+            this.coleccionPagoTarjeta.insertOne(pago);
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo insertar al pago: ");
+        }
     }
 }

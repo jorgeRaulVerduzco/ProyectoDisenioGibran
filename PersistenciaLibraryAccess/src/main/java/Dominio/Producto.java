@@ -4,8 +4,7 @@
  */
 package Dominio;
 
-import java.util.Arrays;
-import org.bson.codecs.pojo.annotations.BsonProperty;
+
 import org.bson.types.ObjectId;
 
 /**
@@ -13,8 +12,8 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Producto {
-@BsonProperty("_id")
-private ObjectId idProdcuto;
+
+    private ObjectId idProdcuto;
     private int isbn;
     private String titulo;
     private String autor;
@@ -39,7 +38,7 @@ private ObjectId idProdcuto;
         this.idProdcuto = idProdcuto;
     }
 
-    public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio,String categoria,int cantidad) {
+    public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String categoria, int cantidad) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
@@ -47,7 +46,7 @@ private ObjectId idProdcuto;
         this.editorial = editorial;
         this.precio = precio;
         this.categoria = categoria;
-        this.cantidad=cantidad;
+        this.cantidad = cantidad;
     }
 
     public int getIsbn() {
@@ -98,8 +97,6 @@ private ObjectId idProdcuto;
         this.precio = precio;
     }
 
-
-
     public String getCategoria() {
         return categoria;
     }
@@ -116,16 +113,13 @@ private ObjectId idProdcuto;
         this.cantidad = cantidad;
     }
 
-   
-
     public void restarCantidad(int cantidadVendida) {
         this.cantidad -= cantidadVendida;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "idProdcuto=" + idProdcuto + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio +", categoria=" + categoria + ", cantidad=" + cantidad + '}';
+        return "Producto{" + "idProdcuto=" + idProdcuto + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
     }
 
-  
 }

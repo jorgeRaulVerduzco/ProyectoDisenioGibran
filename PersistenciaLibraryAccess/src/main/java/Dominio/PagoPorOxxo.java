@@ -4,7 +4,6 @@
  */
 package Dominio;
 
-import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 /**
@@ -13,7 +12,6 @@ import org.bson.types.ObjectId;
  */
 public class PagoPorOxxo {
 
-@BsonProperty("_id")
     private ObjectId idOxxo;
     private String codigoBarrasOxxo;
 

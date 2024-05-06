@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author INEGI
  */
 public class PagoPorTarjeta extends javax.swing.JFrame {
-
+    
     IComprarProducto comprarProcuto;
 
     /**
@@ -180,10 +180,10 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             pagoPorTarjetaDTO.setNumeroTarjeta(numeroTarjeta);
             pagoPorTarjetaDTO.setCodigoSeguridad(ccv);
             java.sql.Date fechas5 = new java.sql.Date(new GregorianCalendar(2043, Calendar.FEBRUARY, 8).getTimeInMillis());
-
+            
             pagoPorTarjetaDTO.setFechaExpiracion(fechas5);
             comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
-
+            
             PagoDTO pagoDTO = PagoProvicional.getPagoProvicional();
             List<PagoPorTarjetaDTO> pagosTarjeta = new ArrayList<>();
             pagosTarjeta.add(pagoPorTarjetaDTO);
@@ -191,7 +191,9 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             comprarProcuto.comprarProducto(pagoDTO);
             // Mostrar un mensaje de éxito
             JOptionPane.showMessageDialog(rootPane, "Compra realizada con éxito");
-
+            this.setVisible(false);
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_bnFinalizarCompraActionPerformed

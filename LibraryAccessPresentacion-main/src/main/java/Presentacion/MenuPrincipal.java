@@ -56,6 +56,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         ProductoDTO tiktoks = new ProductoDTO(312345, "como ser tiktoker", "jorgendo43", "libro", "primera", 12.99, "importante", 40);
         agregarProductos.agregarProducto(tiktoks);
+        
+           ProductoDTO llorona = new ProductoDTO(31234589, "la llorona", "jorgendo43", "libro", "segunda", 15.99, "importante", 50);
+        agregarProductos.agregarProducto(llorona);
         ListaProductosBO listaProductos = new ListaProductosBO();
         System.out.println(listaProductos.toString());
     }

@@ -13,7 +13,6 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class PagoPorTarjeta {
-@BsonProperty("_id")
     private ObjectId idPagoPorTarjeta;
     private String tipoTarjeta;
     private String numeroTarjeta;

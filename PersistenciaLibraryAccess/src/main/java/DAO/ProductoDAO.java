@@ -39,7 +39,7 @@ private final MongoCollection<Producto> coleccionProductos;
         return;
         }
         
-        
+        producto.setIdProdcuto(new ObjectId());
         this.coleccionProductos.insertOne(producto);
 
     } catch (MongoException e) {

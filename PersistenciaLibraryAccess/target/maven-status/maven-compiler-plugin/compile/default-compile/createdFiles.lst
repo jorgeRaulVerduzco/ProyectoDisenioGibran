@@ -5,6 +5,7 @@ Dominio\Usuario.class
 DAO\UsuarioDAO.class
 Dominio\PagoPorTarjeta.class
 Dominio\Pago.class
+Excepciones\PersistenciaException.class
 IDAO\IPagoPorOxxoDAO.class
 IDAO\IProductoDAO.class
 DAO\PagoPorOxxoDAO.class

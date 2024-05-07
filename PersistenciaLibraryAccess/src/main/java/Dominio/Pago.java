@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
  */
 public class Pago {
 
-    private ObjectId idPago;
+    private ObjectId id;
     private List<Usuario> usuario;
     private List<Producto> producto;
     private int cantidad;
@@ -31,8 +31,8 @@ public class Pago {
         this.pagoPorTarjeta = new ArrayList<>();
     }
 
-    public Pago(ObjectId idPago) {
-        this.idPago = idPago;
+    public Pago(ObjectId id) {
+        this.id = id;
     }
 
     public Date getFechaDePago() {
@@ -44,11 +44,11 @@ public class Pago {
     }
 
     public ObjectId getIdPago() {
-        return idPago;
+        return id;
     }
 
-    public void setIdPago(ObjectId idPago) {
-        this.idPago = idPago;
+    public void setIdPago(ObjectId id) {
+        this.id = id;
     }
 
     public List<Usuario> getUsuario() {
@@ -101,9 +101,7 @@ public class Pago {
 
     @Override
     public String toString() {
-        return "Pago{" + "idPago=" + idPago + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + ", FechaDePago=" + FechaDePago + '}';
+        return "Pago{" + "idPago=" + id + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + ", FechaDePago=" + FechaDePago + '}';
     }
-
-   
 
 }

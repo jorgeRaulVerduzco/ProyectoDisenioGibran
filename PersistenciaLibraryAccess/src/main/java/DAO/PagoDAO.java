@@ -34,7 +34,6 @@ public class PagoDAO implements IPagoDAO {
     
     public void agregarPago(Pago pago) throws PersistenciaException {
         try {
-            pago.setIdPago(new ObjectId());
             coleccionPago.insertOne(pago);
             for (Producto producto : pago.getProducto()) {
                 producto.restarCantidad(pago.getCantidad());

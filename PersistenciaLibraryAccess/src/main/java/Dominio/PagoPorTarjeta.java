@@ -13,25 +13,26 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class PagoPorTarjeta {
-    private ObjectId idPagoPorTarjeta;
+
+    private ObjectId id;
     private String tipoTarjeta;
     private String numeroTarjeta;
     private Date fechaExpiracion;
     private String codigoSeguridad;
 
     public PagoPorTarjeta() {
+
     }
 
-    public PagoPorTarjeta(ObjectId idPagoPorTarjeta, String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
-        this.idPagoPorTarjeta = idPagoPorTarjeta;
+    public PagoPorTarjeta(ObjectId id, String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
         this.tipoTarjeta = tipoTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaExpiracion = fechaExpiracion;
         this.codigoSeguridad = codigoSeguridad;
     }
 
-    public PagoPorTarjeta(ObjectId idPagoPorTarjeta) {
-        this.idPagoPorTarjeta = idPagoPorTarjeta;
+    public PagoPorTarjeta(ObjectId id) {
+        this.id = id;
     }
 
     public PagoPorTarjeta(String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
@@ -42,11 +43,11 @@ public class PagoPorTarjeta {
     }
 
     public ObjectId getIdPagoPorTarjeta() {
-        return idPagoPorTarjeta;
+        return id;
     }
 
-    public void setIdPagoPorTarjeta(ObjectId idPagoPorTarjeta) {
-        this.idPagoPorTarjeta = idPagoPorTarjeta;
+    public void setIdPagoPorTarjeta(ObjectId id) {
+        this.id = id;
     }
 
     public String getTipoTarjeta() {
@@ -83,9 +84,7 @@ public class PagoPorTarjeta {
 
     @Override
     public String toString() {
-        return "PagoPorTarjeta{" + "idPagoPorTarjeta=" + idPagoPorTarjeta + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
+        return "PagoPorTarjeta{" + "idPagoPorTarjeta=" + id + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
-
-  
 
 }

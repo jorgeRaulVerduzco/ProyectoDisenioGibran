@@ -13,32 +13,29 @@ import org.bson.types.ObjectId;
  * @author INEGI
  */
 public class Usuario {
- private ObjectId idUsuario;
+ 
+    private ObjectId id;
     private String nombreUsuario;
     private String contraseña;
-private List<Producto> productosVendidos;
-    public Usuario(ObjectId idUsuario, String nombreUsuario, String contraseña) {
-        this.idUsuario = idUsuario;
+    private List<Producto> productosVendidos;
+
+    public Usuario(ObjectId id, String nombreUsuario, String contraseña) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
     }
-
-    public Usuario(ObjectId idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-
 
     public Usuario() {
         productosVendidos = new ArrayList<>();
     }
 
+
     public ObjectId getIdUsuario() {
-        return idUsuario;
+        return id;
     }
 
-    public void setIdUsuario(ObjectId idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUsuario(ObjectId id) {
+        this.id = id;
     }
 
     public String getNombreUsuario() {
@@ -67,10 +64,7 @@ private List<Producto> productosVendidos;
 
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", contrase\u00f1a=" + contraseña + ", productosVendidos=" + productosVendidos + '}';
+        return "Usuario{" + "idUsuario=" + id + ", nombreUsuario=" + nombreUsuario + ", contrasenia=" + contraseña + ", productosVendidos=" + productosVendidos + '}';
     }
 
-
-    
-    
 }

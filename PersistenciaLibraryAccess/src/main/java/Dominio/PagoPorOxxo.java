@@ -12,19 +12,20 @@ import org.bson.types.ObjectId;
  */
 public class PagoPorOxxo {
 
-    private ObjectId idOxxo;
+    private ObjectId id;
     private String codigoBarrasOxxo;
 
-    public PagoPorOxxo(ObjectId idOxxo, String codigoBarrasOxxo) {
-        this.idOxxo = idOxxo;
+    public PagoPorOxxo(ObjectId id, String codigoBarrasOxxo) {
+        this.id = id;
         this.codigoBarrasOxxo = codigoBarrasOxxo;
     }
 
-    public PagoPorOxxo(ObjectId idOxxo) {
-        this.idOxxo = idOxxo;
+    public PagoPorOxxo(ObjectId _id) {
+        this.id = id;
     }
 
     public PagoPorOxxo() {
+
     }
 
     public String getCodigoBarrasOxxo() {
@@ -36,16 +37,16 @@ public class PagoPorOxxo {
     }
 
     public ObjectId getIdOxxo() {
-        return idOxxo;
+        return id;
     }
 
-    public void setIdOxxo(ObjectId idOxxo) {
-        this.idOxxo = idOxxo;
+    public void setIdOxxo(ObjectId _id) {
+        this.id = _id;
     }
 
     @Override
     public String toString() {
-        return "PagoPorOxxo{" + "idOxxo=" + idOxxo + ", codigoBarrasOxxo=" + codigoBarrasOxxo + '}';
+        return "PagoPorOxxo{" + "idOxxo=" + id + ", codigoBarrasOxxo=" + codigoBarrasOxxo + '}';
     }
 
 }

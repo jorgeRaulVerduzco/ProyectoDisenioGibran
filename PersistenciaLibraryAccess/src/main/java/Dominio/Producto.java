@@ -4,7 +4,6 @@
  */
 package Dominio;
 
-
 import org.bson.types.ObjectId;
 
 /**
@@ -13,7 +12,7 @@ import org.bson.types.ObjectId;
  */
 public class Producto {
 
-    private ObjectId idProdcuto;
+    private ObjectId id;
     private int isbn;
     private String titulo;
     private String autor;
@@ -24,18 +23,20 @@ public class Producto {
     private int cantidad;
 
     public ObjectId getIdProdcuto() {
-        return idProdcuto;
+        return id;
     }
 
-    public void setIdProdcuto(ObjectId idProdcuto) {
-        this.idProdcuto = idProdcuto;
+    public void setIdProdcuto(ObjectId id) {
+        this.id = id;
     }
 
     public Producto() {
+
+
     }
 
-    public Producto(ObjectId idProdcuto) {
-        this.idProdcuto = idProdcuto;
+    public Producto(ObjectId id) {
+        this.id = id;
     }
 
     public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String categoria, int cantidad) {
@@ -47,6 +48,14 @@ public class Producto {
         this.precio = precio;
         this.categoria = categoria;
         this.cantidad = cantidad;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId _id) {
+        this.id = id;
     }
 
     public int getIsbn() {
@@ -119,7 +128,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "idProdcuto=" + idProdcuto + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
+        return "Producto{" + "idProdcuto=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
     }
 
 }

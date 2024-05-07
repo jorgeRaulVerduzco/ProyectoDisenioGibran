@@ -5,6 +5,7 @@
 package IDAO;
 
 import Dominio.Usuario;
+import Excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -12,8 +13,8 @@ import java.util.List;
  * @author INEGI
  */
 public interface IUsuarioDAO {
-    public void agregarUsuario(Usuario usuario);
-    public boolean buscarUsuario(String nombreUsuario, String contraseña);
-    public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña);
-    public List<Usuario> obtenerTodosLosUsuarios();
+    public void agregarUsuario(Usuario usuario) throws PersistenciaException;
+    public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException;
+    public Usuario UsuarioInicioSesion(String nombreUsuario, String contraseña) throws PersistenciaException;
+    public List<Usuario> obtenerTodosLosUsuarios() throws PersistenciaException;
 }

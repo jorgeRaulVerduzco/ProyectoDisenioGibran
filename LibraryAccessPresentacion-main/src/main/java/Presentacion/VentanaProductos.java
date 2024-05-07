@@ -11,6 +11,8 @@ import Negocio.PagoProvicional;
 import Negocio.ProductoSeleccionado;
 import static Negocio.ProductoSeleccionado.getPersonaSeleccionada;
 import Negocio.UsuarioSesion;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -191,13 +193,17 @@ public class VentanaProductos extends javax.swing.JFrame {
         PagoDTO pagoProvicional = new PagoDTO();
 
         ProductoDTO producto = ProductoSeleccionado.getPersonaSeleccionada();
-        pagoProvicional.setProducto(producto);
+        List<ProductoDTO> productosDTO = new ArrayList<>();
+        productosDTO.add(producto);
+        pagoProvicional.setProductoDTO(productosDTO);
         int cantidad = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         pagoProvicional.setCantidad(cantidad);
         pagoProvicional.setCostoTotal(producto.getPrecio() * cantidad);
 
         UsuarioDTO usuaridto = UsuarioSesion.usuarioSesion();
-        pagoProvicional.setUsuario(usuaridto);
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        usuariosDTO.add(usuaridto);
+        pagoProvicional.setUsuarioDTO(usuariosDTO);
         
         PagoProvicional.setPagoProvicional(pagoProvicional);
         MetodoDePago me = new MetodoDePago();
@@ -205,12 +211,13 @@ public class VentanaProductos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnComprarActionPerformed
 
-    private void btnAgregarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarritoActionPerformed
-JOptionPane.showMessageDialog(rootPane, "Se agrego al carrito");    }//GEN-LAST:event_btnAgregarCarritoActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnAgregarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarritoActionPerformed
+
+    }//GEN-LAST:event_btnAgregarCarritoActionPerformed
 
     /**
      * @param args the command line arguments

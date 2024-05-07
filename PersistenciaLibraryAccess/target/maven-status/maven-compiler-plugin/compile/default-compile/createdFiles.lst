@@ -1,8 +1,11 @@
+Dominio\Reseña.class
 DAO\PagoDAO.class
+Conexion\ConexionBD.class
 Dominio\Usuario.class
 DAO\UsuarioDAO.class
 Dominio\PagoPorTarjeta.class
 Dominio\Pago.class
+Excepciones\PersistenciaException.class
 IDAO\IPagoPorOxxoDAO.class
 IDAO\IProductoDAO.class
 DAO\PagoPorOxxoDAO.class
@@ -10,9 +13,11 @@ IDAO\ITicketDAO.class
 DAO\ProductoDAO.class
 DAO\PagoPorTarjetaDAO.class
 IDAO\IPagoPorTarjetaDAO.class
+DAO\ReseñaDAO.class
 DAO\TicketDAO.class
 Dominio\PagoPorOxxo.class
 IDAO\IPagoDAO.class
 Dominio\Producto.class
+IDAO\IReseñaDAO.class
 IDAO\IUsuarioDAO.class
 Dominio\Ticket.class

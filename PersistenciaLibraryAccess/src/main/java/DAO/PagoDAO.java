@@ -4,11 +4,16 @@
  */
 package DAO;
 
+import Conexion.ConexionBD;
 import Dominio.Pago;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IPagoDAO;
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -16,30 +21,27 @@ import java.util.List;
  */
 public class PagoDAO implements IPagoDAO {
 
-    private static PagoDAO instancia;
-    private List<Pago> listaPagos;
-    private int proximoId;
+    private final MongoCollection<Pago> coleccionPago;
+    private final MongoCollection<Producto> coleccionProductos;
 
-    private PagoDAO() {
-        this.listaPagos = new ArrayList<>();
-        this.proximoId = 1;
-    }
+    public PagoDAO() {
+        this.coleccionPago = ConexionBD.getDatabase().getCollection("Pago", Pago.class);
+        this.coleccionProductos = ConexionBD.getDatabase().getCollection("Producto", Producto.class);
 
-    public static PagoDAO getInstancia() {
-        if (instancia == null) {
-            instancia = new PagoDAO();
-        }
-        return instancia;
     }
 
     @Override
-    public void agregarPago(Pago pago) {
-        pago.setIdPago(proximoId);
-        listaPagos.add(pago);
-
-        // Restar la cantidad de libros vendidos del inventario
-        Producto libroVendido = pago.getProducto();
-        libroVendido.restarCantidad(pago.getCantidad());
-        proximoId++;
+    
+    public void agregarPago(Pago pago) throws PersistenciaException {
+        try {
+            pago.setIdPago(new ObjectId());
+            coleccionPago.insertOne(pago);
+            for (Producto producto : pago.getProducto()) {
+                producto.restarCantidad(pago.getCantidad());
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo insertar el pago: " + e.getMessage());
+        }
     }
 }
+  

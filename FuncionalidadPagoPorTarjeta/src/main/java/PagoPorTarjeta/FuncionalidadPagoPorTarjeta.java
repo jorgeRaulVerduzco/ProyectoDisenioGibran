@@ -10,7 +10,8 @@ public class FuncionalidadPagoPorTarjeta implements IPagoPorTarjeta{
     
     IComprarProductoBO comprarProductoBO;
     
-public void comprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
+    @Override
+    public void comprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         comprarProductoBO.ComprarProductoPorTarjeta(pagoPorTarjetaDTO);
     }
 }

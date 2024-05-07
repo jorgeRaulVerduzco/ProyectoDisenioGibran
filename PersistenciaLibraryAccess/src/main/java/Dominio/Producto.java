@@ -4,7 +4,8 @@
  */
 package Dominio;
 
-import java.util.Arrays;
+
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -12,29 +13,40 @@ import java.util.Arrays;
  */
 public class Producto {
 
+    private ObjectId idProdcuto;
     private int isbn;
     private String titulo;
     private String autor;
     private String tipo;
     private String editorial;
     private double precio;
-    private String valoracion;
     private String categoria;
     private int cantidad;
+
+    public ObjectId getIdProdcuto() {
+        return idProdcuto;
+    }
+
+    public void setIdProdcuto(ObjectId idProdcuto) {
+        this.idProdcuto = idProdcuto;
+    }
 
     public Producto() {
     }
 
-    public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String valoracion, String categoria,int cantidad) {
+    public Producto(ObjectId idProdcuto) {
+        this.idProdcuto = idProdcuto;
+    }
+
+    public Producto(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String categoria, int cantidad) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.tipo = tipo;
         this.editorial = editorial;
         this.precio = precio;
-        this.valoracion = valoracion;
         this.categoria = categoria;
-        this.cantidad=cantidad;
+        this.cantidad = cantidad;
     }
 
     public int getIsbn() {
@@ -85,14 +97,6 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getValoracion() {
-        return valoracion;
-    }
-
-    public void setValoracion(String valoracion) {
-        this.valoracion = valoracion;
-    }
-
     public String getCategoria() {
         return categoria;
     }
@@ -109,24 +113,13 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-   
-
     public void restarCantidad(int cantidadVendida) {
         this.cantidad -= cantidadVendida;
     }
 
     @Override
     public String toString() {
-        return "Producto{"
-                + "isbn=" + isbn
-                + ", titulo='" + titulo + '\''
-                + ", autor='" + autor + '\''
-                + ", tipo='" + tipo + '\''
-                + ", editorial='" + editorial + '\''
-                + ", precio=" + precio
-                + ", valoracion='" + valoracion + '\''
-                + ", categoria='" + categoria + '\''
-                + ", cantidad=" + cantidad
-                + '}';
+        return "Producto{" + "idProdcuto=" + idProdcuto + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
     }
+
 }

@@ -7,6 +7,7 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ public class ListaProductosBO {
     private IProductoDAO productoDAO;
 
     public ListaProductosBO() {
-        productoDAO = ProductoDAO.getInstancia();
+        productoDAO = new ProductoDAO ();
     }
 
-    public List<ProductoDTO> listaProductos() {
+    public List<ProductoDTO> listaProductos() throws PersistenciaException {
         List<Producto> productos = productoDAO.obtenerTodosProductos();
         List<ProductoDTO> productosDTO = new ArrayList<>();
 
@@ -43,26 +44,10 @@ public class ListaProductosBO {
         productoDTO.setTipo(producto.getTipo());
         productoDTO.setEditorial(producto.getEditorial());
         productoDTO.setPrecio(producto.getPrecio());
-        productoDTO.setValoracion(producto.getValoracion());
         productoDTO.setCategoria(producto.getCategoria());
         productoDTO.setCantidad(producto.getCantidad());
         return productoDTO;
     }
 
-    @Override
-    public String toString() {
-        List<ProductoDTO> productosDTO = listaProductos();
-        int totalProductos = productosDTO.size();
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("ListaProductosBO{");
-        sb.append("totalProductos=").append(totalProductos);
-
-        if (!productosDTO.isEmpty()) {
-            sb.append(", primerosProductos=").append(productosDTO.subList(0, Math.min(5, totalProductos)));
-        }
-
-        sb.append('}');
-        return sb.toString();
-    }
+    
 }

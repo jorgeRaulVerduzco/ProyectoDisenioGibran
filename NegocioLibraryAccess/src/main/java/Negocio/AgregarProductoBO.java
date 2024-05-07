@@ -7,8 +7,11 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
 import INegocio.IAgregarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,13 +23,17 @@ public class AgregarProductoBO implements IAgregarProductoBO {
     DTOaEntidadBO dtoaAentidad;
 
     public AgregarProductoBO() {
-        productoDao = ProductoDAO.getInstancia();
+        productoDao = new ProductoDAO();
         dtoaAentidad = new DTOaEntidadBO();
     }
 
     @Override
     public void agregarProducto(ProductoDTO productoDTO) {
         Producto producto = dtoaAentidad.ConvertirProductoDTO(productoDTO);
-        productoDao.agregarProducto(producto);
+        try {
+            productoDao.agregarProducto(producto);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AgregarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

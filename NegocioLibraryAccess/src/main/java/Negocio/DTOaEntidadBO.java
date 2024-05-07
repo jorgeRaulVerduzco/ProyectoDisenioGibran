@@ -17,13 +17,15 @@ import Dominio.Producto;
 import Dominio.Ticket;
 import Dominio.Usuario;
 import INegocio.iDTOaEntidadbo;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author INEGI
  */
 public class DTOaEntidadBO implements iDTOaEntidadbo {
-
+    
     @Override
     public Producto ConvertirProductoDTO(ProductoDTO productoDTO) {
         Producto producto = new Producto();
@@ -33,59 +35,86 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setTipo(productoDTO.getTipo());
         producto.setEditorial(productoDTO.getEditorial());
         producto.setPrecio(productoDTO.getPrecio());
-        producto.setValoracion(productoDTO.getValoracion());
         producto.setCategoria(productoDTO.getCategoria());
         producto.setCantidad(productoDTO.getCantidad());
         return producto;
     }
-
+    
     @Override
     public Usuario ConvertirUsuarioDTO(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
         usuario.setContraseña(usuarioDTO.getContraseña());
+        
+        List<Producto> productos = new ArrayList<>();
+        for (ProductoDTO productoDTO : usuarioDTO.getProductos()) {
+            Producto producto = ConvertirProductoDTO(productoDTO);
+            productos.add(producto);
+        }
+        usuario.setProductosVendidos(productos);
         return usuario;
     }
-
+    
     @Override
     public Pago ConvertirPagoDTO(PagoDTO pagoDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoDTO.getProducto());
-
         Pago pago = new Pago();
-        pago.setIdPago(pagoDTO.getIdPago());
-        pago.setUsuario(usuario);
-        pago.setProducto(producto);
         pago.setCantidad(pagoDTO.getCantidad());
-        pago.setMetodoPago(pagoDTO.getMetodoPago());
         pago.setCostoTotal(pagoDTO.getCostoTotal());
+        pago.setFechaDePago(pagoDTO.getFechaDePago());
+        List<Usuario> usuarios = new ArrayList<>();
+        for (UsuarioDTO usuarioDTO : pagoDTO.getUsuarioDTO()) {
+            Usuario usuario = ConvertirUsuarioDTO(usuarioDTO);
+            usuarios.add(usuario);
+        }
+        pago.setUsuario(usuarios);
+        
+        List<Producto> productos = new ArrayList<>();
+        for (ProductoDTO productoDTO : pagoDTO.getProductoDTO()) {
+            Producto producto = ConvertirProductoDTO(productoDTO);
+            productos.add(producto);
+        }
+        pago.setProducto(productos);
 
+        // Convertir lista de PagoPorOxxoDTO a lista de PagoPorOxxo
+        List<PagoPorOxxo> pagoPorOxxos = new ArrayList<>();
+        for (PagoPorOxxoDTO pagoPorOxxoDTO : pagoDTO.getPagoPorOxxoDTO()) {
+            PagoPorOxxo pagoPorOxxo = ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
+            pagoPorOxxos.add(pagoPorOxxo);
+        }
+        pago.setPagoPorOxxo(pagoPorOxxos);
+
+        // Convertir lista de PagoPorTarjetaDTO a lista de PagoPorTarjeta
+        List<PagoPorTarjeta> pagoPorTarjetas = new ArrayList<>();
+        for (PagoPorTarjetaDTO pagoPorTarjetaDTO : pagoDTO.getPagoPorTarjetaDTO()) {
+            PagoPorTarjeta pagoPorTarjeta = convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
+            pagoPorTarjetas.add(pagoPorTarjeta);
+        }
+        pago.setPagoPorTarjeta(pagoPorTarjetas);
+        
         return pago;
     }
-
+    
     @Override
     public PagoPorOxxo ConnvertirPagoOxxoDTO(PagoPorOxxoDTO pagoOxxoDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoOxxoDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoOxxoDTO.getProducto());
-
-        PagoPorOxxo pagoOxxo = new PagoPorOxxo(usuario, producto, pagoOxxoDTO.getCantidad(), pagoOxxoDTO.getCostoTotal(), pagoOxxoDTO.getCodigoBarrasOxxo());
-
+        PagoPorOxxo pagoOxxo = new PagoPorOxxo();
+        pagoOxxo.setCodigoBarrasOxxo(pagoOxxoDTO.getCodigoBarrasOxxo());
         return pagoOxxo;
     }
-
+    
     @Override
     public PagoPorTarjeta convertirPagoPorTarjetaDTO(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
-        Usuario usuario = this.ConvertirUsuarioDTO(pagoPorTarjetaDTO.getUsuario());
-        Producto producto = this.ConvertirProductoDTO(pagoPorTarjetaDTO.getProducto());
-
-        PagoPorTarjeta pagoPorTarjeta = new PagoPorTarjeta(usuario, producto, pagoPorTarjetaDTO.getCantidad(), pagoPorTarjetaDTO.getCostoTotal(), pagoPorTarjetaDTO.getTipoTarjeta(), pagoPorTarjetaDTO.getNumeroTarjeta(), pagoPorTarjetaDTO.getFechaExpiracion(), pagoPorTarjetaDTO.getCodigoSeguridad());
-
-        return pagoPorTarjeta;
+        PagoPorTarjeta pagoTarjeta = new PagoPorTarjeta();
+        pagoTarjeta.setCodigoSeguridad(pagoPorTarjetaDTO.getCodigoSeguridad());
+        pagoTarjeta.setFechaExpiracion(pagoPorTarjetaDTO.getFechaExpiracion());
+        pagoTarjeta.setNumeroTarjeta(pagoPorTarjetaDTO.getNumeroTarjeta());
+        pagoTarjeta.setTipoTarjeta(pagoPorTarjetaDTO.getTipoTarjeta());
+        
+        return pagoTarjeta;
     }
-
+    
     @Override
     public Ticket convertirTicketDTO(TicketDTO ticketDTO) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }

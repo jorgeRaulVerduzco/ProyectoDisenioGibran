@@ -27,28 +27,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
         inicializarProductos();
     }
 
-
     private void inicializarProductos() {
-        ProductoDTO libroRapunzel = new ProductoDTO(1234, "Rapunzel", "Joaquin", "libro", "Primera", 300, "perfecta", "aventura", 10);
-       
+        ProductoDTO libroRapunzel = new ProductoDTO(1234, "Rapunzel", "Joaquin", "libro", "Primera", 300, "aventura", 10);
+
         agregarProductos.agregarProducto(libroRapunzel);
 
-        ProductoDTO libroRapunzel2 = new ProductoDTO(1235, "Rapunzel", "disney", "libro", "segunda", 4500, "perfecta", "aventura", 20);
+        ProductoDTO libroRapunzel2 = new ProductoDTO(1235, "Rapunzel", "disney", "libro", "segunda", 4500, "aventura", 20);
         agregarProductos.agregarProducto(libroRapunzel2);
 
-        ProductoDTO libroHarryPotter = new ProductoDTO(97805, "Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Libro", "Scholastic Inc.", 6.99, "Fantasía", "Aventura", 20);
+        ProductoDTO libroHarryPotter = new ProductoDTO(97805, "Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Libro", "Scholastic Inc.", 6.99, "Aventura", 20);
         agregarProductos.agregarProducto(libroHarryPotter);
 
-        ProductoDTO libroDracula = new ProductoDTO(97800, "Dracula", "Bram Stoker", "Libro", "Dover Publications", 5.99, "Horror", "Terror", 20);
+        ProductoDTO libroDracula = new ProductoDTO(97800, "Dracula", "Bram Stoker", "Libro", "Dover Publications", 5.99, "Terror", 20);
         agregarProductos.agregarProducto(libroDracula);
 
-        ProductoDTO libroCienAñosSoledad = new ProductoDTO(48641, "Cien años de soledad", "Gabriel García Márquez", "Libro", "Harper & Row", 8.99, "Realismo mágico", "Ficción", 30);
+        ProductoDTO libroCienAñosSoledad = new ProductoDTO(48641, "Cien años de soledad", "Gabriel García Márquez", "Libro", "Harper & Row", 8.99, "Ficción", 30);
         agregarProductos.agregarProducto(libroCienAñosSoledad);
 
+        ProductoDTO libroElPrincipito1 = new ProductoDTO(1, "El Principito", "Antoine de Saint-Exupéry", "Libro", "Editorial", 10.99, "Aventura", 50);
+        agregarProductos.agregarProducto(libroElPrincipito1);
+
+        ProductoDTO libroElPrincipito2 = new ProductoDTO(2, "El Principito", "Otro Autor", "Libro", "Otra Editorial", 8.99, "Fantasía", 30);
+        agregarProductos.agregarProducto(libroElPrincipito2);
+
+        // Tercer libro de El Principito
+        ProductoDTO libroElPrincipito3 = new ProductoDTO(3, "El Principito", "Otro Autor Más", "Libro", "Otra Editorial Más", 12.99, "Aventura", 40);
+        agregarProductos.agregarProducto(libroElPrincipito3);
+
+        ProductoDTO tiktoks = new ProductoDTO(312345, "como ser tiktoker", "jorgendo43", "libro", "primera", 12.99, "importante", 40);
+        agregarProductos.agregarProducto(tiktoks);
+        
+           ProductoDTO llorona = new ProductoDTO(31234589, "la llorona", "jorgendo43", "libro", "segunda", 15.99, "importante", 50);
+        agregarProductos.agregarProducto(llorona);
         ListaProductosBO listaProductos = new ListaProductosBO();
         System.out.println(listaProductos.toString());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

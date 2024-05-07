@@ -4,34 +4,40 @@
  */
 package Dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author INEGI
  */
 public class Usuario {
- private int idUsuario;
+ private ObjectId idUsuario;
     private String nombreUsuario;
     private String contraseña;
-
-    public Usuario(int idUsuario, String nombreUsuario, String contraseña) {
+private List<Producto> productosVendidos;
+    public Usuario(ObjectId idUsuario, String nombreUsuario, String contraseña) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
     }
 
+    public Usuario(ObjectId idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+
+
     public Usuario() {
+        productosVendidos = new ArrayList<>();
     }
 
-    public Usuario(String nombreUsuario, String contraseña) {
-        this.nombreUsuario = nombreUsuario;
-        this.contraseña = contraseña;
-    }
-
-    public int getIdUsuario() {
+    public ObjectId getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(ObjectId idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -51,10 +57,20 @@ public class Usuario {
         this.contraseña = contraseña;
     }
 
+    public List<Producto> getProductosVendidos() {
+        return productosVendidos;
+    }
+
+    public void setProductosVendidos(List<Producto> productosVendidos) {
+        this.productosVendidos = productosVendidos;
+    }
+
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", contrase\u00f1a=" + contraseña + '}';
+        return "Usuario{" + "idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", contrase\u00f1a=" + contraseña + ", productosVendidos=" + productosVendidos + '}';
     }
+
+
     
     
 }

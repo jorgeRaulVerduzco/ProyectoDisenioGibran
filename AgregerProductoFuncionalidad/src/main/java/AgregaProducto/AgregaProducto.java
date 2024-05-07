@@ -5,10 +5,13 @@
 package AgregaProducto;
 
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 import IAgregaProducto.IAgregaProducto;
 import INegocio.IAgregarProductoBO;
 import Negocio.AgregarProductoBO;
 import Negocio.ComprarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

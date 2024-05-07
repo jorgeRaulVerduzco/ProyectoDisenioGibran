@@ -5,11 +5,12 @@
 package IDAO;
 
 import Dominio.PagoPorOxxo;
+import Excepciones.PersistenciaException;
 
 /**
  *
  * @author INEGI
  */
 public interface IPagoPorOxxoDAO {
-    public void agregarPago(PagoPorOxxo pago);
+    public void agregarPago(PagoPorOxxo pago)  throws PersistenciaException ;
 }

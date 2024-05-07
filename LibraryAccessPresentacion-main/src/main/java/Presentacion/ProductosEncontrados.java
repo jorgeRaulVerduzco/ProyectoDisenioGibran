@@ -170,11 +170,11 @@ public class ProductosEncontrados extends javax.swing.JFrame {
         tblConsultas.setRowHeight(40);
 
         // Definición de las columnas y sus encabezados
-        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio", "Valoracion", "Categoria", "Cantidad"};
+        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio",  "Categoria", "Cantidad"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
         // Configuración del ancho preferido de las columnas
-        int[] anchos = {100, 100, 100, 100, 100, 100, 100, 100, 50}; // Ajusta el ancho de la última columna
+        int[] anchos = {100, 100, 100, 100, 100, 100, 100, 50}; // Ajusta el ancho de la última columna
         for (int i = 0; i < anchos.length; i++) {
             tblConsultas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -195,7 +195,6 @@ public class ProductosEncontrados extends javax.swing.JFrame {
                 producto.getTipo(),
                 producto.getEditorial(),
                 producto.getPrecio(),
-                producto.getValoracion(),
                 producto.getCategoria(),
                 producto.getCantidad()
             };
@@ -224,9 +223,8 @@ public class ProductosEncontrados extends javax.swing.JFrame {
             productoSeleccionado.setTipo((String) model.getValueAt(filaSeleccionada, 3));
             productoSeleccionado.setEditorial((String) model.getValueAt(filaSeleccionada, 4));
             productoSeleccionado.setPrecio((double) model.getValueAt(filaSeleccionada, 5));
-            productoSeleccionado.setValoracion((String) model.getValueAt(filaSeleccionada, 6));
-            productoSeleccionado.setCategoria((String) model.getValueAt(filaSeleccionada, 7));
-            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 8));
+            productoSeleccionado.setCategoria((String) model.getValueAt(filaSeleccionada, 6));
+            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 7));
 
             ProductoSeleccionado.setPersonaSeleccionada(productoSeleccionado);
 

@@ -5,11 +5,12 @@
 package INegocio;
 
 import DTO.UsuarioDTO;
+import Excepciones.PersistenciaException;
 
 /**
  *
  * @author INEGI
  */
 public interface IRegistarUsuarioBO {
-    public void agregarUsuario(UsuarioDTO usuarioDTO);
+    public void agregarUsuario(UsuarioDTO usuarioDTO) ;
 }

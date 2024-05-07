@@ -4,16 +4,27 @@
  */
 package Dominio;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author INEGI
  */
-public class PagoPorOxxo extends Pago {
-       private String codigoBarrasOxxo;
+public class PagoPorOxxo {
 
-    public PagoPorOxxo(Usuario usuario, Producto producto, int cantidad, double costoTotal, String codigoBarrasOxxo) {
-        super(usuario, producto, cantidad, costoTotal, "Oxxo");
+    private ObjectId idOxxo;
+    private String codigoBarrasOxxo;
+
+    public PagoPorOxxo(ObjectId idOxxo, String codigoBarrasOxxo) {
+        this.idOxxo = idOxxo;
         this.codigoBarrasOxxo = codigoBarrasOxxo;
+    }
+
+    public PagoPorOxxo(ObjectId idOxxo) {
+        this.idOxxo = idOxxo;
+    }
+
+    public PagoPorOxxo() {
     }
 
     public String getCodigoBarrasOxxo() {
@@ -24,17 +35,17 @@ public class PagoPorOxxo extends Pago {
         this.codigoBarrasOxxo = codigoBarrasOxxo;
     }
 
+    public ObjectId getIdOxxo() {
+        return idOxxo;
+    }
+
+    public void setIdOxxo(ObjectId idOxxo) {
+        this.idOxxo = idOxxo;
+    }
+
     @Override
     public String toString() {
-        return "PagoPorOxxo{" +
-                "codigoBarrasOxxo='" + codigoBarrasOxxo + '\'' +
-                ", idPago=" + getIdPago() +
-                ", usuario=" + getUsuario() +
-                ", producto=" + getProducto() +
-                ", cantidad=" + getCantidad() +
-                ", costoTotal=" + getCostoTotal() +
-                ", metodoPago='" + getMetodoPago() + '\'' +
-                '}';
+        return "PagoPorOxxo{" + "idOxxo=" + idOxxo + ", codigoBarrasOxxo=" + codigoBarrasOxxo + '}';
     }
 
 }

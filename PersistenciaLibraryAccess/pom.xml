@@ -11,4 +11,13 @@
         <maven.compiler.target>19</maven.compiler.target>
         <exec.mainClass>com.mycompany.persistencialibraryaccess.PersistenciaLibraryAccess</exec.mainClass>
     </properties>
+    
+     
+    <dependencies>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+    </dependencies>
 </project>

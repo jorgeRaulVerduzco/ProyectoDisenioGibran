@@ -5,9 +5,12 @@
 package RegistrarUsuarioFuncionalidad;
 
 import DTO.UsuarioDTO;
+import Excepciones.PersistenciaException;
 import IFuncionalidadGestionUsuarios.IRegistrarUsuarioFuncionalidad;
 import INegocio.IRegistarUsuarioBO;
 import Negocio.RegistrarUsuarioBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +24,7 @@ public class RegistrarUsuarioFuncionalidad implements IRegistrarUsuarioFuncional
     }
 
     public void registrarNuevoUsuario(UsuarioDTO usuarioDTO) {
-        registrarUsuarioBO.agregarUsuario(usuarioDTO);
+              registrarUsuarioBO.agregarUsuario(usuarioDTO);
+          
     }
 }

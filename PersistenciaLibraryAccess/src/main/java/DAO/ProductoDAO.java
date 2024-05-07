@@ -4,60 +4,77 @@
  */
 package DAO;
 
+import Conexion.ConexionBD;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
+import com.mongodb.MongoException;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author INEGI
  */
 public class ProductoDAO implements IProductoDAO{
-   private static ProductoDAO instancia;
-    private List<Producto> listaProductos;
+private final MongoCollection<Producto> coleccionProductos;
 
-    private ProductoDAO() {
-        this.listaProductos = new ArrayList<>();
+    public ProductoDAO() {
+        this.coleccionProductos = ConexionBD.getDatabase().getCollection("Producto", Producto.class);
+
     }
 
-    public static ProductoDAO getInstancia() {
-        if (instancia == null) {
-            instancia = new ProductoDAO();
+
+   @Override
+    public void agregarProducto(Producto producto) throws PersistenciaException {
+          try {
+        Bson filtroISBN = Filters.eq("isbn", producto.getIsbn());
+        if (coleccionProductos.countDocuments(filtroISBN) > 0) {
+            System.out.println("ya esta ese producto");       
+        return;
         }
-        return instancia;
+        
+        producto.setIdProdcuto(new ObjectId());
+        this.coleccionProductos.insertOne(producto);
+
+    } catch (MongoException e) {
+        throw new PersistenciaException("No se pudo insertar al producto: " + producto.getIsbn());
     }
 
-   @Override
-    public void agregarProducto(Producto producto) {
-        listaProductos.add(producto);
     }
 
-   @Override
-    public List<Producto> buscarProductosPorNombre(String nombre) {
-        List<Producto> productosEncontrados = new ArrayList<>();
-        for (Producto producto : listaProductos) {
-            if (producto.getTitulo().equalsIgnoreCase(nombre)) {
-                productosEncontrados.add(producto);
-            }
-        }
-        return productosEncontrados;
-    }
-    
-   
-
-   @Override
-    public List<Producto> obtenerTodosProductos() {
-        return listaProductos;
-    }
-    
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Lista de productos:\n");
-        for (Producto producto : listaProductos) {
-            sb.append(producto.toString()).append("\n");
+    public List<Producto> buscarProductosPorNombre(String nombre) throws PersistenciaException {
+        List<Producto> productos = new ArrayList<>();
+        try {
+            Bson filtro = Filters.regex("titulo", nombre, "i");
+            FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar productos por nombre: " + e.getMessage());
         }
-        return sb.toString();
+        return productos;
     }
+
+    @Override
+    public List<Producto> obtenerTodosProductos() throws PersistenciaException {
+        List<Producto> productos = new ArrayList<>();
+        try {
+            FindIterable<Producto> resultados = coleccionProductos.find();
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al obtener todos los productos: " + e.getMessage());
+        }
+        return productos;
+    }
+
 }

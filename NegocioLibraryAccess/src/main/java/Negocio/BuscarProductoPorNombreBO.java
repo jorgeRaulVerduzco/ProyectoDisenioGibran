@@ -7,10 +7,13 @@ package Negocio;
 import DAO.ProductoDAO;
 import DTO.ProductoDTO;
 import Dominio.Producto;
+import Excepciones.PersistenciaException;
 import IDAO.IProductoDAO;
 import INegocio.IBuscarProductoPorNombreBO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,21 +25,26 @@ public class BuscarProductoPorNombreBO implements IBuscarProductoPorNombreBO{
     private DTOaEntidadBO dtoAentidad;
 
     public BuscarProductoPorNombreBO() {
-        productoDAO = ProductoDAO.getInstancia();
+        productoDAO = new ProductoDAO();
         dtoAentidad = new DTOaEntidadBO();
     }
 
     @Override
-    public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
-        List<Producto> productos = productoDAO.buscarProductosPorNombre(nombre);
-        List<ProductoDTO> productosDTO = new ArrayList<>();
-
-        for (Producto producto : productos) {
-            ProductoDTO productoDTO = convertirAProductoDTO(producto);
-            productosDTO.add(productoDTO);
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre)  {
+        try {
+            List<Producto> productos = productoDAO.buscarProductosPorNombre(nombre);
+            List<ProductoDTO> productosDTO = new ArrayList<>();
+            
+            for (Producto producto : productos) {
+                ProductoDTO productoDTO = convertirAProductoDTO(producto);
+                productosDTO.add(productoDTO);
+            }
+            
+            return productosDTO;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(BuscarProductoPorNombreBO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return productosDTO;
+        return null;
     }
 
     public ProductoDTO convertirAProductoDTO(Producto producto) {
@@ -47,7 +55,6 @@ public class BuscarProductoPorNombreBO implements IBuscarProductoPorNombreBO{
         productoDTO.setTipo(producto.getTipo());
         productoDTO.setEditorial(producto.getEditorial());
         productoDTO.setPrecio(producto.getPrecio());
-        productoDTO.setValoracion(producto.getValoracion());
         productoDTO.setCategoria(producto.getCategoria());
         productoDTO.setCantidad(producto.getCantidad());
         return productoDTO;

@@ -7,9 +7,12 @@ package ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
+import Excepciones.PersistenciaException;
 import IComprarProducto.IComprarProducto;
 import INegocio.IComprarProductoBO;
 import Negocio.ComprarProductoBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

@@ -4,53 +4,66 @@
  */
 package Dominio;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author INEGI
  */
 public class Pago {
-   private int idPago;
-    private Usuario usuario;
-    private Producto producto;
+
+    private ObjectId idPago;
+    private List<Usuario> usuario;
+    private List<Producto> producto;
     private int cantidad;
     private double costoTotal;
-    private String metodoPago;
-
-    public Pago(int idPago, Usuario usuario, Producto producto, int cantidad, double costoTotal, String metodoPago) {
-        this.idPago = idPago;
-        this.usuario = usuario;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.costoTotal = costoTotal;
-        this.metodoPago = metodoPago;
-    }
-
-    public Pago(Usuario usuario, Producto producto, int cantidad, double costoTotal, String metodoPago) {
-        this.usuario = usuario;
-        this.producto = producto;
-        this.cantidad = cantidad;
-        this.costoTotal = costoTotal;
-        this.metodoPago = metodoPago;
-    }
+    private List<PagoPorOxxo> pagoPorOxxo;
+    private List<PagoPorTarjeta> pagoPorTarjeta;
+    private Date FechaDePago;
 
     public Pago() {
+        this.usuario = new ArrayList<>();
+        this.producto = new ArrayList<>();
+        this.pagoPorOxxo = new ArrayList<>();
+        this.pagoPorTarjeta = new ArrayList<>();
     }
 
-    public Usuario getUsuario() {
+    public Pago(ObjectId idPago) {
+        this.idPago = idPago;
+    }
+
+    public Date getFechaDePago() {
+        return FechaDePago;
+    }
+
+    public void setFechaDePago(Date FechaDePago) {
+        this.FechaDePago = FechaDePago;
+    }
+
+    public ObjectId getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(ObjectId idPago) {
+        this.idPago = idPago;
+    }
+
+    public List<Usuario> getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(List<Usuario> usuario) {
         this.usuario = usuario;
     }
 
-    public Producto getProducto() {
+    public List<Producto> getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(List<Producto> producto) {
         this.producto = producto;
     }
 
@@ -70,24 +83,27 @@ public class Pago {
         this.costoTotal = costoTotal;
     }
 
-    public String getMetodoPago() {
-        return metodoPago;
+    public List<PagoPorOxxo> getPagoPorOxxo() {
+        return pagoPorOxxo;
     }
 
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
+    public void setPagoPorOxxo(List<PagoPorOxxo> pagoPorOxxo) {
+        this.pagoPorOxxo = pagoPorOxxo;
     }
 
-    public int getIdPago() {
-        return idPago;
+    public List<PagoPorTarjeta> getPagoPorTarjeta() {
+        return pagoPorTarjeta;
     }
 
-    public void setIdPago(int idPago) {
-        this.idPago = idPago;
+    public void setPagoPorTarjeta(List<PagoPorTarjeta> pagoPorTarjeta) {
+        this.pagoPorTarjeta = pagoPorTarjeta;
     }
 
     @Override
     public String toString() {
-        return "Pago{" + "idPago=" + idPago + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", metodoPago=" + metodoPago + '}';
+        return "Pago{" + "idPago=" + idPago + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + ", FechaDePago=" + FechaDePago + '}';
     }
+
+   
+
 }

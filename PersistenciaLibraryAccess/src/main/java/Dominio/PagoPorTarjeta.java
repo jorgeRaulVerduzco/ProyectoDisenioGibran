@@ -4,23 +4,49 @@
  */
 package Dominio;
 
+import java.sql.Date;
+import org.bson.codecs.pojo.annotations.BsonProperty;
+import org.bson.types.ObjectId;
 
 /**
  *
  * @author INEGI
  */
-public class PagoPorTarjeta extends Pago{
-     private String tipoTarjeta;
+public class PagoPorTarjeta {
+    private ObjectId idPagoPorTarjeta;
+    private String tipoTarjeta;
     private String numeroTarjeta;
-    private String fechaExpiracion;
+    private Date fechaExpiracion;
     private String codigoSeguridad;
 
-    public PagoPorTarjeta(Usuario usuario, Producto producto, int cantidad, double costoTotal, String tipoTarjeta, String numeroTarjeta, String fechaExpiracion, String codigoSeguridad) {
-        super(usuario, producto, cantidad, costoTotal, "Tarjeta");
+    public PagoPorTarjeta() {
+    }
+
+    public PagoPorTarjeta(ObjectId idPagoPorTarjeta, String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
         this.tipoTarjeta = tipoTarjeta;
         this.numeroTarjeta = numeroTarjeta;
         this.fechaExpiracion = fechaExpiracion;
         this.codigoSeguridad = codigoSeguridad;
+    }
+
+    public PagoPorTarjeta(ObjectId idPagoPorTarjeta) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
+    }
+
+    public PagoPorTarjeta(String tipoTarjeta, String numeroTarjeta, Date fechaExpiracion, String codigoSeguridad) {
+        this.tipoTarjeta = tipoTarjeta;
+        this.numeroTarjeta = numeroTarjeta;
+        this.fechaExpiracion = fechaExpiracion;
+        this.codigoSeguridad = codigoSeguridad;
+    }
+
+    public ObjectId getIdPagoPorTarjeta() {
+        return idPagoPorTarjeta;
+    }
+
+    public void setIdPagoPorTarjeta(ObjectId idPagoPorTarjeta) {
+        this.idPagoPorTarjeta = idPagoPorTarjeta;
     }
 
     public String getTipoTarjeta() {
@@ -39,11 +65,11 @@ public class PagoPorTarjeta extends Pago{
         this.numeroTarjeta = numeroTarjeta;
     }
 
-    public String getFechaExpiracion() {
+    public Date getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public void setFechaExpiracion(String fechaExpiracion) {
+    public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
 
@@ -57,17 +83,9 @@ public class PagoPorTarjeta extends Pago{
 
     @Override
     public String toString() {
-        return "PagoPorTarjeta{" +
-                "tipoTarjeta='" + tipoTarjeta + '\'' +
-                ", numeroTarjeta='" + numeroTarjeta + '\'' +
-                ", fechaExpiracion='" + fechaExpiracion + '\'' +
-                ", codigoSeguridad='" + codigoSeguridad + '\'' +
-                ", idPago=" + getIdPago() +
-                ", usuario=" + getUsuario() +
-                ", producto=" + getProducto() +
-                ", cantidad=" + getCantidad() +
-                ", costoTotal=" + getCostoTotal() +
-                ", metodoPago='" + getMetodoPago() + '\'' +
-                '}';
+        return "PagoPorTarjeta{" + "idPagoPorTarjeta=" + idPagoPorTarjeta + ", tipoTarjeta=" + tipoTarjeta + ", numeroTarjeta=" + numeroTarjeta + ", fechaExpiracion=" + fechaExpiracion + ", codigoSeguridad=" + codigoSeguridad + '}';
     }
+
+  
+
 }

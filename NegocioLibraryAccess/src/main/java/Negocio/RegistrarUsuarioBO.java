@@ -7,8 +7,11 @@ package Negocio;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import Dominio.Usuario;
+import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
 import INegocio.IRegistarUsuarioBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,12 +22,16 @@ public class RegistrarUsuarioBO implements IRegistarUsuarioBO{
     DTOaEntidadBO dtoaEntidadBO;
 
     public RegistrarUsuarioBO() {
-        usuarioDAO = UsuarioDAO.getInstancia();
+        usuarioDAO = new UsuarioDAO ();
         dtoaEntidadBO = new DTOaEntidadBO();
     }
 
  @Override
-    public void agregarUsuario(UsuarioDTO usuarioDTO) {
-        usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
+    public void agregarUsuario(UsuarioDTO usuarioDTO)  {
+     try {
+         usuarioDAO.agregarUsuario(dtoaEntidadBO.ConvertirUsuarioDTO(usuarioDTO));
+     } catch (PersistenciaException ex) {
+         Logger.getLogger(RegistrarUsuarioBO.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
 }

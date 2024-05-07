@@ -5,9 +5,12 @@
 package IniciarSesionFuncionalidad;
 
 import DTO.UsuarioDTO;
+import Excepciones.PersistenciaException;
 import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
 import INegocio.IiniciarSesionBO;
 import Negocio.IniciarSesionBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +32,6 @@ public class IniciarSesionFuncionalidad implements IiniciarSesionFuncionalidad {
 
     @Override
     public UsuarioDTO obtenerUsuarioDTO(String nombreUsuario, String contraseña) {
-        return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
+            return iniciarSesionBO.UsuarioInicioSesion(nombreUsuario, contraseña);
     }
 }

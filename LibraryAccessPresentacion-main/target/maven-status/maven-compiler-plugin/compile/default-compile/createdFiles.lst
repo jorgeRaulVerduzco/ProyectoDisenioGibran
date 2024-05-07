@@ -10,9 +10,11 @@ Presentacion\BusquedaPorNombre.class
 Presentacion\MenuPrincipal$1.class
 Presentacion\MenuPrincipal$4.class
 Presentacion\PagoPorTarjeta$1.class
+Presentacion\frmVentas.class
 Presentacion\IniciarSesion$2.class
 Presentacion\MetodoDePago$4.class
 Presentacion\ProductosEncontrados.class
+Presentacion\frmVentas$1.class
 Presentacion\MetodoDePago$1.class
 Presentacion\BusquedaPorNombre$1.class
 Presentacion\MenuUsuario.class

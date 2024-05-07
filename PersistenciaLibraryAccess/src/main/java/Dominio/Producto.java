@@ -4,6 +4,8 @@
  */
 package Dominio;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -21,6 +23,7 @@ public class Producto {
     private double precio;
     private String categoria;
     private int cantidad;
+    private List<Reseña> reseñas;
 
     public ObjectId getIdProdcuto() {
         return id;
@@ -31,8 +34,7 @@ public class Producto {
     }
 
     public Producto() {
-
-
+        reseñas = new ArrayList<>();
     }
 
     public Producto(ObjectId id) {
@@ -126,9 +128,17 @@ public class Producto {
         this.cantidad -= cantidadVendida;
     }
 
+    public List<Reseña> getReseñas() {
+        return reseñas;
+    }
+
+    public void setReseñas(List<Reseña> reseñas) {
+        this.reseñas = reseñas;
+    }
+
     @Override
     public String toString() {
-        return "Producto{" + "idProdcuto=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + '}';
+        return "Producto{" + "id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + ", rese\u00f1as=" + reseñas + '}';
     }
 
 }

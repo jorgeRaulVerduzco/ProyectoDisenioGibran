@@ -13,6 +13,7 @@ IDAO\ITicketDAO.class
 DAO\ProductoDAO.class
 DAO\PagoPorTarjetaDAO.class
 IDAO\IPagoPorTarjetaDAO.class
+Prueba\prueba.class
 DAO\ReseñaDAO.class
 DAO\TicketDAO.class
 Dominio\PagoPorOxxo.class

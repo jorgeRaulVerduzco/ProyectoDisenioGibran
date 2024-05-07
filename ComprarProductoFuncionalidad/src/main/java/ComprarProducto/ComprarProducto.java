@@ -7,12 +7,10 @@ package ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
-import Excepciones.PersistenciaException;
 import IComprarProducto.IComprarProducto;
-import INegocio.IComprarProductoBO;
-import Negocio.ComprarProductoBO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import INegocio.IPagoBO;
+import Negocio.PagoBO;
+
 
 /**
  *
@@ -20,10 +18,10 @@ import java.util.logging.Logger;
  */
 public class ComprarProducto implements IComprarProducto {
 
-    IComprarProductoBO comprarProductoBO;
+    IPagoBO comprarProductoBO;
 
     public ComprarProducto() {
-        comprarProductoBO = new ComprarProductoBO();
+        comprarProductoBO = new PagoBO();
     }
 
     @Override

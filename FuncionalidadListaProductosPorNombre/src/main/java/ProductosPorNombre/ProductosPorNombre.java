@@ -6,9 +6,9 @@ package ProductosPorNombre;
 
 import DTO.ProductoDTO;
 import Excepciones.PersistenciaException;
-import INegocio.IBuscarProductoPorNombreBO;
+import INegocio.IProductoBO;
 import IProductosPorNombre.IProductosPorNombre;
-import Negocio.BuscarProductoPorNombreBO;
+import Negocio.ProductoBO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class ProductosPorNombre implements IProductosPorNombre{
 
-    IBuscarProductoPorNombreBO buscarProductosPorNombreBO;
+    IProductoBO buscarProductosPorNombreBO;
 
     public ProductosPorNombre() {
 
-        buscarProductosPorNombreBO = new BuscarProductoPorNombreBO();
+        buscarProductosPorNombreBO = new ProductoBO();
     }
 
     @Override

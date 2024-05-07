@@ -18,7 +18,7 @@ import Excepciones.PersistenciaException;
 import IDAO.IPagoDAO;
 import IDAO.IPagoPorOxxoDAO;
 import IDAO.IPagoPorTarjetaDAO;
-import INegocio.IComprarProductoBO;
+import INegocio.IPagoBO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,21 +26,20 @@ import java.util.logging.Logger;
  *
  * @author INEGI
  */
-public class ComprarProductoBO implements IComprarProductoBO {
-
-    IPagoDAO pagoDAO;
+public class PagoBO implements IPagoBO{
+     IPagoDAO pagoDAO;
     IPagoPorOxxoDAO pagoPorOxxoDAO;
     DTOaEntidadBO dtoAentidad;
     IPagoPorTarjetaDAO pagoPorTarjetaDAO;
 
-    public ComprarProductoBO() {
+    public PagoBO() {
         pagoDAO = new PagoDAO();
         dtoAentidad = new DTOaEntidadBO();
         pagoPorOxxoDAO = new PagoPorOxxoDAO();
         pagoPorTarjetaDAO = new PagoPorTarjetaDAO();
     }
 
-    @Override
+     @Override
     public void ComprarProducto(PagoDTO pagoDTO) {
        Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
 
@@ -57,29 +56,29 @@ public class ComprarProductoBO implements IComprarProductoBO {
         try {
             pagoDAO.agregarPago(pago);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @Override
+     @Override
     public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO)  {
         PagoPorOxxo pagoPorOxxo = dtoAentidad.ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
 
         try {
             pagoPorOxxoDAO.agregarPago(pagoPorOxxo);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    @Override
+     @Override
     public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         PagoPorTarjeta pagoPorTarjeta = dtoAentidad.convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
 
         try {
             pagoPorTarjetaDAO.agregarPago(pagoPorTarjeta);
         } catch (PersistenciaException ex) {
-            Logger.getLogger(ComprarProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

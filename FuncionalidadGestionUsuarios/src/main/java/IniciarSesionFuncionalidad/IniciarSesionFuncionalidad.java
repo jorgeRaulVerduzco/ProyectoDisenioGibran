@@ -5,12 +5,10 @@
 package IniciarSesionFuncionalidad;
 
 import DTO.UsuarioDTO;
-import Excepciones.PersistenciaException;
 import IFuncionalidadGestionUsuarios.IiniciarSesionFuncionalidad;
-import INegocio.IiniciarSesionBO;
-import Negocio.IniciarSesionBO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import INegocio.IUsuarioBO;
+import Negocio.UsuarioBO;
+
 
 /**
  *
@@ -18,10 +16,10 @@ import java.util.logging.Logger;
  */
 public class IniciarSesionFuncionalidad implements IiniciarSesionFuncionalidad {
 
-    IiniciarSesionBO iniciarSesionBO;
+    IUsuarioBO iniciarSesionBO;
 
     public IniciarSesionFuncionalidad() {
-        iniciarSesionBO = new IniciarSesionBO();
+        iniciarSesionBO = new UsuarioBO();
 
     }
 

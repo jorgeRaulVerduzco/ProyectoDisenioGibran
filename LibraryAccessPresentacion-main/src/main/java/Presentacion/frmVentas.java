@@ -4,10 +4,7 @@
  */
 package Presentacion;
 
-/**
- *
- * @author JORGE
- */
+
 public class frmVentas extends javax.swing.JFrame {
 
     /**

@@ -6,7 +6,6 @@ package Presentacion;
 
 import AgregaProducto.AgregaProducto;
 import DTO.ProductoDTO;
-import Negocio.ListaProductosBO;
 import javax.swing.ImageIcon;
 
 /**
@@ -59,8 +58,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
            ProductoDTO llorona = new ProductoDTO(31234589, "la llorona", "jorgendo43", "libro", "segunda", 15.99, "importante", 50);
         agregarProductos.agregarProducto(llorona);
-        ListaProductosBO listaProductos = new ListaProductosBO();
-        System.out.println(listaProductos.toString());
+      
     }
 
     /**

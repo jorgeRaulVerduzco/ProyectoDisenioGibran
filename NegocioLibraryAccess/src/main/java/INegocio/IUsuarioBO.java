@@ -5,18 +5,13 @@
 package INegocio;
 
 import DTO.UsuarioDTO;
-import Excepciones.PersistenciaException;
 
 /**
  *
  * @author INEGI
  */
 public interface IUsuarioBO {
-
-    public boolean buscarUsuario(String nombreUsuario, String contraseña) ;
-
-    public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña);
-
     public void agregarUsuario(UsuarioDTO usuarioDTO);
-
+     public boolean buscarUsuario(String nombreUsuario, String contraseña);
+       public UsuarioDTO UsuarioInicioSesion(String nombreUsuario, String contraseña);
 }

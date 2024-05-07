@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author INEGI
  */
-public class UsuarioBO implements IUsuarioBO{
+public class UsuarioBO implements IUsuarioBO {
  IUsuarioDAO usuarioDAO;
     DTOaEntidadBO dtoaEntidadBO;
 

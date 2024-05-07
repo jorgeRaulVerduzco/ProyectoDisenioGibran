@@ -5,12 +5,14 @@
 package INegocio;
 
 import DTO.ProductoDTO;
-import Excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
  * @author INEGI
  */
-public interface IAgregarProductoBO {
-    public void agregarProducto(ProductoDTO productoDTO)  ;
+public interface IProductoBO {
+      public void agregarProducto(ProductoDTO productoDTO) ;
+       public List<ProductoDTO> buscarProductosPorNombre(String nombre);
+         public List<ProductoDTO> listaProductos() ;
 }

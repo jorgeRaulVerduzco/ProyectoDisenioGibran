@@ -1,14 +1,18 @@
 
 package PagoPorOxxo;
 
-import INegocio.IComprarProductoBO;
 import DTO.PagoPorOxxoDTO;
 import IPagoPorOxxo.IPagoPorOxxo;
+import Negocio.PagoBO;
 
 
 public class PagoPorOxxo implements IPagoPorOxxo {
-        IComprarProductoBO comprarProductoBO;
+        PagoBO comprarProductoBO;
 
+    public PagoPorOxxo() {
+    }
+
+        @Override
      public void comprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
         comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);
     }

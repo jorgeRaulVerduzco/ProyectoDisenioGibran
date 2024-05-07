@@ -1,5 +1,6 @@
 Dominio\Reseña.class
 DAO\PagoDAO.class
+Prueba\Prueba.class
 Conexion\ConexionBD.class
 Dominio\Usuario.class
 DAO\UsuarioDAO.class

@@ -42,5 +42,8 @@ public class PagoDAO implements IPagoDAO {
             throw new PersistenciaException("No se pudo insertar el pago: " + e.getMessage());
         }
     }
+    
+    
+    
 }
   

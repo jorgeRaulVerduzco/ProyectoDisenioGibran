@@ -4,10 +4,12 @@
  */
 package IGenerarReseña;
 
+import DTO.ReseñaDTO;
+
 /**
  *
  * @author INEGI
  */
 public interface IGenerarReseña {
-    
+     public void GenerarReseña(ReseñaDTO reseñaDTO);
 }

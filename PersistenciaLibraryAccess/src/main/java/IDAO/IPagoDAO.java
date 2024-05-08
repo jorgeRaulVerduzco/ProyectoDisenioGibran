@@ -6,6 +6,7 @@ package IDAO;
 
 import Dominio.Pago;
 import Excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,5 @@ import Excepciones.PersistenciaException;
  */
 public interface IPagoDAO {
     public void agregarPago(Pago pago) throws PersistenciaException ;
+    public List<Object> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException;
 }

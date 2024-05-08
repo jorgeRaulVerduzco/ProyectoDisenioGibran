@@ -29,17 +29,31 @@ public class UsuarioDAO implements IUsuarioDAO {
         this.coleccionUsuarios = ConexionBD.getDatabase().getCollection("Usuario", Usuario.class);
     }
 
-    @Override
-    public void agregarUsuario(Usuario usuario) throws PersistenciaException {
-        try {
-            this.coleccionUsuarios.insertOne(usuario);
-            ObjectId idGenerado = usuario.getIdUsuario();
-            System.out.println(idGenerado);
-        } catch (MongoException e) {
-            throw new PersistenciaException("No se pudo insertar al usuario: " + usuario.getNombreUsuario());
+   @Override
+public void agregarUsuario(Usuario usuario) throws PersistenciaException {
+    try {
+        if (existeNombreUsuario(usuario.getNombreUsuario())) {
+            System.out.println("Advertencia: Ya existe un usuario con ese nombre de usuario: " + usuario.getNombreUsuario());
+            return; 
         }
+        
+        this.coleccionUsuarios.insertOne(usuario);
+        ObjectId idGenerado = usuario.getIdUsuario();
+        System.out.println(idGenerado);
+    } catch (MongoException e) {
+        System.err.println("Error al agregar usuario: " + e.getMessage());
     }
+}
 
+
+private boolean existeNombreUsuario(String nombreUsuario) throws PersistenciaException {
+    try {
+        Bson filtro = Filters.eq("nombreUsuario", nombreUsuario);
+        return coleccionUsuarios.countDocuments(filtro) > 0;
+    } catch (MongoException e) {
+        throw new PersistenciaException("Error al verificar la existencia del nombre de usuario: " + e.getMessage());
+    }
+}
     @Override
     public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException {
         try {

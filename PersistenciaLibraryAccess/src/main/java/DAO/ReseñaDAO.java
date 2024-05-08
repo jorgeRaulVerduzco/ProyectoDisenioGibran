@@ -8,18 +8,28 @@ import Conexion.ConexionBD;
 import Dominio.Producto;
 import Dominio.Reseña;
 import Excepciones.PersistenciaException;
+import IDAO.IReseñaDAO;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.Projections;
 import static com.mongodb.client.model.Updates.set;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
  *
  * @author INEGI
  */
-public class ReseñaDAO {
+public class ReseñaDAO implements IReseñaDAO {
 
     private final MongoCollection<Reseña> coleccionReseña;
     private final MongoCollection<Producto> coleccionProducto;
@@ -31,6 +41,7 @@ public class ReseñaDAO {
 
     }
 
+    @Override
     public void generarReseña(Reseña reseña) throws PersistenciaException {
         try {
             coleccionReseña.insertOne(reseña);
@@ -46,13 +57,37 @@ public class ReseñaDAO {
         }
     }
 
+    @Override
+   public List<Object> obtenerReseñasDeProducto(int isbn) throws PersistenciaException {
+        try {
+            Bson filtroISBN = Filters.eq("producto.isbn", isbn);
 
+            List<Bson> pipeline = Arrays.asList(
+                    Aggregates.match(filtroISBN),
+                    Aggregates.project(Projections.fields(
+                            Projections.include("usuario.nombreUsuario", "reseña", "rating")
+                    ))
+            );
 
-    public List<Reseña> reseñasPorProducto(String isbn) throws PersistenciaException{
-        List<Reseña> reseñasDelProducto = new ArrayList<>();
-        reseñasDelProducto = coleccionReseña.find(eq("producto.isbn", isbn)).into(new ArrayList<>());
-        return reseñasDelProducto;
+            List<Document> documentosReseñas = new ArrayList<>(coleccionReseña.aggregate(pipeline, Document.class).into(new ArrayList<>()));
+
+            List<Object> reseñas = new ArrayList<>();
+            for (Document documento : documentosReseñas) {
+                Map<String, Object> reseñaMap = new HashMap<>();
+                reseñaMap.put("nombreUsuario", documento.get("usuario", Document.class).getString("nombreUsuario"));
+                reseñaMap.put("reseña", documento.getString("reseña"));
+                reseñaMap.put("rating", documento.getInteger("rating"));
+                reseñas.add(reseñaMap);
+            }
+
+            return reseñas;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al obtener las reseñas del producto: " + e.getMessage());
+        }
     }
+
+
+   
 
   
     

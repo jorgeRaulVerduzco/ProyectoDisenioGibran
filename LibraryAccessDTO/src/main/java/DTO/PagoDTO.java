@@ -7,12 +7,13 @@ package DTO;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
+import org.bson.types.ObjectId;
 /**
  *
  * @author INEGI
  */
 public class PagoDTO {
+    private ObjectId id;
     private List<UsuarioDTO> usuarioDTO;
     private List<ProductoDTO> productoDTO;
     private int cantidad;
@@ -22,10 +23,18 @@ public class PagoDTO {
     private Date FechaDePago;
 
     public PagoDTO() {
+        this.usuarioDTO = new ArrayList<>();
+        this.productoDTO = new ArrayList<>();
         this.pagoPorOxxoDTO = new ArrayList<>();
         this.pagoPorTarjetaDTO = new ArrayList<>();
-        this.productoDTO = new ArrayList<>();
-        this.usuarioDTO = new ArrayList<>();
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public List<UsuarioDTO> getUsuarioDTO() {
@@ -86,9 +95,10 @@ public class PagoDTO {
 
     @Override
     public String toString() {
-        return "PagoDTO{" + "usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + ", FechaDePago=" + FechaDePago + '}';
+        return "PagoDTO{" + "id=" + id + ", usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + ", FechaDePago=" + FechaDePago + '}';
     }
 
    
 
+   
 }

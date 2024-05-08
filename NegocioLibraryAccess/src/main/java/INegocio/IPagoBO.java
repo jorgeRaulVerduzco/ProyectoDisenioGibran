@@ -7,6 +7,7 @@ package INegocio;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
+import DTO.ProductoDTO;
 import java.util.List;
 
 /**
@@ -17,5 +18,5 @@ public interface IPagoBO {
      public void ComprarProducto(PagoDTO pagoDTO);
       public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO);
         public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO);
-          public List<Object> consultarProductosCompradosPorUsuario(String nombreUsuario);
+          public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario);
 }

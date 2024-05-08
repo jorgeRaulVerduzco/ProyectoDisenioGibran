@@ -39,6 +39,7 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setPrecio(productoDTO.getPrecio());
         producto.setCategoria(productoDTO.getCategoria());
         producto.setCantidad(productoDTO.getCantidad());
+      if (productoDTO.getReseñas() != null) {
         List<ReseñaDTO> reseñasDTO = productoDTO.getReseñas();
         List<Reseña> reseñas = new ArrayList<>();
         for (ReseñaDTO reseñaDTO : reseñasDTO) {
@@ -46,6 +47,7 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
             reseñas.add(reseña);
         }
         producto.setReseñas(reseñas);
+    }
         return producto;
     }
 

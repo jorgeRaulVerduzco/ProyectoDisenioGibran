@@ -51,7 +51,7 @@ public class PagoDAO implements IPagoDAO {
     }
 
     @Override
-    public List<Object> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException {
+   public List<Producto> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException {
     try {
         Bson filtroUsuario = Filters.elemMatch("usuario", Filters.eq("nombreUsuario", nombreUsuario));
 
@@ -70,23 +70,23 @@ public class PagoDAO implements IPagoDAO {
 
         List<Document> documentosProductos = new ArrayList<>(coleccionPago.aggregate(pipeline, Document.class).into(new ArrayList<>()));
 
-        List<Object> productosComprados = new ArrayList<>();
+        List<Producto> productosComprados = new ArrayList<>();
         for (Document documento : documentosProductos) {
-            Map<String, Object> productoMap = new HashMap<>();
-            productoMap.put("isbn", documento.getInteger("_id"));
-            productoMap.put("titulo", documento.getString("titulo"));
-            productoMap.put("autor", documento.getString("autor"));
-            productoMap.put("tipo", documento.getString("tipo"));
-            productoMap.put("editorial", documento.getString("editorial"));
-            productoMap.put("precio", documento.getDouble("precio"));
-            productoMap.put("categoria", documento.getString("categoria"));
-            productosComprados.add(productoMap);
+            Producto producto = new Producto();
+            producto.setIsbn(documento.getInteger("_id"));
+            producto.setTitulo(documento.getString("titulo"));
+            producto.setAutor(documento.getString("autor"));
+            producto.setTipo(documento.getString("tipo"));
+            producto.setEditorial(documento.getString("editorial"));
+            producto.setPrecio(documento.getDouble("precio"));
+            producto.setCategoria(documento.getString("categoria"));
+            productosComprados.add(producto);
         }
 
         return productosComprados;
     } catch (MongoException e) {
         throw new PersistenciaException("Error al consultar productos comprados por el usuario: " + e.getMessage());
     }
-}
+  }
 }
   

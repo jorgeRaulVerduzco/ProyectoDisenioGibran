@@ -8,6 +8,7 @@ import DAO.ReseñaDAO;
 import DTO.ReseñaDTO;
 import Dominio.Reseña;
 import Excepciones.PersistenciaException;
+import INegocio.IReseñaBO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author INEGI
  */
-public class ReseñaBO {
+public class ReseñaBO implements IReseñaBO {
 
     ReseñaDAO reseñaDAO;
     DTOaEntidadBO dtoaAentidad;
@@ -27,6 +28,7 @@ public class ReseñaBO {
 
     }
 
+    @Override
     public void generarReseña(ReseñaDTO reseñaDTO) {
         Reseña reseña = dtoaAentidad.convertirReseñaDTO(reseñaDTO);
         try {
@@ -36,6 +38,7 @@ public class ReseñaBO {
         }
     }
 
+    @Override
     public List<Object> obtenerReseñasDeProducto(int isbn) {
         try {
             return reseñaDAO.obtenerReseñasDeProducto(isbn);

@@ -19,6 +19,7 @@ import IDAO.IPagoDAO;
 import IDAO.IPagoPorOxxoDAO;
 import IDAO.IPagoPorTarjetaDAO;
 import INegocio.IPagoBO;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,4 +82,14 @@ public class PagoBO implements IPagoBO{
             Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     @Override
+     public List<Object> consultarProductosCompradosPorUsuario(String nombreUsuario) {
+         try {
+             return pagoDAO.consultarProductosCompradosPorUsuario(nombreUsuario);
+         } catch (PersistenciaException ex) {
+             Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return null;
+     }
 }

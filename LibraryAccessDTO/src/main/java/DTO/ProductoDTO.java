@@ -4,7 +4,8 @@
  */
 package DTO;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,8 +20,10 @@ public class ProductoDTO {
     private double precio;
     private String categoria;
     private int cantidad;
+    private List<ReseñaDTO> reseñas;
 
     public ProductoDTO() {
+        reseñas = new ArrayList<>();
     }
 
     public ProductoDTO(int isbn, String titulo, String autor, String tipo, String editorial, double precio, String categoria, int cantidad) {
@@ -96,6 +99,19 @@ public class ProductoDTO {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public List<ReseñaDTO> getReseñas() {
+        return reseñas;
+    }
+
+    public void setReseñas(List<ReseñaDTO> reseñas) {
+        this.reseñas = reseñas;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoDTO{" + "isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", tipo=" + tipo + ", editorial=" + editorial + ", precio=" + precio + ", categoria=" + categoria + ", cantidad=" + cantidad + ", rese\u00f1as=" + reseñas + '}';
     }
 
 }

@@ -75,7 +75,5 @@ private final MongoCollection<Producto> coleccionProductos;
         }
         return productos;
     }
-    
-      
 
 }

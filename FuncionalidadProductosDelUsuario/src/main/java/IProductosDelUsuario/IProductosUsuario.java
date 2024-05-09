@@ -4,14 +4,10 @@
  */
 package IProductosDelUsuario;
 
-import DTO.ProductoDTO;
-import java.util.List;
-
 /**
  *
  * @author INEGI
  */
 public interface IProductosUsuario {
-public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario);
-
+    
 }

@@ -8,14 +8,12 @@ import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
 import DTO.ProductoDTO;
-import DTO.ReseñaDTO;
 import DTO.TicketDTO;
 import DTO.UsuarioDTO;
 import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
 import Dominio.Producto;
-import Dominio.Reseña;
 import Dominio.Ticket;
 import Dominio.Usuario;
 import INegocio.iDTOaEntidadbo;
@@ -27,7 +25,7 @@ import java.util.List;
  * @author INEGI
  */
 public class DTOaEntidadBO implements iDTOaEntidadbo {
-
+    
     @Override
     public Producto ConvertirProductoDTO(ProductoDTO productoDTO) {
         Producto producto = new Producto();
@@ -39,24 +37,15 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setPrecio(productoDTO.getPrecio());
         producto.setCategoria(productoDTO.getCategoria());
         producto.setCantidad(productoDTO.getCantidad());
-      if (productoDTO.getReseñas() != null) {
-        List<ReseñaDTO> reseñasDTO = productoDTO.getReseñas();
-        List<Reseña> reseñas = new ArrayList<>();
-        for (ReseñaDTO reseñaDTO : reseñasDTO) {
-            Reseña reseña = convertirReseñaDTO(reseñaDTO);
-            reseñas.add(reseña);
-        }
-        producto.setReseñas(reseñas);
-    }
         return producto;
     }
-
+    
     @Override
     public Usuario ConvertirUsuarioDTO(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
         usuario.setContraseña(usuarioDTO.getContraseña());
-
+        
         List<Producto> productos = new ArrayList<>();
         for (ProductoDTO productoDTO : usuarioDTO.getProductos()) {
             Producto producto = ConvertirProductoDTO(productoDTO);
@@ -65,7 +54,7 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         usuario.setProductosVendidos(productos);
         return usuario;
     }
-
+    
     @Override
     public Pago ConvertirPagoDTO(PagoDTO pagoDTO) {
         Pago pago = new Pago();
@@ -78,7 +67,7 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
             usuarios.add(usuario);
         }
         pago.setUsuario(usuarios);
-
+        
         List<Producto> productos = new ArrayList<>();
         for (ProductoDTO productoDTO : pagoDTO.getProductoDTO()) {
             Producto producto = ConvertirProductoDTO(productoDTO);
@@ -101,17 +90,17 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
             pagoPorTarjetas.add(pagoPorTarjeta);
         }
         pago.setPagoPorTarjeta(pagoPorTarjetas);
-
+        
         return pago;
     }
-
+    
     @Override
     public PagoPorOxxo ConnvertirPagoOxxoDTO(PagoPorOxxoDTO pagoOxxoDTO) {
         PagoPorOxxo pagoOxxo = new PagoPorOxxo();
         pagoOxxo.setCodigoBarrasOxxo(pagoOxxoDTO.getCodigoBarrasOxxo());
         return pagoOxxo;
     }
-
+    
     @Override
     public PagoPorTarjeta convertirPagoPorTarjetaDTO(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         PagoPorTarjeta pagoTarjeta = new PagoPorTarjeta();
@@ -119,29 +108,13 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         pagoTarjeta.setFechaExpiracion(pagoPorTarjetaDTO.getFechaExpiracion());
         pagoTarjeta.setNumeroTarjeta(pagoPorTarjetaDTO.getNumeroTarjeta());
         pagoTarjeta.setTipoTarjeta(pagoPorTarjetaDTO.getTipoTarjeta());
-
+        
         return pagoTarjeta;
     }
-
+    
     @Override
     public Ticket convertirTicketDTO(TicketDTO ticketDTO) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    public Reseña convertirReseñaDTO(ReseñaDTO reseñaDTO) {
-        Reseña reseña = new Reseña();
-        reseña.setReseña(reseñaDTO.getReseña());
-        reseña.setRating(reseñaDTO.getRating());
-
-        // Convertir el ProductoDTO a Producto
-        Producto producto = ConvertirProductoDTO(reseñaDTO.getProducto());
-        reseña.setProducto(producto);
-
-        // Convertir el UsuarioDTO a Usuario
-        Usuario usuario = ConvertirUsuarioDTO(reseñaDTO.getUsuario());
-        reseña.setUsuario(usuario);
-
-        return reseña;
-    }
-
+    
 }

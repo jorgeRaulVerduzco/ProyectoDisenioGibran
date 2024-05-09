@@ -168,7 +168,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             menu.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(rootPane, "NO SE ENCONTRÓ EL USUARIO O CONTRASEÑA INCORRECTA");
+            JOptionPane.showMessageDialog(rootPane, "Contaseña o usuario incorrecto, porfavor intentelo de nuevo");
         }
         
         

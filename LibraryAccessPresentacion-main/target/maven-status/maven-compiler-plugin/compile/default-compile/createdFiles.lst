@@ -10,7 +10,6 @@ Presentacion\MenuPrincipal$1.class
 Presentacion\PagoPorTarjeta$1.class
 Presentacion\frmVentas.class
 Presentacion\IniciarSesion$2.class
-Presentacion\frmProductosDelUsuario$3.class
 Presentacion\ProductosEncontrados.class
 Presentacion\HistorialDeCompras$1.class
 Presentacion\MetodoDePago$1.class
@@ -25,13 +24,11 @@ Presentacion\PagoEnOxxo$1.class
 Presentacion\IniciarSesion$1.class
 Presentacion\RenderTabla.class
 Presentacion\MetodoDePago$2.class
-Presentacion\frmProductosDelUsuario.class
 Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal$2.class
 Presentacion\HistorialDeCompras.class
 Presentacion\MenuPrincipal.class
 Presentacion\VentanaProductos$1.class
-Presentacion\frmProductosDelUsuario$1.class
 Presentacion\MenuUsuario$1.class
 Presentacion\ProductosEncontrados$3.class
 Presentacion\VentanaProductos$4.class
@@ -44,6 +41,5 @@ Presentacion\MetodoDePago$3.class
 Presentacion\ProductosEncontrados$2.class
 Presentacion\BusquedaPorNombre$3.class
 Presentacion\IniciarSesion$3.class
-Presentacion\frmProductosDelUsuario$2.class
 Presentacion\MenuPrincipal$3.class
 Presentacion\RegistrarUsuario.class

@@ -7,6 +7,7 @@ package Presentacion;
 import DTO.ProductoDTO;
 import DTO.UsuarioDTO;
 import IProductosDelUsuario.IProductosUsuario;
+import Negocio.ProductoSeleccionado;
 import Negocio.UsuarioSesion;
 import ProductosDelUsuario.ProductosUsuario;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblConsultasProductos = new javax.swing.JTable();
+        tblConsultas = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,7 +56,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
                 return false;
             }
         };
-        tblConsultasProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tblConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -63,8 +64,13 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
 
             }
         ));
-        tblConsultasProductos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(tblConsultasProductos);
+        tblConsultas.getTableHeader().setReorderingAllowed(false);
+        tblConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblConsultasMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblConsultas);
 
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.jpg"))); // NOI18N
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,14 +133,35 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
+ int filaSeleccionada = tblConsultas.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            DefaultTableModel model = (DefaultTableModel) tblConsultas.getModel();
+            ProductoDTO productoSeleccionado = new ProductoDTO();
+            productoSeleccionado.setIsbn((int) model.getValueAt(filaSeleccionada, 0));
+            productoSeleccionado.setTitulo((String) model.getValueAt(filaSeleccionada, 1));
+            productoSeleccionado.setAutor((String) model.getValueAt(filaSeleccionada, 2));
+            productoSeleccionado.setTipo((String) model.getValueAt(filaSeleccionada, 3));
+            productoSeleccionado.setEditorial((String) model.getValueAt(filaSeleccionada, 4));
+            productoSeleccionado.setPrecio((double) model.getValueAt(filaSeleccionada, 5));
+            productoSeleccionado.setCategoria((String) model.getValueAt(filaSeleccionada, 6));
+
+            ProductoSeleccionado.setPersonaSeleccionada(productoSeleccionado);
+
+            FrmGenerarReseña ventana = new FrmGenerarReseña();
+            ventana.setVisible(true);
+        }
+
+    }//GEN-LAST:event_tblConsultasMouseClicked
+
     
     public void tabla() {
-        tblConsultasProductos.setDefaultRenderer(Object.class, new RenderTabla());
+        tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        tblConsultasProductos.setModel(modeloTabla);
+        tblConsultas.setModel(modeloTabla);
 
-        tblConsultasProductos.setRowHeight(40);
+        tblConsultas.setRowHeight(40);
 
         // Definición de las columnas y sus encabezados
         String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio",  "Categoria"};
@@ -142,7 +169,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
 
         int[] anchos = {100, 100, 100, 100, 100, 100, 100}; // Ajusta el ancho de la última columna
         for (int i = 0; i < anchos.length; i++) {
-            tblConsultasProductos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            tblConsultas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
     
@@ -150,7 +177,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
     UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
         List<ProductoDTO> productosEncontrados = productosUsuario.consultarProductosCompradosPorUsuario(usuarioDTO.getNombreUsuario());
 
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultasProductos.getModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultas.getModel();
         modeloTabla.setRowCount(0);
 
         for (ProductoDTO producto : productosEncontrados) {
@@ -166,6 +193,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
             modeloTabla.addRow(fila);
         }
     }
+
 
     /**
      * @param args the command line arguments
@@ -193,6 +221,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmProductosDelUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -204,12 +233,9 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblConsultas;
-    private javax.swing.JTable tblConsultasProductos;
     // End of variables declaration//GEN-END:variables
 }

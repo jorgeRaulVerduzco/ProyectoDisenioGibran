@@ -5,9 +5,11 @@
 package Presentacion;
 
 import DTO.PagoDTO;
-import DTO.ProductoDTO;
-import Negocio.ProductoSeleccionado;
+import Negocio.VentaSeleccionada;
+import java.sql.Date;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -38,6 +40,27 @@ public class HistorialDeCompras extends javax.swing.JFrame {
     }
      
      
+     public void llenarTabla(){
+         
+     }
+     
+      private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {                                          
+
+        int filaSeleccionada = Tabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            PagoDTO productoSeleccionado = new PagoDTO();
+            productoSeleccionado.setId((ObjectId) model.getValueAt(filaSeleccionada, 0));
+            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 1));
+            productoSeleccionado.setFechaDePago((Date) model.getValueAt(filaSeleccionada, 2));
+            productoSeleccionado.setCostoTotal((double) model.getValueAt(filaSeleccionada, 3));
+    
+            VentaSeleccionada.setPersonaSeleccionada(productoSeleccionado);
+
+            VentanaProductos ventana = new VentanaProductos();
+            ventana.setVisible(true);
+        }
+    }                 
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

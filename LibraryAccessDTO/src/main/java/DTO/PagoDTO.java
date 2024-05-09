@@ -29,7 +29,8 @@ public class PagoDTO {
         this.pagoPorTarjetaDTO = new ArrayList<>();
     }
 
-    public ObjectId getId() {
+ 
+    public ObjectId getId(ObjectId idPago) {
         return id;
     }
 

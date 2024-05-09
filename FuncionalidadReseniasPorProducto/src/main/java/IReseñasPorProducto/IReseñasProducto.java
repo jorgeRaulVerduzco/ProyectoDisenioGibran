@@ -4,12 +4,10 @@
  */
 package IReseñasPorProducto;
 
-import java.util.List;
-
 /**
  *
  * @author INEGI
  */
 public interface IReseñasProducto {
-    public List<Object> obtenerReseñasDeProducto(int isbn);
+    
 }

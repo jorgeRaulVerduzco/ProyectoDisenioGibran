@@ -10,7 +10,6 @@ import DAO.PagoPorTarjetaDAO;
 import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
-import DTO.ProductoDTO;
 import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
@@ -20,8 +19,6 @@ import IDAO.IPagoDAO;
 import IDAO.IPagoPorOxxoDAO;
 import IDAO.IPagoPorTarjetaDAO;
 import INegocio.IPagoBO;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,33 +81,4 @@ public class PagoBO implements IPagoBO{
             Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     
-     @Override
-    public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario) {
-    try {
-        List<Producto> productos = pagoDAO.consultarProductosCompradosPorUsuario(nombreUsuario);
-        List<ProductoDTO> productosDTO = new ArrayList<>();
-        
-        // Convertir Productos a ProductosDTO
-        for (Producto producto : productos) {
-            ProductoDTO productoDTO = new ProductoDTO();
-            productoDTO.setIsbn(producto.getIsbn());
-            productoDTO.setTitulo(producto.getTitulo());
-            productoDTO.setAutor(producto.getAutor());
-            productoDTO.setTipo(producto.getTipo());
-            productoDTO.setEditorial(producto.getEditorial());
-            productoDTO.setPrecio(producto.getPrecio());
-            productoDTO.setCategoria(producto.getCategoria());
-            productoDTO.setCantidad(producto.getCantidad());
-            // Puedes convertir las reseñas aquí si es necesario
-            productosDTO.add(productoDTO);
-        }
-        
-        return productosDTO;
-    } catch (PersistenciaException ex) {
-        Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return null;
-}
 }

@@ -4,29 +4,10 @@
  */
 package ProductosDelUsuario;
 
-import DTO.ProductoDTO;
-import INegocio.IPagoBO;
-import IProductosDelUsuario.IProductosUsuario;
-import Negocio.PagoBO;
-import java.util.List;
-
-
 /**
  *
  * @author INEGI
  */
-public class ProductosUsuario implements IProductosUsuario{
-    IPagoBO pagoBO;
-
-    public ProductosUsuario() {
-        pagoBO= new PagoBO();
-    }
-    
-    @Override
-    public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario){
-        return pagoBO.consultarProductosCompradosPorUsuario(nombreUsuario);
-    }
-    
-    
+public class ProductosUsuario {
     
 }

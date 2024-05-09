@@ -11,7 +11,7 @@ public class PagoPorOxxo implements IPagoPorOxxo {
 
     public PagoPorOxxo() {
     }
-//prueba
+
         @Override
      public void comprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
         comprarProductoBO.ComprarProductoPorOxxo(pagoPorOxxoDTO);

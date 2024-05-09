@@ -98,6 +98,10 @@ public class PagoDTO {
         return "PagoDTO{" + "id=" + id + ", usuarioDTO=" + usuarioDTO + ", productoDTO=" + productoDTO + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxoDTO=" + pagoPorOxxoDTO + ", pagoPorTarjetaDTO=" + pagoPorTarjetaDTO + ", FechaDePago=" + FechaDePago + '}';
     }
 
+    public void setProducto(List<ProductoDTO> productosDTO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
    
 
    

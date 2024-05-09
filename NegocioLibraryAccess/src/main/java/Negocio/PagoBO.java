@@ -11,6 +11,7 @@ import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
 import DTO.ProductoDTO;
+import DTO.UsuarioDTO;
 import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
@@ -29,8 +30,9 @@ import java.util.logging.Logger;
  *
  * @author INEGI
  */
-public class PagoBO implements IPagoBO{
-     IPagoDAO pagoDAO;
+public class PagoBO implements IPagoBO {
+
+    IPagoDAO pagoDAO;
     IPagoPorOxxoDAO pagoPorOxxoDAO;
     DTOaEntidadBO dtoAentidad;
     IPagoPorTarjetaDAO pagoPorTarjetaDAO;
@@ -42,19 +44,19 @@ public class PagoBO implements IPagoBO{
         pagoPorTarjetaDAO = new PagoPorTarjetaDAO();
     }
 
-     @Override
+    @Override
     public void ComprarProducto(PagoDTO pagoDTO) {
-       Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
+        Pago pago = dtoAentidad.ConvertirPagoDTO(pagoDTO);
 
-    Producto producto = pago.getProducto().get(0);
+        Producto producto = pago.getProducto().get(0);
 
-    double precioProducto = producto.getPrecio();
+        double precioProducto = producto.getPrecio();
 
-    int cantidad = pago.getCantidad();
+        int cantidad = pago.getCantidad();
 
-    double costoTotal = precioProducto * cantidad;
+        double costoTotal = precioProducto * cantidad;
 
-    pago.setCostoTotal(costoTotal);
+        pago.setCostoTotal(costoTotal);
 
         try {
             pagoDAO.agregarPago(pago);
@@ -63,8 +65,8 @@ public class PagoBO implements IPagoBO{
         }
     }
 
-     @Override
-    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO)  {
+    @Override
+    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO) {
         PagoPorOxxo pagoPorOxxo = dtoAentidad.ConnvertirPagoOxxoDTO(pagoPorOxxoDTO);
 
         try {
@@ -74,7 +76,7 @@ public class PagoBO implements IPagoBO{
         }
     }
 
-     @Override
+    @Override
     public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO) {
         PagoPorTarjeta pagoPorTarjeta = dtoAentidad.convertirPagoPorTarjetaDTO(pagoPorTarjetaDTO);
 
@@ -84,33 +86,53 @@ public class PagoBO implements IPagoBO{
             Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     
-     @Override
+
+    @Override
     public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario) {
-    try {
-        List<Producto> productos = pagoDAO.consultarProductosCompradosPorUsuario(nombreUsuario);
-        List<ProductoDTO> productosDTO = new ArrayList<>();
-        
-        // Convertir Productos a ProductosDTO
-        for (Producto producto : productos) {
-            ProductoDTO productoDTO = new ProductoDTO();
-            productoDTO.setIsbn(producto.getIsbn());
-            productoDTO.setTitulo(producto.getTitulo());
-            productoDTO.setAutor(producto.getAutor());
-            productoDTO.setTipo(producto.getTipo());
-            productoDTO.setEditorial(producto.getEditorial());
-            productoDTO.setPrecio(producto.getPrecio());
-            productoDTO.setCategoria(producto.getCategoria());
-            productoDTO.setCantidad(producto.getCantidad());
-            // Puedes convertir las reseñas aquí si es necesario
-            productosDTO.add(productoDTO);
+        try {
+            List<Producto> productos = pagoDAO.consultarProductosCompradosPorUsuario(nombreUsuario);
+            List<ProductoDTO> productosDTO = new ArrayList<>();
+
+            // Convertir Productos a ProductosDTO
+            for (Producto producto : productos) {
+                ProductoDTO productoDTO = new ProductoDTO();
+                productoDTO.setIsbn(producto.getIsbn());
+                productoDTO.setTitulo(producto.getTitulo());
+                productoDTO.setAutor(producto.getAutor());
+                productoDTO.setTipo(producto.getTipo());
+                productoDTO.setEditorial(producto.getEditorial());
+                productoDTO.setPrecio(producto.getPrecio());
+                productoDTO.setCategoria(producto.getCategoria());
+                productoDTO.setCantidad(producto.getCantidad());
+                // Puedes convertir las reseñas aquí si es necesario
+                productosDTO.add(productoDTO);
+            }
+
+            return productosDTO;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return productosDTO;
-    } catch (PersistenciaException ex) {
-        Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
     }
-    return null;
-}
+
+    public List<PagoDTO> consultarHistorialCompras(String nombreUsuario) {
+        try {
+            List<Pago> pagos = pagoDAO.consultarHistorialCompras(nombreUsuario);
+            List<PagoDTO> pagosDTO = new ArrayList<>();
+
+            // Convertir Pagos a PagosDTO
+            for (Pago pago : pagos) {
+                PagoDTO pagoDTO = new PagoDTO();
+                pagoDTO.setCantidad(pago.getCantidad());
+                pagoDTO.setCostoTotal(pago.getCostoTotal());
+                pagoDTO.setFechaDePago(pago.getFechaDePago());
+                pagosDTO.add(pagoDTO);
+            }
+
+            return pagosDTO;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -26,19 +26,13 @@ public class Prueba {
      */
     public static void main(String[] args) throws PersistenciaException {
        
-PagoDAO pagoDAO = new PagoDAO();
- 
-        System.out.println(pagoDAO.consultarProductosCompradosPorUsuario("a"));
+
         
-        ReseñaDAO reseñaDAO = new ReseñaDAO();
+        PagoDAO pa = new PagoDAO();
         
-        System.out.println( reseñaDAO.obtenerReseñasDeProducto(456));    
+        System.out.println(pa.consultarHistorialCompras("Bell"));
         
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuario = new Usuario();
-        usuario.setNombreUsuario("a");
-        usuario.setContraseña("lol");
-        usuarioDAO.agregarUsuario(usuario);
+        
     }
     
 }

@@ -15,8 +15,14 @@ import java.util.List;
  * @author INEGI
  */
 public interface IPagoBO {
-     public void ComprarProducto(PagoDTO pagoDTO);
-      public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO);
-        public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO);
-          public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario);
+
+    public void ComprarProducto(PagoDTO pagoDTO);
+
+    public void ComprarProductoPorOxxo(PagoPorOxxoDTO pagoPorOxxoDTO);
+
+    public void ComprarProductoPorTarjeta(PagoPorTarjetaDTO pagoPorTarjetaDTO);
+
+    public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario);
+
+    public List<PagoDTO> consultarHistorialCompras(String nombreUsuario);
 }

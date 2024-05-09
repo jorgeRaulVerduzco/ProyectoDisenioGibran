@@ -4,8 +4,6 @@
  */
 package Presentacion;
 
-
-
 /**
  *
  * @author Bell
@@ -229,7 +227,7 @@ public class MenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        HistorialDeCompras Hd =  new HistorialDeCompras();
+        HistorialDeCompras Hd = new HistorialDeCompras();
         Hd.setVisible(true);
         dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -239,9 +237,9 @@ public class MenuUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-frmProductosDelUsuario reseña = new frmProductosDelUsuario();
-reseña.setVisible(true);
-this.dispose();
+        frmProductosDelUsuario reseña = new frmProductosDelUsuario();
+        reseña.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
@@ -251,17 +249,16 @@ this.dispose();
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-IniciarSesion iniciarSesion = new IniciarSesion();
+        IniciarSesion iniciarSesion = new IniciarSesion();
 
-iniciarSesion.setVisible(true);
+        iniciarSesion.setVisible(true);
 
-this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -51,6 +51,11 @@
             <artifactId>FuncionalidadReseniasPorProducto</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>FuncionalidadBusquedaHistorialPorUsuario</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

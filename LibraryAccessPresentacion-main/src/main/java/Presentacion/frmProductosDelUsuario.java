@@ -19,11 +19,11 @@ import javax.swing.table.DefaultTableModel;
  * @author INEGI
  */
 public class frmProductosDelUsuario extends javax.swing.JFrame {
+
     IProductosUsuario productosUsuario;
-    
-    
+
     public frmProductosDelUsuario() {
-        productosUsuario= new ProductosUsuario();
+        productosUsuario = new ProductosUsuario();
         initComponents();
         tabla();
         llenarTabla();
@@ -134,7 +134,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
- int filaSeleccionada = tblConsultas.getSelectedRow();
+        int filaSeleccionada = tblConsultas.getSelectedRow();
         if (filaSeleccionada != -1) {
             DefaultTableModel model = (DefaultTableModel) tblConsultas.getModel();
             ProductoDTO productoSeleccionado = new ProductoDTO();
@@ -154,7 +154,6 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblConsultasMouseClicked
 
-    
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 
@@ -164,7 +163,7 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
         tblConsultas.setRowHeight(40);
 
         // Definición de las columnas y sus encabezados
-        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio",  "Categoria"};
+        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio", "Categoria"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
         int[] anchos = {100, 100, 100, 100, 100, 100, 100}; // Ajusta el ancho de la última columna
@@ -172,9 +171,9 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
             tblConsultas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
-    
+
     public void llenarTabla() {
-    UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
+        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
         List<ProductoDTO> productosEncontrados = productosUsuario.consultarProductosCompradosPorUsuario(usuarioDTO.getNombreUsuario());
 
         DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultas.getModel();
@@ -188,14 +187,11 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
                 producto.getTipo(),
                 producto.getEditorial(),
                 producto.getPrecio(),
-                producto.getCategoria(),
-            };
+                producto.getCategoria(),};
             modeloTabla.addRow(fila);
         }
     }
 
-
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;

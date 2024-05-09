@@ -5,8 +5,15 @@
 package Presentacion;
 
 import DTO.PagoDTO;
+import DTO.UsuarioDTO;
 import DTO.ProductoDTO;
+import HistorialUsuario.HistorialUsuario;
+import IHistorialUsuario.IHistorialUsuario;
+import IProductosDelUsuario.IProductosUsuario;
 import Negocio.ProductoSeleccionado;
+import Negocio.UsuarioSesion;
+import ProductosDelUsuario.ProductosUsuario;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,9 +22,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class HistorialDeCompras extends javax.swing.JFrame {
 
-    
+    IHistorialUsuario historialUsuario;
+
     public HistorialDeCompras() {
         initComponents();
+        historialUsuario = new HistorialUsuario();
+        initComponents();
+        tabla();
+        llenarTabla();
+        
     }
 
      public void tabla() {
@@ -31,14 +44,31 @@ public class HistorialDeCompras extends javax.swing.JFrame {
         modeloTabla.setColumnIdentifiers(encabezados);
 
         
-        int[] anchos = {100, 100, 100, 100, 100, 100, 100, 50}; 
+        int[] anchos = {50, 50, 50, 50,}; 
         for (int i = 0; i < anchos.length; i++) {
             Tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
      
+    
      
-   
+      public void llenarTabla() {
+        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
+        List<PagoDTO> productosEncontrados = historialUsuario.consultarHistorialCompras(usuarioDTO.getNombreUsuario());
+        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
+        modeloTabla.setRowCount(0);
+
+        for (PagoDTO pago : productosEncontrados) {
+            Object[] fila = {
+                pago.getId(),
+                pago.getCantidad(),
+                pago.getFechaDePago(),
+                pago.getCostoTotal()
+                };
+            modeloTabla.addRow(fila);
+        }
+    }
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,6 +128,11 @@ public class HistorialDeCompras extends javax.swing.JFrame {
 
             }
         ));
+        Tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabla);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hace 7 dias", "Hace 2 meses", "Hace 6 meses", "Hace 12 mese" }));
@@ -166,6 +201,10 @@ public class HistorialDeCompras extends javax.swing.JFrame {
         MU.setVisible(true);
         dispose();
     }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
+    
+    }//GEN-LAST:event_TablaMouseClicked
 
     
 

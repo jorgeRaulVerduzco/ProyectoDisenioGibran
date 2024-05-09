@@ -14,7 +14,11 @@ import java.util.List;
  * @author INEGI
  */
 public interface IPagoDAO {
-    public void agregarPago(Pago pago) throws PersistenciaException ;
- public List<Producto> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException;
+
+    public void agregarPago(Pago pago) throws PersistenciaException;
+
+    public List<Producto> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException;
+
+    public List<Pago> consultarHistorialCompras(String nombreUsuario) throws PersistenciaException;
 
 }

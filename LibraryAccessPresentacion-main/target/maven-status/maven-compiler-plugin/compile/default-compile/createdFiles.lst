@@ -21,6 +21,7 @@ Presentacion\MenuUsuario$4.class
 Presentacion\ProductosEncontrados$4.class
 Presentacion\IniciarSesion.class
 Presentacion\ProductosEncontrados$1.class
+Presentacion\VentanaProductos$6.class
 Presentacion\FrmGenerarReseña$1.class
 Presentacion\CarritoCompra.class
 Presentacion\PagoEnOxxo$1.class
@@ -28,6 +29,7 @@ Presentacion\FrmGenerarReseña.class
 Presentacion\IniciarSesion$1.class
 Presentacion\RenderTabla.class
 Presentacion\MetodoDePago$2.class
+Presentacion\VentanaProductos$5.class
 Presentacion\frmProductosDelUsuario.class
 Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal$2.class
@@ -51,3 +53,4 @@ Presentacion\IniciarSesion$3.class
 Presentacion\frmProductosDelUsuario$2.class
 Presentacion\MenuPrincipal$3.class
 Presentacion\RegistrarUsuario.class
+Presentacion\MenuUsuario$5.class

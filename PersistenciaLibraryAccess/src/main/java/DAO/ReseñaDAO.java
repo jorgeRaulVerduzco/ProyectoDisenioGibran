@@ -13,6 +13,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Projections;
 import static com.mongodb.client.model.Updates.set;
@@ -43,18 +44,32 @@ public class ReseñaDAO implements IReseñaDAO {
 
     @Override
     public void generarReseña(Reseña reseña) throws PersistenciaException {
-        try {
+       try {
+        Reseña reseñaExistente = coleccionReseña.find(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario()))).first();
+        if (reseñaExistente != null) {
+            reseñaExistente.setRating(reseña.getRating());
+            reseñaExistente.setReseña(reseña.getReseña());
+            coleccionReseña.replaceOne(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario())), reseñaExistente);
+        } else {
             coleccionReseña.insertOne(reseña);
-            int isbnProducto = reseña.getProducto().getIsbn();
-            Producto producto = coleccionProducto.find(eq("isbn", isbnProducto)).first();
-            if (producto != null) {
-                List<Reseña> reseñasActualizadas = producto.getReseñas();
-                reseñasActualizadas.add(reseña);
-                coleccionProducto.updateOne(eq("isbn", isbnProducto), set("reseñas", reseñasActualizadas));
-            }
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al generar reseña: " + e.getMessage());
         }
+        
+        int isbnProducto = reseña.getProducto().getIsbn();
+        Producto producto = coleccionProducto.find(eq("isbn", isbnProducto)).first();
+        if (producto != null) {
+            List<Reseña> reseñasActualizadas = producto.getReseñas();
+            Reseña reseñaUsuario = reseñasActualizadas.stream().filter(r -> r.getUsuario().getNombreUsuario().equals(reseña.getUsuario().getNombreUsuario())).findFirst().orElse(null);
+            if (reseñaUsuario != null) {
+                reseñaUsuario.setRating(reseña.getRating());
+                reseñaUsuario.setReseña(reseña.getReseña());
+            } else {
+                reseñasActualizadas.add(reseña);
+            }
+            coleccionProducto.updateOne(eq("isbn", isbnProducto), set("reseñas", reseñasActualizadas));
+        }
+    } catch (Exception e) {
+        throw new PersistenciaException("Error al generar reseña: " + e.getMessage());
+    }
     }
 
     @Override

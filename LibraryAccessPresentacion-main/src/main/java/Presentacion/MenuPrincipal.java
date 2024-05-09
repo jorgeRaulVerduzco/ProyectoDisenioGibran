@@ -27,6 +27,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     private void inicializarProductos() {
+        
+         ProductoDTO amlo = new ProductoDTO(007001, "amlo", "loret", "revista", "segunda", 200, "peridismo", 10);
+
+        agregarProductos.agregarProducto(amlo);
         ProductoDTO libroRapunzel = new ProductoDTO(1234, "Rapunzel", "Joaquin", "libro", "Primera", 300, "aventura", 10);
 
         agregarProductos.agregarProducto(libroRapunzel);

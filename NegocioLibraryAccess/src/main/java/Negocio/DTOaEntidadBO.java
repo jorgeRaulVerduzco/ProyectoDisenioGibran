@@ -39,15 +39,15 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         producto.setPrecio(productoDTO.getPrecio());
         producto.setCategoria(productoDTO.getCategoria());
         producto.setCantidad(productoDTO.getCantidad());
-      if (productoDTO.getReseñas() != null) {
-        List<ReseñaDTO> reseñasDTO = productoDTO.getReseñas();
-        List<Reseña> reseñas = new ArrayList<>();
-        for (ReseñaDTO reseñaDTO : reseñasDTO) {
-            Reseña reseña = convertirReseñaDTO(reseñaDTO);
-            reseñas.add(reseña);
+        if (productoDTO.getReseñas() != null) {
+            List<ReseñaDTO> reseñasDTO = productoDTO.getReseñas();
+            List<Reseña> reseñas = new ArrayList<>();
+            for (ReseñaDTO reseñaDTO : reseñasDTO) {
+                Reseña reseña = convertirReseñaDTO(reseñaDTO);
+                reseñas.add(reseña);
+            }
+            producto.setReseñas(reseñas);
         }
-        producto.setReseñas(reseñas);
-    }
         return producto;
     }
 

@@ -99,39 +99,40 @@ public class PagoDAO implements IPagoDAO {
         }
     }
 
+    @Override
     public List<Pago> consultarHistorialCompras(String nombreUsuario) throws PersistenciaException {
-    try {
-        Bson filtroUsuario = Filters.eq("usuario.nombreUsuario", nombreUsuario);
+        try {
+            Bson filtroUsuario = Filters.eq("usuario.nombreUsuario", nombreUsuario);
 
-        List<Bson> pipeline = Arrays.asList(
-                Aggregates.match(filtroUsuario),
-                Aggregates.unwind("$producto"),
-                Aggregates.project(
-                        new Document()
-                                .append("id", "$_id")
-                                .append("fechaDePago", "$pago.fechaDePago")
-                                .append("costoTotal", "$costoTotal")
-                                .append("cantidad", "$cantidad")
-                )
-        );
+            List<Bson> pipeline = Arrays.asList(
+                    Aggregates.match(filtroUsuario),
+                    Aggregates.unwind("$producto"),
+                    Aggregates.project(
+                            new Document()
+                                    .append("id", "$_id")
+                                    .append("fechaDePago", "$pago.fechaDePago")
+                                    .append("costoTotal", "$costoTotal")
+                                    .append("cantidad", "$cantidad")
+                    )
+            );
 
-        List<Pago> historialCompras = new ArrayList<>();
-        try (MongoCursor<Pago> cursor = coleccionPago.aggregate(pipeline, Pago.class).iterator()) {
-            while (cursor.hasNext()) {
-                Pago document = cursor.next();
-                Pago pago = new Pago();
-                pago.setIdPago(document.getIdPago());
-                pago.setCostoTotal(document.getCostoTotal());
-                pago.setCantidad(document.getCantidad());
-                pago.setFechaDePago(document.getFechaDePago());
+            List<Pago> historialCompras = new ArrayList<>();
+            try (MongoCursor<Pago> cursor = coleccionPago.aggregate(pipeline, Pago.class).iterator()) {
+                while (cursor.hasNext()) {
+                    Pago document = cursor.next();
+                    Pago pago = new Pago();
+                    pago.setIdPago(document.getIdPago());
+                    pago.setCostoTotal(document.getCostoTotal());
+                    pago.setCantidad(document.getCantidad());
+                    pago.setFechaDePago(document.getFechaDePago());
 
-                historialCompras.add(pago);
+                    historialCompras.add(pago);
+                }
             }
-        }
 
-        return historialCompras;
-    } catch (MongoException e) {
-        throw new PersistenciaException("Error al consultar historial de compras: " + e.getMessage());
+            return historialCompras;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al consultar historial de compras: " + e.getMessage());
+        }
     }
-}
 }

@@ -19,6 +19,6 @@ public interface IPagoDAO {
 
     public List<Producto> consultarProductosCompradosPorUsuario(String nombreUsuario) throws PersistenciaException;
 
-    public List<Pago> consultarHistorialCompras(String nombreUsuario) throws PersistenciaException;
-
+   public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario) throws PersistenciaException;
+    
 }

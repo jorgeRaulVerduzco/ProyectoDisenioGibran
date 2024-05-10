@@ -7,6 +7,7 @@ package Dominio;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 /**
@@ -103,5 +104,11 @@ public class Pago {
     public String toString() {
         return "Pago{" + "idPago=" + id + ", usuario=" + usuario + ", producto=" + producto + ", cantidad=" + cantidad + ", costoTotal=" + costoTotal + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + ", FechaDePago=" + FechaDePago + '}';
     }
+
+    public Date getDate(String fechaDePago) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
 
 }

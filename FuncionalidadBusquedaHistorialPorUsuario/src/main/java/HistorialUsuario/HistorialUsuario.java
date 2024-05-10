@@ -18,7 +18,7 @@ public class HistorialUsuario implements IHistorialUsuario {
         pagoBO= new PagoBO();
     }
     
-    public List<PagoDTO> consultarHistorialCompras(String nombreUsuario){
+    public List<PagoDTO> consultarHistorialComprasPorUsuario(String nombreUsuario){
         return pagoBO.consultarHistorialCompras(nombreUsuario);
     }
 }

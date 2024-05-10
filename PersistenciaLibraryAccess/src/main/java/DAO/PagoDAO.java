@@ -6,10 +6,13 @@ package DAO;
 
 import Conexion.ConexionBD;
 import Dominio.Pago;
+import Dominio.PagoPorOxxo;
+import Dominio.PagoPorTarjeta;
 import Dominio.Producto;
 import Dominio.Usuario;
 import Excepciones.PersistenciaException;
 import IDAO.IPagoDAO;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoException;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
@@ -23,6 +26,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Projections.fields;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.UnwindOptions;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -99,40 +103,39 @@ public class PagoDAO implements IPagoDAO {
         }
     }
 
-    @Override
-    public List<Pago> consultarHistorialCompras(String nombreUsuario) throws PersistenciaException {
-        try {
-            Bson filtroUsuario = Filters.eq("usuario.nombreUsuario", nombreUsuario);
+    
 
-            List<Bson> pipeline = Arrays.asList(
-                    Aggregates.match(filtroUsuario),
-                    Aggregates.unwind("$producto"),
-                    Aggregates.project(
-                            new Document()
-                                    .append("id", "$_id")
-                                    .append("fechaDePago", "$pago.fechaDePago")
-                                    .append("costoTotal", "$costoTotal")
-                                    .append("cantidad", "$cantidad")
-                    )
-            );
+    public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario) throws PersistenciaException {
+    try {
+        Bson filtroUsuario = Filters.elemMatch("usuario", Filters.eq("nombreUsuario", nombreUsuario));
 
-            List<Pago> historialCompras = new ArrayList<>();
-            try (MongoCursor<Pago> cursor = coleccionPago.aggregate(pipeline, Pago.class).iterator()) {
-                while (cursor.hasNext()) {
-                    Pago document = cursor.next();
-                    Pago pago = new Pago();
-                    pago.setIdPago(document.getIdPago());
-                    pago.setCostoTotal(document.getCostoTotal());
-                    pago.setCantidad(document.getCantidad());
-                    pago.setFechaDePago(document.getFechaDePago());
+        List<Bson> pipeline = Arrays.asList(
+                Aggregates.match(filtroUsuario),
+                Aggregates.unwind("$producto"),
+                Aggregates.project(
+                        Projections.fields(
+                                Projections.include("fechaDePago", "costoTotal", "cantidad"),
+                                Projections.computed("titulo", "$producto.titulo")
+                        )
+                ),
+                Aggregates.sort(Sorts.ascending("fechaDePago"))
+        );
 
-                    historialCompras.add(pago);
-                }
-            }
+        List<Document> documentosHistorial = new ArrayList<>(coleccionPago.aggregate(pipeline, Document.class).into(new ArrayList<>()));
 
-            return historialCompras;
-        } catch (MongoException e) {
-            throw new PersistenciaException("Error al consultar historial de compras: " + e.getMessage());
+        List<Object> historialCompras = new ArrayList<>();
+        for (Document documento : documentosHistorial) {
+            Map<String, Object> compra = new HashMap<>();
+            compra.put("titulo", documento.getString("titulo"));
+            compra.put("fechaDePago", documento.getDate("fechaDePago"));
+            compra.put("costoTotal", documento.getDouble("costoTotal"));
+            compra.put("cantidad", documento.getInteger("cantidad"));
+            historialCompras.add(compra);
         }
+
+        return historialCompras;
+    } catch (MongoException e) {
+        throw new PersistenciaException("Error al consultar el historial de compras por el usuario: " + e.getMessage());
     }
+}
 }

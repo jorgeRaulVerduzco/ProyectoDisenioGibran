@@ -53,20 +53,20 @@ public class HistorialDeCompras extends javax.swing.JFrame {
     
      
       public void llenarTabla() {
-        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
-        List<PagoDTO> productosEncontrados = historialUsuario.consultarHistorialCompras(usuarioDTO.getNombreUsuario());
-        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
-        modeloTabla.setRowCount(0);
-
-        for (PagoDTO pago : productosEncontrados) {
-            Object[] fila = {
-                pago.getId(),
-                pago.getCantidad(),
-                pago.getFechaDePago(),
-                pago.getCostoTotal()
-                };
-            modeloTabla.addRow(fila);
-        }
+//        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
+//        List<PagoDTO> productosEncontrados = historialUsuario.consultarHistorialComprasPorUsuario(usuarioDTO.getNombreUsuario());
+//        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
+//        modeloTabla.setRowCount(0);
+//
+//        for (PagoDTO pago : productosEncontrados) {
+//            Object[] fila = {
+//                pago.getId(),
+//                pago.getCantidad(),
+//                pago.getFechaDePago(),
+//                pago.getCostoTotal()
+//                };
+//            modeloTabla.addRow(fila);
+//        }
     }
   
     @SuppressWarnings("unchecked")

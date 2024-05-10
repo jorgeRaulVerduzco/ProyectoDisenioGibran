@@ -30,7 +30,7 @@ public class Prueba {
         
         PagoDAO pa = new PagoDAO();
         
-        System.out.println(pa.consultarHistorialCompras("Bell"));
+        System.out.println(pa.consultarHistorialComprasPorUsuario("Bell"));
         
         
     }

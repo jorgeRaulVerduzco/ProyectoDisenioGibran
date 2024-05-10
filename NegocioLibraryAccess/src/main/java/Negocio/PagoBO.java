@@ -116,23 +116,24 @@ public class PagoBO implements IPagoBO {
     }
 
     public List<PagoDTO> consultarHistorialCompras(String nombreUsuario) {
-        try {
-            List<Pago> pagos = pagoDAO.consultarHistorialCompras(nombreUsuario);
-            List<PagoDTO> pagosDTO = new ArrayList<>();
-
-            // Convertir Pagos a PagosDTO
-            for (Pago pago : pagos) {
-                PagoDTO pagoDTO = new PagoDTO();
-                pagoDTO.setCantidad(pago.getCantidad());
-                pagoDTO.setCostoTotal(pago.getCostoTotal());
-                pagoDTO.setFechaDePago(pago.getFechaDePago());
-                pagosDTO.add(pagoDTO);
-            }
-
-            return pagosDTO;
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            List<Pago> pagos = pagoDAO.consultarHistorialComprasPorUsuario(nombreUsuario);
+//            List<PagoDTO> pagosDTO = new ArrayList<>();
+//
+//            // Convertir Pagos a PagosDTO
+//            for (Pago pago : pagos) {
+//                PagoDTO pagoDTO = new PagoDTO();
+//                pagoDTO.setCantidad(pago.getCantidad());
+//                pagoDTO.setCostoTotal(pago.getCostoTotal());
+//                pagoDTO.setFechaDePago(pago.getFechaDePago());
+//                pagosDTO.add(pagoDTO);
+//            }
+//
+//            return pagosDTO;
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(PagoBO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         return null;
-    }
+   }
 }
+    

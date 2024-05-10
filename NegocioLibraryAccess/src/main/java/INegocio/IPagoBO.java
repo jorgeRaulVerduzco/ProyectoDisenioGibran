@@ -24,5 +24,5 @@ public interface IPagoBO {
 
     public List<ProductoDTO> consultarProductosCompradosPorUsuario(String nombreUsuario);
 
-    public List<PagoDTO> consultarHistorialCompras(String nombreUsuario);
+    public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario);
 }

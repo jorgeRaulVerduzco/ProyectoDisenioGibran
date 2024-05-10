@@ -12,5 +12,5 @@ import java.util.List;
  * @author Bell
  */
 public interface IHistorialUsuario {
-    public List<PagoDTO> consultarHistorialComprasPorUsuario(String nombreUsuario);
+      List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario);
 }

@@ -3,6 +3,7 @@ INegocio\IReseñaBO.class
 Negocio\ReseñaBO.class
 Negocio\PagoBO.class
 INegocio\IUsuarioBO.class
+Negocio\RentaBO.class
 Negocio\UsuarioSesion.class
 Negocio\ProductoBO.class
 Negocio\ProductoSeleccionado.class

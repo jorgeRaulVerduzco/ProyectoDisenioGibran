@@ -10,65 +10,72 @@ import DTO.ProductoDTO;
 import HistorialUsuario.HistorialUsuario;
 import IHistorialUsuario.IHistorialUsuario;
 import IProductosDelUsuario.IProductosUsuario;
+import Negocio.PagoBO;
 import Negocio.ProductoSeleccionado;
 import Negocio.UsuarioSesion;
 import ProductosDelUsuario.ProductosUsuario;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Bell
  */
-public class HistorialDeCompras extends javax.swing.JFrame {
+public final class HistorialDeCompras extends javax.swing.JFrame {
 
-    IHistorialUsuario historialUsuario;
+    IHistorialUsuario historial;
 
     public HistorialDeCompras() {
         initComponents();
-        historialUsuario = new HistorialUsuario();
-        initComponents();
+        historial = new HistorialUsuario();
         tabla();
         llenarTabla();
-        
     }
 
-     public void tabla() {
+    public void tabla() {
         Tabla.setDefaultRenderer(Object.class, new RenderTabla());
         DefaultTableModel modeloTabla = new DefaultTableModel();
         Tabla.setModel(modeloTabla);
         Tabla.setRowHeight(40);
 
-        
-        String[] encabezados = {"Id Pedido", "Cantidad ", "Fecha de compra", "Precio total"};
+        String[] encabezados = {"FechaDePago", "Titulo ", "Cantidad", "Costo"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
-        
-        int[] anchos = {50, 50, 50, 50,}; 
+        int[] anchos = {220, 80, 50, 50,};
         for (int i = 0; i < anchos.length; i++) {
             Tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
-     
-    
-     
-      public void llenarTabla() {
-//        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
-//        List<PagoDTO> productosEncontrados = historialUsuario.consultarHistorialComprasPorUsuario(usuarioDTO.getNombreUsuario());
-//        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
-//        modeloTabla.setRowCount(0);
-//
-//        for (PagoDTO pago : productosEncontrados) {
-//            Object[] fila = {
-//                pago.getId(),
-//                pago.getCantidad(),
-//                pago.getFechaDePago(),
-//                pago.getCostoTotal()
-//                };
-//            modeloTabla.addRow(fila);
-//        }
+
+    public void llenarTabla() {
+
+        UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
+        String nombreUsuario = usuarioDTO.getNombreUsuario();
+        List<Object> productosEncontrados = historial.consultarHistorialComprasPorUsuario(nombreUsuario);
+        DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
+        modeloTabla.setRowCount(0);
+
+        if (productosEncontrados != null) {
+            System.out.println("Número de productos encontrados: " + productosEncontrados.size());
+            for (Object pago : productosEncontrados) {
+                Map<String, Object> histoMap = (Map<String, Object>) pago;
+                System.out.println("Mapa de historial: " + histoMap);
+
+                Date fechaPago = (Date) histoMap.get("fechaDePago"); // <-- Aquí corregido
+                String titulo = (String) histoMap.get("titulo");
+                int cantidad = (int) histoMap.get("cantidad");
+                double costoTotal = (double) histoMap.get("costoTotal");
+
+                modeloTabla.addRow(new Object[]{fechaPago, titulo, cantidad, costoTotal});
+            }
+        } else {
+            System.out.println("No se encontraron productos");
+        }
+
     }
-  
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -203,10 +210,9 @@ public class HistorialDeCompras extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
-    
+
     }//GEN-LAST:event_TablaMouseClicked
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;

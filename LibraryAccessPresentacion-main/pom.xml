@@ -13,17 +13,17 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FuncionalidadGestionUsuarios</artifactId>
+            <artifactId>NegocioLibraryAccess</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>AgregerProductoFuncionalidad</artifactId>
+            <artifactId>PersistenciaLibraryAccess</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FuncionalidadListaProductosPorNombre</artifactId>
+            <artifactId>GenerarTicketFuncionalidad</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -33,12 +33,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>NegocioLibraryAccess</artifactId>
+            <artifactId>AgregerProductoFuncionalidad</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FuncionalidadProductosDelUsuario</artifactId>
+            <artifactId>FuncionalidadBusquedaHistorialPorUsuario</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -48,12 +48,32 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FuncionalidadReseniasPorProducto</artifactId>
+            <artifactId>FuncionalidadGestionUsuarios</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>FuncionalidadBusquedaHistorialPorUsuario</artifactId>
+            <artifactId>FuncionalidadListaProductosPorNombre</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>FuncionalidadPagoPorOxxo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>FuncionalidadPagoPorTarjeta</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>FuncionalidadProductosDelUsuario</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>FuncionalidadReseniasPorProducto</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

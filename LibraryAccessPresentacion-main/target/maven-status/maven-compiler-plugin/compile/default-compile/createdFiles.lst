@@ -4,7 +4,6 @@ Presentacion\BusquedaPorNombre$2.class
 Presentacion\IniciarSesion$2.class
 Presentacion\frmProductosDelUsuario$3.class
 Presentacion\ProductosEncontrados.class
-Presentacion\VentaDeProductosMenu$3.class
 Presentacion\MetodoDePago$1.class
 Presentacion\MenuUsuario$4.class
 Presentacion\ProductosEncontrados$4.class
@@ -13,7 +12,6 @@ Presentacion\ProductosEncontrados$1.class
 Presentacion\HistorialDeCompras$2.class
 Presentacion\FrmGenerarReseña.class
 Presentacion\VentasProducto$3.class
-Presentacion\HistorialProductosVendidos$4.class
 Presentacion\MetodoDePago$2.class
 Presentacion\frmProductosDelUsuario.class
 Presentacion\VentaDeProductosMenu$1.class
@@ -21,7 +19,6 @@ Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal.class
 Presentacion\VentanaProductos$1.class
 Presentacion\MenuUsuario$1.class
-Presentacion\VentasProducto$5.class
 Presentacion\MenuUsuario$2.class
 Presentacion\VentanaProductos$2.class
 Presentacion\HistorialProductosVendidos.class

@@ -108,6 +108,12 @@ public class VentanaProductos extends javax.swing.JFrame {
             }
         });
 
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioActionPerformed(evt);
+            }
+        });
+
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setText("PRECIO");
@@ -264,6 +270,10 @@ public class VentanaProductos extends javax.swing.JFrame {
     private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
 
     }//GEN-LAST:event_tblConsultasMouseClicked
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioActionPerformed
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 

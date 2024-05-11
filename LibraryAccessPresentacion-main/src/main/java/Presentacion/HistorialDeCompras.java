@@ -11,6 +11,7 @@ import HistorialUsuario.HistorialUsuario;
 import IHistorialUsuario.IHistorialUsuario;
 import IProductosDelUsuario.IProductosUsuario;
 import Negocio.PagoBO;
+import Negocio.PagoProvicional;
 import Negocio.ProductoSeleccionado;
 import Negocio.UsuarioSesion;
 import ProductosDelUsuario.ProductosUsuario;
@@ -33,58 +34,59 @@ import static java.awt.print.Printable.PAGE_EXISTS;
  * @author Bell
  */
 public final class HistorialDeCompras extends javax.swing.JFrame implements Printable {
-
+    
     IHistorialUsuario historial;
-
+    
     public HistorialDeCompras() {
         initComponents();
         historial = new HistorialUsuario();
         tabla();
         llenarTabla();
     }
-
+    
     public void tabla() {
         Tabla.setDefaultRenderer(Object.class, new RenderTabla());
         DefaultTableModel modeloTabla = new DefaultTableModel();
         Tabla.setModel(modeloTabla);
         Tabla.setRowHeight(40);
-
-        String[] encabezados = {"FechaDePago", "Titulo ", "Cantidad", "Costo"};
+        
+        String[] encabezados = {"FechaDePago", "Titulo ", "Isbn", "Cantidad", "Costo"};
         modeloTabla.setColumnIdentifiers(encabezados);
-
-        int[] anchos = {220, 80, 50, 50,};
+        
+        int[] anchos = {220, 80, 50, 50, 50,};
         for (int i = 0; i < anchos.length; i++) {
             Tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
-
+    
     public void llenarTabla() {
-
+        
         UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
         String nombreUsuario = usuarioDTO.getNombreUsuario();
         List<Object> productosEncontrados = historial.consultarHistorialComprasPorUsuario(nombreUsuario);
         DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
         modeloTabla.setRowCount(0);
-
+        
         if (productosEncontrados != null) {
             System.out.println("Número de productos encontrados: " + productosEncontrados.size());
             for (Object pago : productosEncontrados) {
                 Map<String, Object> histoMap = (Map<String, Object>) pago;
                 System.out.println("Mapa de historial: " + histoMap);
-
-                Date fechaPago = (Date) histoMap.get("fechaDePago"); // <-- Aquí corregido
+                
+                Date fechaPago = (Date) histoMap.get("fechaDePago"); 
                 String titulo = (String) histoMap.get("titulo");
+                int isbn = (Integer) histoMap.get("isbn");
                 int cantidad = (int) histoMap.get("cantidad");
                 double costoTotal = (double) histoMap.get("costoTotal");
-
-                modeloTabla.addRow(new Object[]{fechaPago, titulo, cantidad, costoTotal});
+                
+                modeloTabla.addRow(new Object[]{fechaPago, titulo, isbn, cantidad, costoTotal});
             }
         } else {
             System.out.println("No se encontraron productos");
         }
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -125,7 +127,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 6, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jToggleButton4.setBackground(new java.awt.Color(102, 102, 102));
         jToggleButton4.setForeground(new java.awt.Color(0, 0, 0));
@@ -135,7 +137,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 jToggleButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(539, 6, -1, -1));
+        jPanel1.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, -1));
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,7 +157,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         });
         jScrollPane1.setViewportView(Tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 172, 469, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 172, 530, 340));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hace 7 dias", "Hace 2 meses", "Hace 6 meses", "Hace 12 mese" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +165,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 132, -1, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
 
         jToggleButton1.setBackground(new java.awt.Color(51, 255, 51));
         jToggleButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -173,13 +175,13 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 540, -1, -1));
+        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,15 +198,32 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
+        int filaSeleccionada = Tabla.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            
+            ProductoDTO productoSeleccionado = new ProductoDTO();
+            PagoDTO pagoProvicional = new PagoDTO();
+            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 3));
+            productoSeleccionado.setIsbn((int) model.getValueAt(filaSeleccionada, 2));
+            productoSeleccionado.setTitulo((String) model.getValueAt(filaSeleccionada, 1));
+            
+            
+            ProductoSeleccionado.setPersonaSeleccionada(productoSeleccionado);
+            
+            VentanaProductos ventana = new VentanaProductos();
+            ventana.setVisible(true);
+        }
+        
 
     }//GEN-LAST:event_TablaMouseClicked
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
+        
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(this);
         if (pj.printDialog()) {
-
+            
             try {
                 pj.print();
             } catch (Exception e) {
@@ -231,8 +250,8 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
     private javax.swing.JToggleButton jToggleButton4;
     // End of variables declaration//GEN-END:variables
 
-  public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-    
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        
         if (pageIndex == 0) {
             
             Graphics2D graphics2d = (Graphics2D) graphics;
@@ -245,6 +264,5 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
             return NO_SUCH_PAGE;
         }
         
-  
     }
 }

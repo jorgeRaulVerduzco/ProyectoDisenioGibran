@@ -29,9 +29,11 @@ public class Prueba {
 
         
         
-        ProductoDAO po = new ProductoDAO();
-        System.out.println( po.buscarProductosPorVendedor("zelda"));
+        PagoDAO po = new PagoDAO();
+        System.out.println( po.consultarHistorialComprasPorUsuario("Bell"));
         
+        ProductoDAO pe = new ProductoDAO();
+        pe.buscarProductosPorIsbn(0);
     }
     
 }

@@ -29,6 +29,14 @@ public class PagoDTO {
         this.pagoPorTarjetaDTO = new ArrayList<>();
     }
 
+    public PagoDTO(ObjectId id, int cantidad, double costoTotal, Date FechaDePago) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.costoTotal = costoTotal;
+        this.FechaDePago = FechaDePago;
+    }
+    
+
     public ObjectId getId() {
         return id;
     }

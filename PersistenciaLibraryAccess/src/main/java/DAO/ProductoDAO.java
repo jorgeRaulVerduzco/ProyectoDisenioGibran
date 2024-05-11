@@ -61,6 +61,20 @@ public class ProductoDAO implements IProductoDAO {
         }
         return productos;
     }
+    
+    public List<Producto> buscarProductosPorIsbn(int isbn) throws PersistenciaException {
+        List<Producto> productos = new ArrayList<>();
+        try {
+            Bson filtro = Filters.eq("isbn", isbn);
+            FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar productos por isbn: " + e.getMessage());
+        }
+        return productos;
+    }
 
     @Override
     public List<Producto> buscarProductosPorVendedor(String vendedor) throws PersistenciaException {

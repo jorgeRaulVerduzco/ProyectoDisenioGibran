@@ -57,6 +57,23 @@ public class ProductoBO implements IProductoBO {
         return null;
     }
     
+    public List<ProductoDTO> buscarProductosPorIsbn(int isbn) {
+        try {
+            List<Producto> productos = productoDao.buscarProductosPorIsbn(isbn);
+            List<ProductoDTO> productosDTO = new ArrayList<>();
+            
+            for (Producto producto : productos) {
+                ProductoDTO productoDTO = convertirAProductoDTO(producto);
+                productosDTO.add(productoDTO);
+            }
+            
+            return productosDTO;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     @Override
     public List<ProductoDTO> listaProductos() {
         try {

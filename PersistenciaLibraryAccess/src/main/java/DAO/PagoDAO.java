@@ -72,7 +72,7 @@ public class PagoDAO implements IPagoDAO {
             List<Bson> pipeline = Arrays.asList(
                     Aggregates.match(filtroUsuario),
                     Aggregates.unwind("$producto"),
-                    Aggregates.group("$producto.isbn",
+                    Aggregates.group("$producto.isbn",                           
                             Accumulators.first("titulo", "$producto.titulo"),
                             Accumulators.first("autor", "$producto.autor"),
                             Accumulators.first("tipo", "$producto.tipo"),
@@ -115,7 +115,8 @@ public class PagoDAO implements IPagoDAO {
                 Aggregates.project(
                         Projections.fields(
                                 Projections.include("fechaDePago", "costoTotal", "cantidad"),
-                                Projections.computed("titulo", "$producto.titulo")
+                                Projections.computed("titulo", "$producto.titulo"),
+                                Projections.computed("isbn", "$producto.isbn")
                         )
                 ),
                 Aggregates.sort(Sorts.ascending("fechaDePago"))
@@ -126,6 +127,7 @@ public class PagoDAO implements IPagoDAO {
         List<Object> historialCompras = new ArrayList<>();
         for (Document documento : documentosHistorial) {
             Map<String, Object> compra = new HashMap<>();
+            compra.put("isbn", documento.getInteger("isbn"));
             compra.put("titulo", documento.getString("titulo"));
             compra.put("fechaDePago", documento.getDate("fechaDePago"));
             compra.put("costoTotal", documento.getDouble("costoTotal"));

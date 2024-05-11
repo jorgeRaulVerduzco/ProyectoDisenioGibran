@@ -64,6 +64,11 @@ public class VentaDeProductosMenu extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButton2.setText("Productos En Venta");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +119,13 @@ public class VentaDeProductosMenu extends javax.swing.JFrame {
         ventasProducto.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+HistorialProductosVendidos productosVendidos = new HistorialProductosVendidos();
+productosVendidos.setVisible(true);
+this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

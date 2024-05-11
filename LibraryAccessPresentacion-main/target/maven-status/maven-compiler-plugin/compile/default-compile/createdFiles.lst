@@ -4,6 +4,7 @@ Presentacion\BusquedaPorNombre$2.class
 Presentacion\IniciarSesion$2.class
 Presentacion\frmProductosDelUsuario$3.class
 Presentacion\ProductosEncontrados.class
+Presentacion\VentaDeProductosMenu$3.class
 Presentacion\MetodoDePago$1.class
 Presentacion\MenuUsuario$4.class
 Presentacion\ProductosEncontrados$4.class
@@ -12,6 +13,7 @@ Presentacion\ProductosEncontrados$1.class
 Presentacion\HistorialDeCompras$2.class
 Presentacion\FrmGenerarReseña.class
 Presentacion\VentasProducto$3.class
+Presentacion\HistorialProductosVendidos$4.class
 Presentacion\MetodoDePago$2.class
 Presentacion\frmProductosDelUsuario.class
 Presentacion\VentaDeProductosMenu$1.class
@@ -19,10 +21,13 @@ Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal.class
 Presentacion\VentanaProductos$1.class
 Presentacion\MenuUsuario$1.class
+Presentacion\VentasProducto$5.class
 Presentacion\MenuUsuario$2.class
 Presentacion\VentanaProductos$2.class
+Presentacion\HistorialProductosVendidos.class
 Presentacion\MetodoDePago$3.class
 Presentacion\IniciarSesion$3.class
+Presentacion\HistorialProductosVendidos$3.class
 Presentacion\VentasProducto.class
 Presentacion\MenuUsuario$3.class
 Presentacion\MetodoDePago.class
@@ -31,6 +36,7 @@ Presentacion\VentanaProductos$3.class
 Presentacion\BusquedaPorNombre.class
 Presentacion\MenuPrincipal$1.class
 Presentacion\PagoPorTarjeta$1.class
+Presentacion\HistorialProductosVendidos$2.class
 Presentacion\VentasProducto$1.class
 Presentacion\HistorialDeCompras$1.class
 Presentacion\VentasProducto$4.class
@@ -45,6 +51,7 @@ Presentacion\IniciarSesion$1.class
 Presentacion\RenderTabla.class
 Presentacion\VentanaProductos$5.class
 Presentacion\VentaDeProductosMenu.class
+Presentacion\HistorialProductosVendidos$1.class
 Presentacion\MenuPrincipal$2.class
 Presentacion\VentasProducto$2.class
 Presentacion\HistorialDeCompras.class

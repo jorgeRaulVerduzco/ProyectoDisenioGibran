@@ -12,5 +12,5 @@ import java.util.List;
  * @author Bell
  */
 public interface IHistorialUsuario {
-      List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario);
+       public List<Object> consultarHistorialComprasPorUsuarioMeses(String nombreUsuario, int anio, int meses);
 }

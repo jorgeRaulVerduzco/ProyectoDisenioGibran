@@ -30,10 +30,11 @@ public class Prueba {
         
         
         PagoDAO po = new PagoDAO();
-        System.out.println( po.consultarHistorialComprasPorUsuario("Bell"));
+//        System.out.println( po.consultarHistorialComprasPorUsuario("Bell"));
+        System.out.println(po.consultarHistorialComprasPorUsuarioMeses("Bell", 2024, 3));
         
         ProductoDAO pe = new ProductoDAO();
-        pe.buscarProductosPorIsbn(0);
+//        System.out.println(pe.buscarProductosPorIsbn(12));
     }
     
 }

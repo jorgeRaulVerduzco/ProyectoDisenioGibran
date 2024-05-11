@@ -7,6 +7,7 @@ package Presentacion;
 import DTO.PagoDTO;
 import DTO.UsuarioDTO;
 import DTO.ProductoDTO;
+import Excepciones.PersistenciaException;
 import HistorialUsuario.HistorialUsuario;
 import IHistorialUsuario.IHistorialUsuario;
 import IProductosDelUsuario.IProductosUsuario;
@@ -17,6 +18,8 @@ import Negocio.UsuarioSesion;
 import ProductosDelUsuario.ProductosUsuario;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -28,65 +31,82 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Bell
  */
 public final class HistorialDeCompras extends javax.swing.JFrame implements Printable {
-    
+
     IHistorialUsuario historial;
-    
+
     public HistorialDeCompras() {
         initComponents();
         historial = new HistorialUsuario();
         tabla();
         llenarTabla();
+
+        ComboBoxAnios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                llenarTabla();
+            }
+        });
+
+        ComboBoxMeses.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                llenarTabla();
+            }
+        });
     }
-    
+
     public void tabla() {
         Tabla.setDefaultRenderer(Object.class, new RenderTabla());
         DefaultTableModel modeloTabla = new DefaultTableModel();
         Tabla.setModel(modeloTabla);
         Tabla.setRowHeight(40);
-        
+
         String[] encabezados = {"FechaDePago", "Titulo ", "Isbn", "Cantidad", "Costo"};
         modeloTabla.setColumnIdentifiers(encabezados);
-        
+
         int[] anchos = {220, 80, 50, 50, 50,};
         for (int i = 0; i < anchos.length; i++) {
             Tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
-    
+
     public void llenarTabla() {
-        
         UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
         String nombreUsuario = usuarioDTO.getNombreUsuario();
-        List<Object> productosEncontrados = historial.consultarHistorialComprasPorUsuario(nombreUsuario);
+
+        // Obtener el año y el mes seleccionados en los comboBox
+        int anio = Integer.parseInt(ComboBoxAnios.getSelectedItem().toString());
+        int meses = ComboBoxMeses.getSelectedIndex() + 1; // Los meses comienzan en 0
+
+        List<Object> productosEncontrados = historial.consultarHistorialComprasPorUsuarioMeses(nombreUsuario, anio, meses);
         DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
         modeloTabla.setRowCount(0);
-        
+
         if (productosEncontrados != null) {
             System.out.println("Número de productos encontrados: " + productosEncontrados.size());
             for (Object pago : productosEncontrados) {
                 Map<String, Object> histoMap = (Map<String, Object>) pago;
                 System.out.println("Mapa de historial: " + histoMap);
-                
-                Date fechaPago = (Date) histoMap.get("fechaDePago"); 
+
+                Date fechaPago = (Date) histoMap.get("fechaDePago");
                 String titulo = (String) histoMap.get("titulo");
                 int isbn = (Integer) histoMap.get("isbn");
                 int cantidad = (int) histoMap.get("cantidad");
                 double costoTotal = (double) histoMap.get("costoTotal");
-                
+
                 modeloTabla.addRow(new Object[]{fechaPago, titulo, isbn, cantidad, costoTotal});
             }
         } else {
             System.out.println("No se encontraron productos");
         }
-        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,8 +117,9 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         jToggleButton4 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboBoxMeses = new javax.swing.JComboBox<>();
         jToggleButton1 = new javax.swing.JToggleButton();
+        ComboBoxAnios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,13 +180,13 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 172, 530, 340));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hace 7 dias", "Hace 2 meses", "Hace 6 meses", "Hace 12 mese" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        ComboBoxMeses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        ComboBoxMeses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                ComboBoxMesesActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        jPanel1.add(ComboBoxMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
 
         jToggleButton1.setBackground(new java.awt.Color(51, 255, 51));
         jToggleButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -176,6 +197,9 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
             }
         });
         jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, -1, -1));
+
+        ComboBoxAnios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2023", "2022", "2021", "2020" }));
+        jPanel1.add(ComboBoxAnios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,29 +225,28 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         int filaSeleccionada = Tabla.getSelectedRow();
         if (filaSeleccionada != -1) {
             DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
-            
+
             ProductoDTO productoSeleccionado = new ProductoDTO();
-            PagoDTO pagoProvicional = new PagoDTO();
+
             productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 3));
             productoSeleccionado.setIsbn((int) model.getValueAt(filaSeleccionada, 2));
             productoSeleccionado.setTitulo((String) model.getValueAt(filaSeleccionada, 1));
-            
-            
+
             ProductoSeleccionado.setPersonaSeleccionada(productoSeleccionado);
-            
+
             VentanaProductos ventana = new VentanaProductos();
             ventana.setVisible(true);
         }
-        
+
 
     }//GEN-LAST:event_TablaMouseClicked
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
+
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(this);
         if (pj.printDialog()) {
-            
+
             try {
                 pj.print();
             } catch (Exception e) {
@@ -234,14 +257,15 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void ComboBoxMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxMesesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_ComboBoxMesesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboBoxAnios;
+    private javax.swing.JComboBox<String> ComboBoxMeses;
     private javax.swing.JTable Tabla;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -251,18 +275,18 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
     // End of variables declaration//GEN-END:variables
 
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        
+
         if (pageIndex == 0) {
-            
+
             Graphics2D graphics2d = (Graphics2D) graphics;
             graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
             printAll(graphics2d);
-            
+
             return PAGE_EXISTS;
         } else {
-            
+
             return NO_SUCH_PAGE;
         }
-        
+
     }
 }

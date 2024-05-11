@@ -31,6 +31,7 @@ import com.mongodb.client.model.UnwindOptions;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +73,7 @@ public class PagoDAO implements IPagoDAO {
             List<Bson> pipeline = Arrays.asList(
                     Aggregates.match(filtroUsuario),
                     Aggregates.unwind("$producto"),
-                    Aggregates.group("$producto.isbn",                           
+                    Aggregates.group("$producto.isbn",
                             Accumulators.first("titulo", "$producto.titulo"),
                             Accumulators.first("autor", "$producto.autor"),
                             Accumulators.first("tipo", "$producto.tipo"),
@@ -103,41 +104,100 @@ public class PagoDAO implements IPagoDAO {
         }
     }
 
-    
-
     public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario) throws PersistenciaException {
-    try {
-        Bson filtroUsuario = Filters.elemMatch("usuario", Filters.eq("nombreUsuario", nombreUsuario));
+        try {
+            Bson filtroUsuario = Filters.elemMatch("usuario", Filters.eq("nombreUsuario", nombreUsuario));
 
-        List<Bson> pipeline = Arrays.asList(
-                Aggregates.match(filtroUsuario),
-                Aggregates.unwind("$producto"),
-                Aggregates.project(
-                        Projections.fields(
-                                Projections.include("fechaDePago", "costoTotal", "cantidad"),
-                                Projections.computed("titulo", "$producto.titulo"),
-                                Projections.computed("isbn", "$producto.isbn")
-                        )
-                ),
-                Aggregates.sort(Sorts.ascending("fechaDePago"))
-        );
+            List<Bson> pipeline = Arrays.asList(
+                    Aggregates.match(filtroUsuario),
+                    Aggregates.unwind("$producto"),
+                    Aggregates.project(
+                            Projections.fields(
+                                    Projections.include("fechaDePago", "costoTotal", "cantidad"),
+                                    Projections.computed("titulo", "$producto.titulo"),
+                                    Projections.computed("isbn", "$producto.isbn")
+                            )
+                    ),
+                    Aggregates.sort(Sorts.ascending("fechaDePago"))
+            );
 
-        List<Document> documentosHistorial = new ArrayList<>(coleccionPago.aggregate(pipeline, Document.class).into(new ArrayList<>()));
+            List<Document> documentosHistorial = new ArrayList<>(coleccionPago.aggregate(pipeline, Document.class).into(new ArrayList<>()));
 
-        List<Object> historialCompras = new ArrayList<>();
-        for (Document documento : documentosHistorial) {
-            Map<String, Object> compra = new HashMap<>();
-            compra.put("isbn", documento.getInteger("isbn"));
-            compra.put("titulo", documento.getString("titulo"));
-            compra.put("fechaDePago", documento.getDate("fechaDePago"));
-            compra.put("costoTotal", documento.getDouble("costoTotal"));
-            compra.put("cantidad", documento.getInteger("cantidad"));
-            historialCompras.add(compra);
+            List<Object> historialCompras = new ArrayList<>();
+            for (Document documento : documentosHistorial) {
+                Map<String, Object> compra = new HashMap<>();
+                compra.put("isbn", documento.getInteger("isbn"));
+                compra.put("titulo", documento.getString("titulo"));
+                compra.put("fechaDePago", documento.getDate("fechaDePago"));
+                compra.put("costoTotal", documento.getDouble("costoTotal"));
+                compra.put("cantidad", documento.getInteger("cantidad"));
+                historialCompras.add(compra);
+            }
+
+            return historialCompras;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al consultar el historial de compras por el usuario: " + e.getMessage());
         }
-
-        return historialCompras;
-    } catch (MongoException e) {
-        throw new PersistenciaException("Error al consultar el historial de compras por el usuario: " + e.getMessage());
     }
-}
+
+    public List<Object> consultarHistorialComprasPorUsuarioMeses(String nombreUsuario, int año, int mes) throws PersistenciaException {
+        try {
+            // Establecer la fecha de inicio para el primer día del mes y año especificados
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, año);
+            cal.set(Calendar.MONTH, mes - 1); // Calendar.MONTH comienza en 0 para enero
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            java.util.Date fechaInicio = cal.getTime();
+
+            // Establecer la fecha de fin para el último día del mes y año especificados
+            cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
+            cal.set(Calendar.MILLISECOND, 999);
+            java.util.Date fechaFin = cal.getTime();
+
+            Bson filtroUsuario = Filters.eq("usuario.nombreUsuario", nombreUsuario);
+            Bson filtroFecha = Filters.and(
+                    Filters.gte("fechaDePago", fechaInicio),
+                    Filters.lte("fechaDePago", fechaFin)
+            );
+
+            List<Bson> pipeline = Arrays.asList(
+                    Aggregates.match(filtroUsuario),
+                    Aggregates.match(filtroFecha),
+                    Aggregates.unwind("$producto"),
+                    Aggregates.project(
+                            Projections.fields(
+                                    Projections.include("fechaDePago", "costoTotal", "cantidad"),
+                                    Projections.computed("titulo", "$producto.titulo"),
+                                    Projections.computed("isbn", "$producto.isbn")
+                            )
+                    ),
+                    Aggregates.sort(Sorts.ascending("fechaDePago"))
+            );
+
+            List<Document> documentosHistorial = new ArrayList<>(coleccionPago.aggregate(pipeline, Document.class).into(new ArrayList<>()));
+
+            List<Object> historialCompras = new ArrayList<>();
+            for (Document documento : documentosHistorial) {
+                Map<String, Object> compra = new HashMap<>();
+                compra.put("isbn", documento.getInteger("isbn"));
+                compra.put("titulo", documento.getString("titulo"));
+                compra.put("fechaDePago", documento.getDate("fechaDePago"));
+                compra.put("costoTotal", documento.getDouble("costoTotal"));
+                compra.put("cantidad", documento.getInteger("cantidad"));
+                historialCompras.add(compra);
+            }
+
+            return historialCompras;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al consultar el historial de compras por el usuario: " + e.getMessage());
+        }
+    }
+
 }

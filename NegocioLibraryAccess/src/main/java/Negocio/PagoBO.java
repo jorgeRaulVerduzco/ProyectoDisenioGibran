@@ -124,5 +124,13 @@ public class PagoBO implements IPagoBO {
       }
         return null;
   }
+  
+   public List<Object> consultarHistorialComprasPorUsuarioMeses(String nombreUsuario, int anio, int mes){
+      try {
+          return pagoDAO.consultarHistorialComprasPorUsuarioMeses(nombreUsuario, anio, mes);
+      } catch (Exception e) {
+      }
+        return null;
+  }
 }
     

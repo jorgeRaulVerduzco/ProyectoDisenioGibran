@@ -24,18 +24,17 @@ public class HistorialUsuario implements IHistorialUsuario {
 
     
 
-    @Override
-    public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario) {
-        try {
-            List<Object> productosEncontrados = pagoBO.consultarHistorialComprasPorUsuario(nombreUsuario);
-            if (productosEncontrados == null) {
-                return new ArrayList<>(); // Devuelve una lista vacía en lugar de null
-            }
-            return productosEncontrados;
-        } catch (Exception e) { // Imprime el error para depuración
-            // Imprime el error para depuración
-            return new ArrayList<>(); // Devuelve una lista vacía en caso de excepción
+    
+    public List<Object> consultarHistorialComprasPorUsuarioMeses(String nombreUsuario, int anio, int meses) {
+    try {
+        List<Object> productosEncontrados = pagoBO.consultarHistorialComprasPorUsuarioMeses(nombreUsuario, anio, meses);
+        if (productosEncontrados == null) {
+            return new ArrayList<>(); 
         }
+        return productosEncontrados;
+    } catch (Exception e) { 
+        return new ArrayList<>(); 
     }
+}
 }
 

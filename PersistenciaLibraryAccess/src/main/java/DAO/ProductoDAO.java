@@ -21,29 +21,29 @@ import org.bson.types.ObjectId;
  *
  * @author INEGI
  */
-public class ProductoDAO implements IProductoDAO{
-private final MongoCollection<Producto> coleccionProductos;
+public class ProductoDAO implements IProductoDAO {
+
+    private final MongoCollection<Producto> coleccionProductos;
 
     public ProductoDAO() {
         this.coleccionProductos = ConexionBD.getDatabase().getCollection("Producto", Producto.class);
 
     }
 
-
-   @Override
+    @Override
     public void agregarProducto(Producto producto) throws PersistenciaException {
-          try {
-        Bson filtroISBN = Filters.eq("isbn", producto.getIsbn());
-        if (coleccionProductos.countDocuments(filtroISBN) > 0) {
-            System.out.println("ya esta ese producto");       
-        return;
-        }
-        
-        this.coleccionProductos.insertOne(producto);
+        try {
+            Bson filtroISBN = Filters.eq("isbn", producto.getIsbn());
+            if (coleccionProductos.countDocuments(filtroISBN) > 0) {
+                System.out.println("ya esta ese producto");
+                return;
+            }
 
-    } catch (MongoException e) {
-        throw new PersistenciaException("No se pudo insertar al producto: " + producto.getIsbn());
-    }
+            this.coleccionProductos.insertOne(producto);
+
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo insertar al producto: " + producto.getIsbn());
+        }
 
     }
 
@@ -63,6 +63,21 @@ private final MongoCollection<Producto> coleccionProductos;
     }
 
     @Override
+    public List<Producto> buscarProductosPorVendedor(String vendedor) throws PersistenciaException {
+        List<Producto> productos = new ArrayList<>();
+        try {
+            Bson filtro = Filters.eq("editorial", vendedor);
+            FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar productos por editorial: " + e.getMessage());
+        }
+        return productos;
+    }
+
+    @Override
     public List<Producto> obtenerTodosProductos() throws PersistenciaException {
         List<Producto> productos = new ArrayList<>();
         try {
@@ -75,7 +90,5 @@ private final MongoCollection<Producto> coleccionProductos;
         }
         return productos;
     }
-    
-      
 
 }

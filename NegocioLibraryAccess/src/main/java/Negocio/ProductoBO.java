@@ -20,15 +20,15 @@ import java.util.logging.Logger;
  * @author INEGI
  */
 public class ProductoBO implements IProductoBO {
-
+    
     IProductoDAO productoDao;
     DTOaEntidadBO dtoaAentidad;
-
+    
     public ProductoBO() {
         productoDao = new ProductoDAO();
         dtoaAentidad = new DTOaEntidadBO();
     }
-
+    
     @Override
     public void agregarProducto(ProductoDTO productoDTO) {
         Producto producto = dtoaAentidad.ConvertirProductoDTO(productoDTO);
@@ -38,43 +38,43 @@ public class ProductoBO implements IProductoBO {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public List<ProductoDTO> buscarProductosPorNombre(String nombre) {
         try {
             List<Producto> productos = productoDao.buscarProductosPorNombre(nombre);
             List<ProductoDTO> productosDTO = new ArrayList<>();
-
+            
             for (Producto producto : productos) {
                 ProductoDTO productoDTO = convertirAProductoDTO(producto);
                 productosDTO.add(productoDTO);
             }
-
+            
             return productosDTO;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
+    
     @Override
     public List<ProductoDTO> listaProductos() {
         try {
             List<Producto> productos = productoDao.obtenerTodosProductos();
             List<ProductoDTO> productosDTO = new ArrayList<>();
-
+            
             for (Producto producto : productos) {
                 ProductoDTO productoDTO = convertirAProductoDTO(producto);
                 productosDTO.add(productoDTO);
             }
-
+            
             return productosDTO;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
+    
     public ProductoDTO convertirAProductoDTO(Producto producto) {
         ProductoDTO productoDTO = new ProductoDTO();
         productoDTO.setIsbn(producto.getIsbn());
@@ -87,7 +87,25 @@ public class ProductoBO implements IProductoBO {
         productoDTO.setCantidad(producto.getCantidad());
         return productoDTO;
     }
-
+    
+    @Override
+    public List<ProductoDTO> buscarProductosPorVendedor(String vendedor) {
+        try {
+            List<Producto> productos = productoDao.buscarProductosPorVendedor(vendedor);
+            List<ProductoDTO> productosDTO = new ArrayList<>();
+            
+            for (Producto producto : productos) {
+                ProductoDTO productoDTO = convertirAProductoDTO(producto);
+                productosDTO.add(productoDTO);
+            }
+            
+            return productosDTO;
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     @Override
     public String toString() {
         return "BuscarProductoPorNombreBO{"
@@ -95,4 +113,5 @@ public class ProductoBO implements IProductoBO {
                 + ", dtoAentidad=" + dtoaAentidad
                 + '}';
     }
+    
 }

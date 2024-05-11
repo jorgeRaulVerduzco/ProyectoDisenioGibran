@@ -28,10 +28,9 @@ public class Prueba {
        
 
         
-        PagoDAO pa = new PagoDAO();
         
-        System.out.println(pa.consultarHistorialComprasPorUsuario("Bell"));
-        
+        ProductoDAO po = new ProductoDAO();
+        System.out.println( po.buscarProductosPorVendedor("zelda"));
         
     }
     

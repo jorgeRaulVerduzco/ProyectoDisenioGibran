@@ -12,7 +12,13 @@ import java.util.List;
  * @author INEGI
  */
 public interface IProductoBO {
-      public void agregarProducto(ProductoDTO productoDTO) ;
-       public List<ProductoDTO> buscarProductosPorNombre(String nombre);
-         public List<ProductoDTO> listaProductos() ;
+
+    public void agregarProducto(ProductoDTO productoDTO);
+
+    public List<ProductoDTO> buscarProductosPorNombre(String nombre);
+
+    public List<ProductoDTO> listaProductos();
+    
+        public List<ProductoDTO> buscarProductosPorVendedor(String vendedor);
+
 }

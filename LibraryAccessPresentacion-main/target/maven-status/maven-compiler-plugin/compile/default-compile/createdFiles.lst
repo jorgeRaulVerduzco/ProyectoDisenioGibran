@@ -35,6 +35,7 @@ Presentacion\MenuPrincipal$1.class
 Presentacion\PagoPorTarjeta$1.class
 Presentacion\HistorialProductosVendidos$2.class
 Presentacion\VentasProducto$1.class
+Presentacion\HistorialDeCompras$4.class
 Presentacion\HistorialDeCompras$1.class
 Presentacion\VentasProducto$4.class
 Presentacion\BusquedaPorNombre$1.class
@@ -58,6 +59,7 @@ Presentacion\VentanaProductos$4.class
 Presentacion\CarritoCompra$1.class
 Presentacion\PagoPorTarjeta$2.class
 Presentacion\RegistrarUsuario$1.class
+Presentacion\HistorialDeCompras$3.class
 Presentacion\ProductosEncontrados$2.class
 Presentacion\BusquedaPorNombre$3.class
 Presentacion\frmProductosDelUsuario$2.class

@@ -4,10 +4,10 @@
  */
 package IProductosVendidos;
 
-/**
- *
- * @author JORGE
- */
+import DTO.ProductoDTO;
+import java.util.List;
+
 public interface IListaProductosVendidos {
-    
+
+    public List<ProductoDTO> buscarProductosPorVendedor(String vendedor);
 }

@@ -4,10 +4,25 @@
  */
 package ProductosVendidos;
 
-/**
- *
- * @author JORGE
- */
-public class ProductosVendidos {
+import DTO.ProductoDTO;
+import INegocio.IProductoBO;
+import IProductosVendidos.IListaProductosVendidos;
+import Negocio.ProductoBO;
+import java.util.List;
+
+public class ProductosVendidos implements IListaProductosVendidos {
+IProductoBO productoBO;
+
+    public ProductosVendidos() {
+        
+        productoBO = new ProductoBO();
+    }
+
+
+    public List<ProductoDTO> buscarProductosPorVendedor(String vendedor){
+        return productoBO.buscarProductosPorVendedor(vendedor);
+    }
+
     
+
 }

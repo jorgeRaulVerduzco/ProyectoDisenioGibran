@@ -104,5 +104,35 @@ public class ProductoDAO implements IProductoDAO {
         }
         return productos;
     }
+    
+    @Override
+    public List<Producto> buscarProductosPorAutor(String autor) throws PersistenciaException {
+    List<Producto> productos = new ArrayList<>();
+    try {
+        Bson filtro = Filters.eq("autor", autor);
+        FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+        for (Producto producto : resultados) {
+            productos.add(producto);
+        }
+    } catch (MongoException e) {
+        throw new PersistenciaException("Error al buscar productos por autor: " + e.getMessage());
+    }
+    return productos;
+}
+
+    @Override
+    public List<Producto> buscarProductosPorCategoria(String categoria) throws PersistenciaException {
+    List<Producto> productos = new ArrayList<>();
+    try {
+        Bson filtro = Filters.eq("categoria", categoria);
+        FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+        for (Producto producto : resultados) {
+            productos.add(producto);
+        }
+    } catch (MongoException e) {
+        throw new PersistenciaException("Error al buscar productos por categoría: " + e.getMessage());
+    }
+    return productos;
+}
 
 }

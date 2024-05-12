@@ -23,4 +23,8 @@ public interface IProductoBO {
 
     public List<ProductoDTO> buscarProductosPorIsbn(int isbn);
 
+    public List<ProductoDTO> buscarProductosPorCategoria(String categoria);
+
+    public List<ProductoDTO> buscarProductosPorAutor(String autor);
+
 }

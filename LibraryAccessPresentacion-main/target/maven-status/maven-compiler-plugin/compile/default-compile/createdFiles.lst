@@ -4,9 +4,12 @@ Presentacion\BusquedaPorNombre$2.class
 Presentacion\frmTodosLosLibros.class
 Presentacion\IniciarSesion$2.class
 Presentacion\frmProductosDelUsuario$3.class
+Presentacion\frmProductosPorCategoria$3.class
 Presentacion\ProductosEncontrados.class
 Presentacion\VentanaProductos$7.class
+Presentacion\frmProductosPorAutor$3.class
 Presentacion\MetodoDePago$1.class
+Presentacion\MenuPrincipal$5.class
 Presentacion\MenuUsuario$4.class
 Presentacion\ProductosEncontrados$4.class
 Presentacion\frmTodosLosLibros$2.class
@@ -17,6 +20,7 @@ Presentacion\FrmGenerarReseña.class
 Presentacion\VentasProducto$3.class
 Presentacion\HistorialDeCompras$5.class
 Presentacion\HistorialDeCompras$6.class
+Presentacion\frmProductosPorAutor$1.class
 Presentacion\MetodoDePago$2.class
 Presentacion\frmProductosDelUsuario.class
 Presentacion\frmTodosLosLibros$3.class
@@ -24,7 +28,9 @@ Presentacion\VentaDeProductosMenu$1.class
 Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal.class
 Presentacion\VentanaProductos$1.class
+Presentacion\frmProductosPorCategoria$1.class
 Presentacion\MenuUsuario$1.class
+Presentacion\frmProductosPorAutor$2.class
 Presentacion\MenuUsuario$2.class
 Presentacion\VentanaProductos$2.class
 Presentacion\HistorialProductosVendidos.class
@@ -32,6 +38,7 @@ Presentacion\MetodoDePago$3.class
 Presentacion\IniciarSesion$3.class
 Presentacion\HistorialProductosVendidos$3.class
 Presentacion\VentasProducto.class
+Presentacion\frmProductosPorCategoria$2.class
 Presentacion\MenuUsuario$3.class
 Presentacion\MetodoDePago.class
 Presentacion\PagoEnOxxo.class
@@ -49,11 +56,14 @@ Presentacion\VentasProducto$4.class
 Presentacion\BusquedaPorNombre$1.class
 Presentacion\VentaDeProductosMenu$2.class
 Presentacion\MenuUsuario.class
+Presentacion\frmProductosPorCategoria$4.class
 Presentacion\VentanaProductos$6.class
 Presentacion\FrmGenerarReseña$1.class
 Presentacion\CarritoCompra.class
 Presentacion\PagoEnOxxo$1.class
+Presentacion\frmProductosPorAutor$4.class
 Presentacion\IniciarSesion$1.class
+Presentacion\frmProductosPorCategoria.class
 Presentacion\RenderTabla.class
 Presentacion\VentanaProductos$5.class
 Presentacion\VentaDeProductosMenu.class
@@ -61,6 +71,7 @@ Presentacion\HistorialProductosVendidos$1.class
 Presentacion\MenuPrincipal$2.class
 Presentacion\VentasProducto$2.class
 Presentacion\HistorialDeCompras.class
+Presentacion\frmProductosPorAutor.class
 Presentacion\frmProductosDelUsuario$1.class
 Presentacion\ProductosEncontrados$3.class
 Presentacion\VentanaProductos$4.class

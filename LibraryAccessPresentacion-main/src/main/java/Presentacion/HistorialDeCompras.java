@@ -67,10 +67,10 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         Tabla.setModel(modeloTabla);
         Tabla.setRowHeight(40);
 
-        String[] encabezados = {"FechaDePago", "Titulo ", "Isbn", "Cantidad", "Costo"};
+        String[] encabezados = {"FechaDePago", "Titulo ", "Isbn", "C/U", "Cantidad", "Total"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
-        int[] anchos = {220, 80, 50, 50, 50,};
+        int[] anchos = {220, 80, 20, 50, 10, 50};
         for (int i = 0; i < anchos.length; i++) {
             Tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -80,9 +80,8 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         UsuarioDTO usuarioDTO = UsuarioSesion.usuarioSesion();
         String nombreUsuario = usuarioDTO.getNombreUsuario();
 
-        // Obtener el año y el mes seleccionados en los comboBox
         int anio = Integer.parseInt(ComboBoxAnios.getSelectedItem().toString());
-        int meses = ComboBoxMeses.getSelectedIndex() + 1; // Los meses comienzan en 0
+        int meses = ComboBoxMeses.getSelectedIndex() + 1;
 
         List<Object> productosEncontrados = historial.consultarHistorialComprasPorUsuarioMeses(nombreUsuario, anio, meses);
         DefaultTableModel modeloTabla = (DefaultTableModel) Tabla.getModel();
@@ -97,10 +96,11 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 Date fechaPago = (Date) histoMap.get("fechaDePago");
                 String titulo = (String) histoMap.get("titulo");
                 int isbn = (Integer) histoMap.get("isbn");
+                double precio = (double) histoMap.get("precio");
                 int cantidad = (int) histoMap.get("cantidad");
                 double costoTotal = (double) histoMap.get("costoTotal");
 
-                modeloTabla.addRow(new Object[]{fechaPago, titulo, isbn, cantidad, costoTotal});
+                modeloTabla.addRow(new Object[]{fechaPago, titulo, isbn, precio, cantidad, costoTotal});
             }
         } else {
             System.out.println("No se encontraron productos");
@@ -178,15 +178,15 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         });
         jScrollPane1.setViewportView(Tabla);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 172, 530, 340));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 580, 340));
 
-        ComboBoxMeses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        ComboBoxMeses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "April", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre." }));
         ComboBoxMeses.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboBoxMesesActionPerformed(evt);
             }
         });
-        jPanel1.add(ComboBoxMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, -1, -1));
+        jPanel1.add(ComboBoxMeses, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 132, -1, 20));
 
         jToggleButton1.setBackground(new java.awt.Color(51, 255, 51));
         jToggleButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -196,7 +196,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
                 jToggleButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, -1, -1));
+        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 540, -1, -1));
 
         ComboBoxAnios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2024", "2023", "2022", "2021", "2020" }));
         jPanel1.add(ComboBoxAnios, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
@@ -205,7 +205,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +228,8 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
 
             ProductoDTO productoSeleccionado = new ProductoDTO();
 
-            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 3));
+            productoSeleccionado.setCantidad((int) model.getValueAt(filaSeleccionada, 4));
+            productoSeleccionado.setPrecio((double) model.getValueAt(filaSeleccionada, 3));
             productoSeleccionado.setIsbn((int) model.getValueAt(filaSeleccionada, 2));
             productoSeleccionado.setTitulo((String) model.getValueAt(filaSeleccionada, 1));
 
@@ -236,6 +237,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
 
             VentanaProductos ventana = new VentanaProductos();
             ventana.setVisible(true);
+            dispose();
         }
 
 

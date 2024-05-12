@@ -177,7 +177,8 @@ public class PagoDAO implements IPagoDAO {
                             Projections.fields(
                                     Projections.include("fechaDePago", "costoTotal", "cantidad"),
                                     Projections.computed("titulo", "$producto.titulo"),
-                                    Projections.computed("isbn", "$producto.isbn")
+                                    Projections.computed("isbn", "$producto.isbn"),
+                                    Projections.computed("precio", "$producto.precio")
                             )
                     ),
                     Aggregates.sort(Sorts.ascending("fechaDePago"))
@@ -193,6 +194,7 @@ public class PagoDAO implements IPagoDAO {
                 compra.put("fechaDePago", documento.getDate("fechaDePago"));
                 compra.put("costoTotal", documento.getDouble("costoTotal"));
                 compra.put("cantidad", documento.getInteger("cantidad"));
+                compra.put("precio", documento.getDouble("precio"));
                 historialCompras.add(compra);
             }
 

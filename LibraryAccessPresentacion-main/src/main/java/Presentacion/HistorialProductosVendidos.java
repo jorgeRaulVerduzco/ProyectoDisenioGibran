@@ -144,7 +144,7 @@ public class HistorialProductosVendidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        MenuUsuario MU = new MenuUsuario();
+        VentaDeProductosMenu MU = new VentaDeProductosMenu();
         MU.setVisible(true);
         dispose();
     }//GEN-LAST:event_jToggleButton4ActionPerformed

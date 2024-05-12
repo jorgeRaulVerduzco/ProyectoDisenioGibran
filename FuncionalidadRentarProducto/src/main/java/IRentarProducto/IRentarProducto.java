@@ -4,10 +4,16 @@
  */
 package IRentarProducto;
 
+import DTO.RentaDTO;
+import DTO.RentaPorOxxoDTO;
+import DTO.RentaPorTarjetaDTO;
+
 /**
  *
  * @author rober
  */
-public class IRentarProducto {
-    
+public interface IRentarProducto {
+    public void rentarProducto(RentaDTO rentaDTO);
+    public void rentarProductoPorOxxo(RentaPorOxxoDTO rentaPorOxxoDTO);
+    public void rentarProductoPorTarjeta(RentaPorTarjetaDTO rentaPorTarjetaDTO);
 }

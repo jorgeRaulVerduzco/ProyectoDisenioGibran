@@ -12,6 +12,7 @@ import Negocio.UsuarioSesion;
 import ProductosDelUsuario.ProductosUsuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -148,10 +149,12 @@ public class frmProductosDelUsuario extends javax.swing.JFrame {
 
             ProductoSeleccionado.setPersonaSeleccionada(productoSeleccionado);
 
-            FrmGenerarReseña ventana = new FrmGenerarReseña();
-            ventana.setVisible(true);
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Desea generar una reseña de este libro?", "Generar Reseña", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                FrmGenerarReseña ventana = new FrmGenerarReseña();
+                ventana.setVisible(true);
+            }
         }
-
     }//GEN-LAST:event_tblConsultasMouseClicked
 
     public void tabla() {

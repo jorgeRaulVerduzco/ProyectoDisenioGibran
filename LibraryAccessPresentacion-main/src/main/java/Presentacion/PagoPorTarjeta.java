@@ -9,6 +9,7 @@ import DTO.PagoDTO;
 import DTO.PagoPorTarjetaDTO;
 import IComprarProducto.IComprarProducto;
 import Negocio.PagoProvicional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -48,8 +49,8 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
         txtCCV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtCaducidad = new javax.swing.JTextField();
         bnFinalizarCompra = new javax.swing.JButton();
+        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,22 +83,6 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addGap(119, 119, 119))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 396, Short.MAX_VALUE)
-                .addComponent(txtCCV, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -112,7 +97,20 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(label))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCCV, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(119, 119, 119))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,8 +134,8 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
                         .addComponent(txtCCV, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCaducidad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(bnFinalizarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -167,13 +165,12 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
 
     private void bnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnFinalizarCompraActionPerformed
         // Verificar si los campos están vacíos
-        if (txtCCV.getText().isEmpty() || txtCaducidad.getText().isEmpty() || txtNumeroTarjeta.getText().isEmpty()) {
+        if (txtCCV.getText().isEmpty() || txtNumeroTarjeta.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Debe completar todos los campos");
         } else {
             // Obtener los valores ingresados por el usuario
             String numeroTarjeta = txtNumeroTarjeta.getText();
             String ccv = txtCCV.getText();
-            String caducidad = txtCaducidad.getText();
 
             // Crear un objeto PagoPorTarjetaDTO con los valores ingresados
             PagoPorTarjetaDTO pagoPorTarjetaDTO = new PagoPorTarjetaDTO();
@@ -182,14 +179,17 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             java.sql.Date fechas5 = new java.sql.Date(new GregorianCalendar(2043, Calendar.FEBRUARY, 8).getTimeInMillis());
             java.util.Calendar calendario = java.util.Calendar.getInstance();
             java.sql.Date fechaSistema = new java.sql.Date(calendario.getTimeInMillis());
-            pagoPorTarjetaDTO.setFechaExpiracion(fechas5);
+            LocalDate fechaSeleccionada = datePicker1.getDate();
+
+            java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaSeleccionada);
+            pagoPorTarjetaDTO.setFechaExpiracion(fechaSQL);
             comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
 
             PagoDTO pagoDTO = PagoProvicional.getPagoProvicional();
             List<PagoPorTarjetaDTO> pagosTarjeta = new ArrayList<>();
             pagosTarjeta.add(pagoPorTarjetaDTO);
             pagoDTO.setPagoPorTarjetaDTO(pagosTarjeta);
-                        pagoDTO.setFechaDePago(fechaSistema);
+            pagoDTO.setFechaDePago(fechaSistema);
 
             comprarProcuto.comprarProducto(pagoDTO);
             // Mostrar un mensaje de éxito
@@ -201,17 +201,17 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_bnFinalizarCompraActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnAtras;
     private javax.swing.JButton bnFinalizarCompra;
+    private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel label;
     private javax.swing.JTextField txtCCV;
-    private javax.swing.JTextField txtCaducidad;
     private javax.swing.JTextField txtNumeroTarjeta;
     // End of variables declaration//GEN-END:variables
 }

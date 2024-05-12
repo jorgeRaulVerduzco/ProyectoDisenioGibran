@@ -26,8 +26,8 @@ public class Prueba {
      */
     public static void main(String[] args) throws PersistenciaException {
        
-
-        
+ReseñaDAO reseñaDao = new ReseñaDAO();
+        System.out.println(reseñaDao.obtenerReseñasDeUsuario("jorgendo43"));
         
         PagoDAO po = new PagoDAO();
 //        System.out.println( po.consultarHistorialComprasPorUsuario("Bell"));

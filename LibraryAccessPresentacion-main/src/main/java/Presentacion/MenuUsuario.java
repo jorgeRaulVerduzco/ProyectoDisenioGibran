@@ -229,7 +229,7 @@ public class MenuUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        frmProductosDelUsuario reseña = new frmProductosDelUsuario();
+        frmMenuResenias reseña = new frmMenuResenias();
         reseña.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jToggleButton3ActionPerformed

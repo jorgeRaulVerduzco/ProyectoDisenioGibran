@@ -48,4 +48,13 @@ public class ReseñaBO implements IReseñaBO {
         return null;
     }
 
+    @Override
+    public List<Object> obtenerReseñasDeUsuario(String nombreUsuario){
+        try {
+            return reseñaDAO.obtenerReseñasDeUsuario(nombreUsuario);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ReseñaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

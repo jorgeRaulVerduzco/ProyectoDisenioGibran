@@ -16,6 +16,7 @@ import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Projections;
+import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Updates.set;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,36 +45,36 @@ public class ReseñaDAO implements IReseñaDAO {
 
     @Override
     public void generarReseña(Reseña reseña) throws PersistenciaException {
-       try {
-        Reseña reseñaExistente = coleccionReseña.find(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario()))).first();
-        if (reseñaExistente != null) {
-            reseñaExistente.setRating(reseña.getRating());
-            reseñaExistente.setReseña(reseña.getReseña());
-            coleccionReseña.replaceOne(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario())), reseñaExistente);
-        } else {
-            coleccionReseña.insertOne(reseña);
-        }
-        
-        int isbnProducto = reseña.getProducto().getIsbn();
-        Producto producto = coleccionProducto.find(eq("isbn", isbnProducto)).first();
-        if (producto != null) {
-            List<Reseña> reseñasActualizadas = producto.getReseñas();
-            Reseña reseñaUsuario = reseñasActualizadas.stream().filter(r -> r.getUsuario().getNombreUsuario().equals(reseña.getUsuario().getNombreUsuario())).findFirst().orElse(null);
-            if (reseñaUsuario != null) {
-                reseñaUsuario.setRating(reseña.getRating());
-                reseñaUsuario.setReseña(reseña.getReseña());
+        try {
+            Reseña reseñaExistente = coleccionReseña.find(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario()))).first();
+            if (reseñaExistente != null) {
+                reseñaExistente.setRating(reseña.getRating());
+                reseñaExistente.setReseña(reseña.getReseña());
+                coleccionReseña.replaceOne(and(eq("producto.isbn", reseña.getProducto().getIsbn()), eq("usuario.nombreUsuario", reseña.getUsuario().getNombreUsuario())), reseñaExistente);
             } else {
-                reseñasActualizadas.add(reseña);
+                coleccionReseña.insertOne(reseña);
             }
-            coleccionProducto.updateOne(eq("isbn", isbnProducto), set("reseñas", reseñasActualizadas));
+
+            int isbnProducto = reseña.getProducto().getIsbn();
+            Producto producto = coleccionProducto.find(eq("isbn", isbnProducto)).first();
+            if (producto != null) {
+                List<Reseña> reseñasActualizadas = producto.getReseñas();
+                Reseña reseñaUsuario = reseñasActualizadas.stream().filter(r -> r.getUsuario().getNombreUsuario().equals(reseña.getUsuario().getNombreUsuario())).findFirst().orElse(null);
+                if (reseñaUsuario != null) {
+                    reseñaUsuario.setRating(reseña.getRating());
+                    reseñaUsuario.setReseña(reseña.getReseña());
+                } else {
+                    reseñasActualizadas.add(reseña);
+                }
+                coleccionProducto.updateOne(eq("isbn", isbnProducto), set("reseñas", reseñasActualizadas));
+            }
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al generar reseña: " + e.getMessage());
         }
-    } catch (Exception e) {
-        throw new PersistenciaException("Error al generar reseña: " + e.getMessage());
-    }
     }
 
     @Override
-   public List<Object> obtenerReseñasDeProducto(int isbn) throws PersistenciaException {
+    public List<Object> obtenerReseñasDeProducto(int isbn) throws PersistenciaException {
         try {
             Bson filtroISBN = Filters.eq("producto.isbn", isbn);
 
@@ -101,10 +102,35 @@ public class ReseñaDAO implements IReseñaDAO {
         }
     }
 
+    @Override
+    public List<Object> obtenerReseñasDeUsuario(String nombreUsuario) throws PersistenciaException {
+        try {
+            Bson filtroUsuario = eq("usuario.nombreUsuario", nombreUsuario);
 
-   
+            Bson proyeccion = include("reseña", "rating", "producto.isbn");
 
-  
-    
-    
+            List<Reseña> reseñasUsuario = new ArrayList<>(coleccionReseña.find(filtroUsuario).projection(proyeccion).into(new ArrayList<>()));
+
+            List<Object> resultado = new ArrayList<>();
+
+            for (Reseña reseña : reseñasUsuario) {
+                Producto producto = coleccionProducto.find(eq("isbn", reseña.getProducto().getIsbn())).first();
+                if (producto != null) {
+                    String tituloLibro = producto.getTitulo();
+                    String reseñaTexto = reseña.getReseña();
+                    int rating = reseña.getRating();
+
+                    Map<String, Object> reseñaMap = new HashMap<>();
+                    reseñaMap.put("titulo", tituloLibro);
+                    reseñaMap.put("reseña", reseñaTexto);
+                    reseñaMap.put("rating", rating);
+                    resultado.add(reseñaMap);
+                }
+            }
+
+            return resultado;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener las reseñas del usuario: " + e.getMessage());
+        }
+    }
 }

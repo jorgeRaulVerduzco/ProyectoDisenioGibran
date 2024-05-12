@@ -1,4 +1,5 @@
 Presentacion\RegistrarUsuario$2.class
+Presentacion\frmHistorialResenias$3.class
 Presentacion\PagoPorTarjeta.class
 Presentacion\BusquedaPorNombre$2.class
 Presentacion\frmTodosLosLibros.class
@@ -8,10 +9,13 @@ Presentacion\frmProductosPorCategoria$3.class
 Presentacion\ProductosEncontrados.class
 Presentacion\VentanaProductos$7.class
 Presentacion\frmProductosPorAutor$3.class
+Presentacion\frmMenuResenias.class
 Presentacion\MetodoDePago$1.class
 Presentacion\MenuPrincipal$5.class
+Presentacion\frmMenuResenias$4.class
 Presentacion\MenuUsuario$4.class
 Presentacion\ProductosEncontrados$4.class
+Presentacion\frmHistorialResenias.class
 Presentacion\frmTodosLosLibros$2.class
 Presentacion\IniciarSesion.class
 Presentacion\ProductosEncontrados$1.class
@@ -29,12 +33,15 @@ Presentacion\VentanaProductos.class
 Presentacion\MenuPrincipal.class
 Presentacion\VentanaProductos$1.class
 Presentacion\frmProductosPorCategoria$1.class
+Presentacion\frmMenuResenias$1.class
 Presentacion\MenuUsuario$1.class
 Presentacion\frmProductosPorAutor$2.class
 Presentacion\MenuUsuario$2.class
 Presentacion\VentanaProductos$2.class
+Presentacion\frmHistorialResenias$2.class
 Presentacion\HistorialProductosVendidos.class
 Presentacion\MetodoDePago$3.class
+Presentacion\frmMenuResenias$2.class
 Presentacion\IniciarSesion$3.class
 Presentacion\HistorialProductosVendidos$3.class
 Presentacion\VentasProducto.class
@@ -43,6 +50,7 @@ Presentacion\MenuUsuario$3.class
 Presentacion\MetodoDePago.class
 Presentacion\PagoEnOxxo.class
 Presentacion\VentanaProductos$3.class
+Presentacion\frmMenuResenias$3.class
 Presentacion\BusquedaPorNombre.class
 Presentacion\MenuPrincipal$1.class
 Presentacion\MenuPrincipal$4.class
@@ -56,10 +64,12 @@ Presentacion\VentasProducto$4.class
 Presentacion\BusquedaPorNombre$1.class
 Presentacion\VentaDeProductosMenu$2.class
 Presentacion\MenuUsuario.class
+Presentacion\frmHistorialResenias$4.class
 Presentacion\frmProductosPorCategoria$4.class
 Presentacion\VentanaProductos$6.class
 Presentacion\FrmGenerarReseña$1.class
 Presentacion\CarritoCompra.class
+Presentacion\frmHistorialResenias$1.class
 Presentacion\PagoEnOxxo$1.class
 Presentacion\frmProductosPorAutor$4.class
 Presentacion\IniciarSesion$1.class

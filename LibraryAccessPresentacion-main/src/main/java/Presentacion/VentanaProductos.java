@@ -86,6 +86,11 @@ public class VentanaProductos extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRentar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/rentarAhora.jpg"))); // NOI18N
+        btnRentar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentarActionPerformed(evt);
+            }
+        });
 
         BtnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/comprar.jpg"))); // NOI18N
         BtnComprar.addActionListener(new java.awt.event.ActionListener() {
@@ -274,6 +279,12 @@ public class VentanaProductos extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void btnRentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentarActionPerformed
+        RentarProducto rp = new RentarProducto();
+        rp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRentarActionPerformed
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 

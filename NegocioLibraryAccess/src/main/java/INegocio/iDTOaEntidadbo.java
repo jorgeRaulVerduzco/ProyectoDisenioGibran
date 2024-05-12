@@ -14,8 +14,14 @@ import Dominio.*;
 public interface iDTOaEntidadbo {
     public  Producto ConvertirProductoDTO(ProductoDTO productoDTO);
     public Usuario ConvertirUsuarioDTO(UsuarioDTO usuarioDTO);
+    
     public Pago ConvertirPagoDTO(PagoDTO pagoDTO);
     public PagoPorOxxo ConnvertirPagoOxxoDTO(PagoPorOxxoDTO pagoOxxoDTO);
     public PagoPorTarjeta convertirPagoPorTarjetaDTO(PagoPorTarjetaDTO PagoPorTarjetaDTO);
+    
     public Ticket convertirTicketDTO(TicketDTO ticketDTO);
+    
+    public Renta convertirRentaDTO(RentaDTO rentaDTO);
+    public RentaPorOxxo convertitRentaOxxoDTO(RentaPorOxxoDTO rentaPorOxxoDTO);
+    public RentaPorTarjeta convertitRentaPorTarjetaDTO(RentaPorTarjetaDTO rentaPorTarjetaDTO);
 }

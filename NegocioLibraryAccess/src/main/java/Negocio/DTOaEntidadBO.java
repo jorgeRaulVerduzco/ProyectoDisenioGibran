@@ -8,6 +8,9 @@ import DTO.PagoDTO;
 import DTO.PagoPorOxxoDTO;
 import DTO.PagoPorTarjetaDTO;
 import DTO.ProductoDTO;
+import DTO.RentaDTO;
+import DTO.RentaPorOxxoDTO;
+import DTO.RentaPorTarjetaDTO;
 import DTO.ReseñaDTO;
 import DTO.TicketDTO;
 import DTO.UsuarioDTO;
@@ -15,6 +18,9 @@ import Dominio.Pago;
 import Dominio.PagoPorOxxo;
 import Dominio.PagoPorTarjeta;
 import Dominio.Producto;
+import Dominio.Renta;
+import Dominio.RentaPorOxxo;
+import Dominio.RentaPorTarjeta;
 import Dominio.Reseña;
 import Dominio.Ticket;
 import Dominio.Usuario;
@@ -142,6 +148,63 @@ public class DTOaEntidadBO implements iDTOaEntidadbo {
         reseña.setUsuario(usuario);
 
         return reseña;
+    }
+
+    @Override
+    public Renta convertirRentaDTO(RentaDTO rentaDTO) {
+
+        Renta renta = new Renta();
+        renta.setCantidad(rentaDTO.getCantidad());
+        renta.setCostoRenta(rentaDTO.getCostoRenta());
+        renta.setFechaRenta(rentaDTO.getFechaRenta());
+        renta.setFechaDevolucion(rentaDTO.getFechaDevolucion());
+        List<Usuario> usuarios = new ArrayList<>();
+        for (UsuarioDTO usuarioDTO : rentaDTO.getUsuarioDTO()) {
+            Usuario usuario = ConvertirUsuarioDTO(usuarioDTO);
+            usuarios.add(usuario);
+        }
+        renta.setUsuario(usuarios);
+
+        List<Producto> productos = new ArrayList<>();
+        for (ProductoDTO productoDTO : rentaDTO.getProductoDTO()) {
+            Producto producto = ConvertirProductoDTO(productoDTO);
+            productos.add(producto);
+        }
+        renta.setProducto(productos);
+
+        // Convertir lista de RentaPorOxxoDTO a lista de RentaPorOxxo
+        List<RentaPorOxxo> rentasPorOxxos = new ArrayList<>();
+        for (RentaPorOxxoDTO rentaPorOxxoDTO : rentaDTO.getRentaPorOxxoDTO()) {
+            RentaPorOxxo rentaPorOxxo = convertitRentaOxxoDTO(rentaPorOxxoDTO);
+        }
+        renta.setRentaPorOxxo(rentasPorOxxos);
+        
+        // Convertir lista de RentaPorTarjetaDTO a lista de RentaPorTarjeta
+        List<RentaPorTarjeta> rentaPorTarjetas = new ArrayList<>();
+        for (RentaPorTarjetaDTO rentaPorTarjetaDTO : rentaDTO.getRentaPorTarjetaDTO()) {
+            RentaPorTarjeta rentaPorTarjeta = convertitRentaPorTarjetaDTO(rentaPorTarjetaDTO);
+            rentaPorTarjetas.add(rentaPorTarjeta);            
+        }
+        renta.setRentaPorTarjeta(rentaPorTarjetas);
+        return renta;
+    }
+
+    @Override
+    public RentaPorOxxo convertitRentaOxxoDTO(RentaPorOxxoDTO rentaPorOxxoDTO) {
+        RentaPorOxxo rentaPorOxxo = new RentaPorOxxo();
+        rentaPorOxxo.setCodigoBarrasOxxo(rentaPorOxxoDTO.getCodigoBarrasOxxo());
+        return rentaPorOxxo;
+    }
+
+    @Override
+    public RentaPorTarjeta convertitRentaPorTarjetaDTO(RentaPorTarjetaDTO rentaPorTarjetaDTO) {
+        RentaPorTarjeta rentaPorTarjeta = new RentaPorTarjeta();
+        rentaPorTarjeta.setCodigoSeguridad(rentaPorTarjetaDTO.getCodigoSeguridad());
+        rentaPorTarjeta.setFechaExpiracion(rentaPorTarjetaDTO.getFechaExpiracion());
+        rentaPorTarjeta.setNumeroTarjeta(rentaPorTarjetaDTO.getNumeroTarjeta());
+        rentaPorTarjeta.setTipoTarjeta(rentaPorTarjetaDTO.getTipoTarjeta());
+        
+        return rentaPorTarjeta;
     }
 
 }

@@ -22,14 +22,18 @@ public class Renta {
     private double costoRenta;
     private List<Usuario> usuario;
     private List<Producto> producto;
-    private List<PagoPorOxxo> pagoPorOxxo;
-    private List<PagoPorTarjeta> pagoPorTarjeta;
+    private List<RentaPorOxxo> rentaPorOxxo;
+    private List<RentaPorTarjeta> rentaPorTarjeta;
+
+    public Renta(ObjectId id) {
+        this.id = id;
+    }
 
     public Renta() {
         this.usuario = new ArrayList<>();
         this.producto = new ArrayList<>();
-        this.pagoPorOxxo = new ArrayList<>();
-        this.pagoPorTarjeta = new ArrayList<>();
+        this.rentaPorOxxo = new ArrayList<>();
+        this.rentaPorTarjeta = new ArrayList<>();
     }
 
     public ObjectId getId() {
@@ -88,25 +92,25 @@ public class Renta {
         this.producto = producto;
     }
 
-    public List<PagoPorOxxo> getPagoPorOxxo() {
-        return pagoPorOxxo;
+    public List<RentaPorOxxo> getRentaPorOxxo() {
+        return rentaPorOxxo;
     }
 
-    public void setPagoPorOxxo(List<PagoPorOxxo> pagoPorOxxo) {
-        this.pagoPorOxxo = pagoPorOxxo;
+    public void setRentaPorOxxo(List<RentaPorOxxo> rentaPorOxxo) {
+        this.rentaPorOxxo = rentaPorOxxo;
     }
 
-    public List<PagoPorTarjeta> getPagoPorTarjeta() {
-        return pagoPorTarjeta;
+    public List<RentaPorTarjeta> getRentaPorTarjeta() {
+        return rentaPorTarjeta;
     }
 
-    public void setPagoPorTarjeta(List<PagoPorTarjeta> pagoPorTarjeta) {
-        this.pagoPorTarjeta = pagoPorTarjeta;
+    public void setRentaPorTarjeta(List<RentaPorTarjeta> rentaPorTarjeta) {
+        this.rentaPorTarjeta = rentaPorTarjeta;
     }
 
     @Override
     public String toString() {
-        return "Renta{" + "id=" + id + ", fechaRenta=" + fechaRenta + ", fechaDevolucion=" + fechaDevolucion + ", cantidad=" + cantidad + ", costoRenta=" + costoRenta + ", usuario=" + usuario + ", producto=" + producto + ", pagoPorOxxo=" + pagoPorOxxo + ", pagoPorTarjeta=" + pagoPorTarjeta + '}';
+        return "Renta{" + "id=" + id + ", fechaRenta=" + fechaRenta + ", fechaDevolucion=" + fechaDevolucion + ", cantidad=" + cantidad + ", costoRenta=" + costoRenta + ", usuario=" + usuario + ", producto=" + producto + ", rentaPorOxxo=" + rentaPorOxxo + ", rentaPorTarjeta=" + rentaPorTarjeta + '}';
     }
 
 }

@@ -19,6 +19,8 @@ public interface IRentaDAO {
 
     public List<Producto> consultarProductosRentadosPorUsuario(String nombreUsuario) throws PersistenciaException;
     
-    public List<Renta> consultarHistorialRentas(String nombreUsuario) throws PersistenciaException;
+    public List<Object> consultarHistorialRentasPorUsuario(String nombreUsuario) throws PersistenciaException;
+    
+    public List<Object> consultarHistorialRentasPorUsuarioMeses(String nombreUsuario, int año, int mes) throws PersistenciaException;
 
 }

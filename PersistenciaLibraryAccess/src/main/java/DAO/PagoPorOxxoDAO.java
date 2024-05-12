@@ -12,18 +12,17 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import org.bson.types.ObjectId;
 
-
 /**
  *
  * @author INEGI
  */
-public class PagoPorOxxoDAO implements IPagoPorOxxoDAO{
-      private final MongoCollection<PagoPorOxxo> coleccionPagoOxxo;
+public class PagoPorOxxoDAO implements IPagoPorOxxoDAO {
+
+    private final MongoCollection<PagoPorOxxo> coleccionPagoOxxo;
 
     public PagoPorOxxoDAO() {
-            this.coleccionPagoOxxo =  ConexionBD.getDatabase().getCollection("PagoPorOxxo", PagoPorOxxo.class);
+        this.coleccionPagoOxxo = ConexionBD.getDatabase().getCollection("PagoPorOxxo", PagoPorOxxo.class);
     }
-
 
     @Override
     public void agregarPago(PagoPorOxxo pago) throws PersistenciaException {

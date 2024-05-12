@@ -104,6 +104,7 @@ public class PagoDAO implements IPagoDAO {
         }
     }
 
+    @Override
     public List<Object> consultarHistorialComprasPorUsuario(String nombreUsuario) throws PersistenciaException {
         try {
             Bson filtroUsuario = Filters.elemMatch("usuario", Filters.eq("nombreUsuario", nombreUsuario));
@@ -140,6 +141,7 @@ public class PagoDAO implements IPagoDAO {
         }
     }
 
+    @Override
     public List<Object> consultarHistorialComprasPorUsuarioMeses(String nombreUsuario, int año, int mes) throws PersistenciaException {
         try {
             // Establecer la fecha de inicio para el primer día del mes y año especificados

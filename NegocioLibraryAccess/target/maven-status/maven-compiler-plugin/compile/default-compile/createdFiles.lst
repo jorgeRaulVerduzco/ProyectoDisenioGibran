@@ -12,3 +12,4 @@ Negocio\PagoProvicional.class
 Negocio\DTOaEntidadBO.class
 INegocio\IPagoBO.class
 INegocio\IProductoBO.class
+INegocio\IRentaBO.class

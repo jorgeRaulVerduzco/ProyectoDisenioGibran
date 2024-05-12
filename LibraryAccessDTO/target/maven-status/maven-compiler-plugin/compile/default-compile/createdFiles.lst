@@ -3,5 +3,8 @@ DTO\UsuarioDTO.class
 DTO\ReseñaDTO.class
 DTO\PagoDTO.class
 DTO\PagoPorOxxoDTO.class
+DTO\RentaPorOxxoDTO.class
 DTO\TicketDTO.class
+DTO\RentaPorTarjetaDTO.class
 DTO\PagoPorTarjetaDTO.class
+DTO\RentaDTO.class

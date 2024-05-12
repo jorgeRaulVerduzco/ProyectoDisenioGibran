@@ -170,7 +170,7 @@ public class ProductosEncontrados extends javax.swing.JFrame {
         tblConsultas.setRowHeight(40);
 
         // Definición de las columnas y sus encabezados
-        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio",  "Categoria", "Cantidad"};
+        String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio", "Categoria", "Cantidad"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
         // Configuración del ancho preferido de las columnas
@@ -230,11 +230,12 @@ public class ProductosEncontrados extends javax.swing.JFrame {
 
             VentanaProductos ventana = new VentanaProductos();
             ventana.setVisible(true);
+            this.dispose();
+
         }
     }//GEN-LAST:event_tblConsultasMouseClicked
 
-    
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

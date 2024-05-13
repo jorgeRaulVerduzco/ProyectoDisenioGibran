@@ -126,7 +126,7 @@ public class frmMenuResenias extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         MenuUsuario mu = new MenuUsuario();
         mu.setVisible(true);
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
 

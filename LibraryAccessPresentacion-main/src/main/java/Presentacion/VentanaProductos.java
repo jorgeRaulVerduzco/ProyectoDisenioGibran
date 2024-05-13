@@ -355,7 +355,7 @@ public class VentanaProductos extends javax.swing.JFrame {
         String[] encabezados = {"Reseña", "Rating", "Usuario"};
         modeloTabla.setColumnIdentifiers(encabezados);
 
-        int[] anchos = {100, 100, 100}; // Ajusta el ancho de la última columna
+        int[] anchos = {200, 50, 100}; // Ajusta el ancho de la última columna
         for (int i = 0; i < anchos.length; i++) {
             tblConsultas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }

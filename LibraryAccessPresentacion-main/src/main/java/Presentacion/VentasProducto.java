@@ -131,7 +131,7 @@ public class VentasProducto extends javax.swing.JFrame {
             }
         });
 
-        comboBoxCantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        comboBoxCantidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30" }));
 
         jToggleButton4.setBackground(new java.awt.Color(102, 102, 102));
         jToggleButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N

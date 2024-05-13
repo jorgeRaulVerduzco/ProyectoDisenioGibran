@@ -58,7 +58,7 @@ public class PagoDAO implements IPagoDAO {
         try {
             coleccionPago.insertOne(pago);
             for (Producto producto : pago.getProducto()) {
-                producto.restarCantidad(pago.getCantidad());
+                new ProductoDAO().actualizarCantidadProducto(producto.getIsbn(), pago.getCantidad());
             }
         } catch (MongoException e) {
             throw new PersistenciaException("No se pudo insertar el pago: " + e.getMessage());

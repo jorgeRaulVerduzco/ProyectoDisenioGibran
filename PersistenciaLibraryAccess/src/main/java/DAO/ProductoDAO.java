@@ -12,6 +12,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.conversions.Bson;
@@ -28,6 +29,28 @@ public class ProductoDAO implements IProductoDAO {
     public ProductoDAO() {
         this.coleccionProductos = ConexionBD.getDatabase().getCollection("Producto", Producto.class);
 
+    }
+
+    public void actualizarCantidadProducto(int isbn, int cantidadVendida) throws PersistenciaException {
+        try {
+            Bson filtroISBN = Filters.eq("isbn", isbn);
+            Producto producto = coleccionProductos.find(filtroISBN).first();
+            if (producto != null) {
+                int nuevaCantidad = producto.getCantidad() - cantidadVendida;
+                if (nuevaCantidad >= 0) {
+                    Bson actualizacion = Updates.set("cantidad", nuevaCantidad);
+                    coleccionProductos.updateOne(filtroISBN, actualizacion);
+                } else {
+                    // Manejar el caso en que no hay suficientes productos para la venta
+                    System.out.println("No hay suficiente inventario para la venta.");
+                }
+            } else {
+                // Manejar el caso en que el producto no existe
+                System.out.println("El producto con ISBN " + isbn + " no existe.");
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo actualizar la cantidad del producto: " + isbn);
+        }
     }
 
     @Override
@@ -61,7 +84,7 @@ public class ProductoDAO implements IProductoDAO {
         }
         return productos;
     }
-    
+
     public List<Producto> buscarProductosPorIsbn(int isbn) throws PersistenciaException {
         List<Producto> productos = new ArrayList<>();
         try {
@@ -104,35 +127,35 @@ public class ProductoDAO implements IProductoDAO {
         }
         return productos;
     }
-    
+
     @Override
     public List<Producto> buscarProductosPorAutor(String autor) throws PersistenciaException {
-    List<Producto> productos = new ArrayList<>();
-    try {
-        Bson filtro = Filters.eq("autor", autor);
-        FindIterable<Producto> resultados = coleccionProductos.find(filtro);
-        for (Producto producto : resultados) {
-            productos.add(producto);
+        List<Producto> productos = new ArrayList<>();
+        try {
+            Bson filtro = Filters.eq("autor", autor);
+            FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar productos por autor: " + e.getMessage());
         }
-    } catch (MongoException e) {
-        throw new PersistenciaException("Error al buscar productos por autor: " + e.getMessage());
+        return productos;
     }
-    return productos;
-}
 
     @Override
     public List<Producto> buscarProductosPorCategoria(String categoria) throws PersistenciaException {
-    List<Producto> productos = new ArrayList<>();
-    try {
-        Bson filtro = Filters.eq("categoria", categoria);
-        FindIterable<Producto> resultados = coleccionProductos.find(filtro);
-        for (Producto producto : resultados) {
-            productos.add(producto);
+        List<Producto> productos = new ArrayList<>();
+        try {
+            Bson filtro = Filters.eq("categoria", categoria);
+            FindIterable<Producto> resultados = coleccionProductos.find(filtro);
+            for (Producto producto : resultados) {
+                productos.add(producto);
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al buscar productos por categoría: " + e.getMessage());
         }
-    } catch (MongoException e) {
-        throw new PersistenciaException("Error al buscar productos por categoría: " + e.getMessage());
+        return productos;
     }
-    return productos;
-}
 
 }

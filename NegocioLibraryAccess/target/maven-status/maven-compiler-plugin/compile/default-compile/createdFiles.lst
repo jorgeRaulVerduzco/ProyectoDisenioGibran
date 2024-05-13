@@ -2,6 +2,7 @@ Negocio\UsuarioBO.class
 INegocio\IReseñaBO.class
 Negocio\ReseñaBO.class
 Negocio\PagoBO.class
+Negocio\RentaProvicional.class
 INegocio\IUsuarioBO.class
 Negocio\RentaBO.class
 Negocio\UsuarioSesion.class

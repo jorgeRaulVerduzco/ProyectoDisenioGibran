@@ -25,16 +25,19 @@ public class Prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws PersistenciaException {
-       
-ReseñaDAO reseñaDao = new ReseñaDAO();
+
+        ReseñaDAO reseñaDao = new ReseñaDAO();
         //System.out.println(reseñaDao.obtenerReseñasDeUsuario("jorgendo43"));
-        
+
         PagoDAO po = new PagoDAO();
 //        System.out.println( po.consultarHistorialComprasPorUsuario("Bell"));
-        System.out.println(po.consultarHistorialComprasPorUsuarioMeses("Bell", 2024, 3));
-        
+
         ProductoDAO pe = new ProductoDAO();
-//        System.out.println(pe.buscarProductosPorIsbn(12));
+//        System.out.println(pe.buscarProductosPorIsbn(12))
+        Producto libroDracula = new Producto(04040440, "vendido", "Bram Stoker", "Libro", "Dover Publications", 5.99, "Terror", 20);
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        System.out.println(usuarioDAO.obtenerHistorialProductosVendidos("ramoncito"));
     }
-    
+
 }

@@ -8,19 +8,20 @@ import DTO.ProductoDTO;
 import INegocio.IProductoBO;
 import IProductosVendidos.IListaProductosVendidos;
 import Negocio.ProductoBO;
+import Negocio.UsuarioBO;
 import java.util.List;
 
 public class ProductosVendidos implements IListaProductosVendidos {
-IProductoBO productoBO;
-
+UsuarioBO usuarioBO;
     public ProductosVendidos() {
         
-        productoBO = new ProductoBO();
+        usuarioBO = new UsuarioBO();
     }
 
 
+@Override
     public List<ProductoDTO> buscarProductosPorVendedor(String vendedor){
-        return productoBO.buscarProductosPorVendedor(vendedor);
+        return usuarioBO.obtenerHistorialProductosVendidos(vendedor);
     }
 
     

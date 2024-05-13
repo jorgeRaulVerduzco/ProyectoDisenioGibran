@@ -5,6 +5,7 @@
 package DAO;
 
 import Conexion.ConexionBD;
+import Dominio.Producto;
 import Dominio.Usuario;
 import Excepciones.PersistenciaException;
 import IDAO.IUsuarioDAO;
@@ -12,6 +13,7 @@ import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.conversions.Bson;
@@ -29,31 +31,70 @@ public class UsuarioDAO implements IUsuarioDAO {
         this.coleccionUsuarios = ConexionBD.getDatabase().getCollection("Usuario", Usuario.class);
     }
 
-   @Override
-public void agregarUsuario(Usuario usuario) throws PersistenciaException {
-    try {
-        if (existeNombreUsuario(usuario.getNombreUsuario())) {
-            System.out.println("Advertencia: Ya existe un usuario con ese nombre de usuario: " + usuario.getNombreUsuario());
-            return; 
+    @Override
+    public void agregarUsuario(Usuario usuario) throws PersistenciaException {
+        try {
+            if (existeNombreUsuario(usuario.getNombreUsuario())) {
+                System.out.println("Advertencia: Ya existe un usuario con ese nombre de usuario: " + usuario.getNombreUsuario());
+                return;
+            }
+
+            this.coleccionUsuarios.insertOne(usuario);
+            ObjectId idGenerado = usuario.getIdUsuario();
+            System.out.println(idGenerado);
+        } catch (MongoException e) {
+            System.err.println("Error al agregar usuario: " + e.getMessage());
         }
-        
-        this.coleccionUsuarios.insertOne(usuario);
-        ObjectId idGenerado = usuario.getIdUsuario();
-        System.out.println(idGenerado);
-    } catch (MongoException e) {
-        System.err.println("Error al agregar usuario: " + e.getMessage());
     }
-}
 
+    @Override
+    public void agregarProductoVendido(String nombreUsuario, Producto productoVendido) throws PersistenciaException {
+        try {
+            ProductoDAO productoDAO = new ProductoDAO();
+            productoDAO.agregarProducto(productoVendido);
 
-private boolean existeNombreUsuario(String nombreUsuario) throws PersistenciaException {
-    try {
-        Bson filtro = Filters.eq("nombreUsuario", nombreUsuario);
-        return coleccionUsuarios.countDocuments(filtro) > 0;
-    } catch (MongoException e) {
-        throw new PersistenciaException("Error al verificar la existencia del nombre de usuario: " + e.getMessage());
+            // Luego, actualizamos la lista de productos vendidos del usuario
+            Bson filtroNombreUsuario = Filters.eq("nombreUsuario", nombreUsuario);
+            Usuario usuario = coleccionUsuarios.find(filtroNombreUsuario).first();
+            if (usuario != null) {
+                List<Producto> productosVendidos = usuario.getProductosVendidos();
+                productosVendidos.add(productoVendido);
+                Bson actualizacion = Updates.set("productosVendidos", productosVendidos);
+                coleccionUsuarios.updateOne(filtroNombreUsuario, actualizacion);
+            } else {
+                System.out.println("El usuario con nombre " + nombreUsuario + " no existe.");
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo actualizar la lista de productos vendidos para el usuario: " + nombreUsuario);
+        }
     }
-}
+
+    @Override
+    public List<Producto> obtenerHistorialProductosVendidos(String nombreUsuario) throws PersistenciaException {
+        List<Producto> historialProductosVendidos = new ArrayList<>();
+        try {
+            Bson filtroNombreUsuario = Filters.eq("nombreUsuario", nombreUsuario);
+            Usuario usuario = coleccionUsuarios.find(filtroNombreUsuario).first();
+            if (usuario != null) {
+                historialProductosVendidos = usuario.getProductosVendidos();
+            } else {
+                System.out.println("El usuario con nombre " + nombreUsuario + " no existe.");
+            }
+        } catch (MongoException e) {
+            throw new PersistenciaException("No se pudo obtener el historial de productos vendidos para el usuario: " + nombreUsuario);
+        }
+        return historialProductosVendidos;
+    }
+
+    private boolean existeNombreUsuario(String nombreUsuario) throws PersistenciaException {
+        try {
+            Bson filtro = Filters.eq("nombreUsuario", nombreUsuario);
+            return coleccionUsuarios.countDocuments(filtro) > 0;
+        } catch (MongoException e) {
+            throw new PersistenciaException("Error al verificar la existencia del nombre de usuario: " + e.getMessage());
+        }
+    }
+
     @Override
     public boolean buscarUsuario(String nombreUsuario, String contraseña) throws PersistenciaException {
         try {

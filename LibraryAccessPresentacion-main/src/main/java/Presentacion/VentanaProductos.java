@@ -6,6 +6,7 @@ package Presentacion;
 
 import DTO.PagoDTO;
 import DTO.ProductoDTO;
+import DTO.RentaDTO;
 import DTO.UsuarioDTO;
 import IReseñasPorProducto.IReseñasProducto;
 import Negocio.PagoProvicional;
@@ -13,10 +14,17 @@ import Negocio.ProductoSeleccionado;
 import static Negocio.ProductoSeleccionado.getPersonaSeleccionada;
 import Negocio.UsuarioSesion;
 import ReseñaPorProducto.ReseñasProducto;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,8 +43,8 @@ public class VentanaProductos extends javax.swing.JFrame {
         resenias = new ReseñasProducto();
         initComponents();
         setTextoPrecio();
-         tabla();
-         llenarTabla();
+        tabla();
+        llenarTabla();
     }
 
     public void setTextoPrecio() {
@@ -119,9 +127,9 @@ public class VentanaProductos extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("PRECIO");
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        jLabel2.setText("PRECIO");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -281,9 +289,59 @@ public class VentanaProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void btnRentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentarActionPerformed
-        RentarProducto rp = new RentarProducto();
-        rp.setVisible(true);
-        this.setVisible(false);
+        // Crear un nuevo diálogo modal para seleccionar la fecha de devolución
+        JDialog dialog = new JDialog(this, "Seleccionar Fecha de Devolución", true);
+
+        // Crear un componente JDateChooser para seleccionar la fecha de devolución
+        JDateChooser dateChooser = new JDateChooser();
+
+        // Botón para confirmar la selección de fecha de devolución
+        JButton confirmButton = new JButton("Confirmar");
+        confirmButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener la fecha seleccionada
+                if (dateChooser.getDate() != null) {
+                    // Crear la renta solo si se ha seleccionado una fecha de devolución
+                    RentaDTO rentaProvicional = new RentaDTO();
+                    ProductoDTO producto = ProductoSeleccionado.getPersonaSeleccionada();
+                    List<ProductoDTO> productosDTO = new ArrayList<>();
+                    productosDTO.add(producto);
+                    rentaProvicional.setProductoDTO(productosDTO);
+                    int cantidad = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+                    rentaProvicional.setCantidad(cantidad);
+                    rentaProvicional.setCostoRenta(producto.getPrecio() * cantidad);
+                    rentaProvicional.setFechaDevolucion((Date) dateChooser.getDate()); // Establecer la fecha de devolución
+                    UsuarioDTO usuario = UsuarioSesion.usuarioSesion();
+                    List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+                    usuariosDTO.add(usuario);
+                    rentaProvicional.setUsuarioDTO(usuariosDTO);
+
+                    // Realizar la lógica para rentar con la fecha de devolución seleccionada
+                    System.out.println("Fecha de devolución seleccionada: " + dateChooser.getDate());
+                    dialog.dispose(); // Cerrar el diálogo después de confirmar la selección
+
+                    // Mostrar la ventana para el método de pago
+                    MetodoDeRenta mdr = new MetodoDeRenta();
+                    mdr.setVisible(true);
+                    setVisible(false); // Ocultar la ventana actual
+                } else {
+                    JOptionPane.showMessageDialog(dialog, "Por favor selecciona una fecha de devolución");
+                }
+            }
+        });
+
+        // Crear un panel para organizar los componentes
+        JPanel panel = new JPanel();
+        panel.add(dateChooser);
+        panel.add(confirmButton);
+
+        // Agregar el panel al diálogo
+        dialog.add(panel);
+
+        // Configurar el tamaño y hacer visible el diálogo
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnRentarActionPerformed
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
@@ -304,23 +362,23 @@ public class VentanaProductos extends javax.swing.JFrame {
     }
 
     public void llenarTabla() {
- ProductoDTO productoDTO = ProductoSeleccionado.getPersonaSeleccionada();
-    int isbn = productoDTO.getIsbn();
-    
-    List<Object> reseniasLista = resenias.obtenerReseñasDeProducto(isbn);
-    
-    DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultas.getModel();
-    
-    modeloTabla.setRowCount(0);
-    
-    for (Object resena : reseniasLista) {
-        Map<String, Object> resenaMap = (Map<String, Object>) resena;
-        String nombreUsuario = (String) resenaMap.get("nombreUsuario");
-        String reseña = (String) resenaMap.get("reseña");
-        int rating = (int) resenaMap.get("rating");
-        
-        modeloTabla.addRow(new Object[]{reseña, rating, nombreUsuario});
-    }
+        ProductoDTO productoDTO = ProductoSeleccionado.getPersonaSeleccionada();
+        int isbn = productoDTO.getIsbn();
+
+        List<Object> reseniasLista = resenias.obtenerReseñasDeProducto(isbn);
+
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultas.getModel();
+
+        modeloTabla.setRowCount(0);
+
+        for (Object resena : reseniasLista) {
+            Map<String, Object> resenaMap = (Map<String, Object>) resena;
+            String nombreUsuario = (String) resenaMap.get("nombreUsuario");
+            String reseña = (String) resenaMap.get("reseña");
+            int rating = (int) resenaMap.get("rating");
+
+            modeloTabla.addRow(new Object[]{reseña, rating, nombreUsuario});
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

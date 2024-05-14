@@ -7,7 +7,6 @@ Presentacion\IniciarSesion$2.class
 Presentacion\frmProductosDelUsuario$3.class
 Presentacion\frmProductosPorCategoria$3.class
 Presentacion\ProductosEncontrados.class
-Presentacion\VentanaProductos$7.class
 Presentacion\frmProductosPorAutor$3.class
 Presentacion\VentaDeProductosMenu$3.class
 Presentacion\frmMenuResenias.class
@@ -50,7 +49,6 @@ Presentacion\frmMenuResenias$2.class
 Presentacion\IniciarSesion$3.class
 Presentacion\HistorialProductosVendidos$3.class
 Presentacion\RentaPorOxxo$1.class
-Presentacion\VentanaProductos$8.class
 Presentacion\VentasProducto.class
 Presentacion\frmProductosPorCategoria$2.class
 Presentacion\MenuUsuario$3.class
@@ -73,7 +71,6 @@ Presentacion\VentasProducto$4.class
 Presentacion\BusquedaPorNombre$1.class
 Presentacion\VentaDeProductosMenu$2.class
 Presentacion\MenuUsuario.class
-Presentacion\VentanaProductos$9.class
 Presentacion\frmProductosPorCategoria$4.class
 Presentacion\VentanaProductos$6.class
 Presentacion\FrmGenerarReseña$1.class

@@ -7,8 +7,10 @@ package Presentacion;
 import ComprarProducto.ComprarProducto;
 import DTO.PagoDTO;
 import DTO.PagoPorTarjetaDTO;
+import DTO.UsuarioDTO;
 import IComprarProducto.IComprarProducto;
 import Negocio.PagoProvicional;
+import Negocio.UsuarioSesion;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -164,15 +166,12 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
     }//GEN-LAST:event_bnAtrasActionPerformed
 
     private void bnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnFinalizarCompraActionPerformed
-        // Verificar si los campos están vacíos
         if (txtCCV.getText().isEmpty() || txtNumeroTarjeta.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Debe completar todos los campos");
         } else {
-            // Obtener los valores ingresados por el usuario
             String numeroTarjeta = txtNumeroTarjeta.getText();
             String ccv = txtCCV.getText();
-
-            // Crear un objeto PagoPorTarjetaDTO con los valores ingresados
+UsuarioDTO usuario= UsuarioSesion.usuarioSesion();
             PagoPorTarjetaDTO pagoPorTarjetaDTO = new PagoPorTarjetaDTO();
             pagoPorTarjetaDTO.setNumeroTarjeta(numeroTarjeta);
             pagoPorTarjetaDTO.setCodigoSeguridad(ccv);
@@ -180,7 +179,7 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             java.util.Calendar calendario = java.util.Calendar.getInstance();
             java.sql.Date fechaSistema = new java.sql.Date(calendario.getTimeInMillis());
             LocalDate fechaSeleccionada = datePicker1.getDate();
-
+String nombreUsaurio = usuario.getNombreUsuario();
             java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaSeleccionada);
             pagoPorTarjetaDTO.setFechaExpiracion(fechaSQL);
             comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
@@ -192,13 +191,18 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             pagoDTO.setFechaDePago(fechaSistema);
 
             comprarProcuto.comprarProducto(pagoDTO);
-            // Mostrar un mensaje de éxito
-            JOptionPane.showMessageDialog(rootPane, "Compra realizada con éxito");
+            String ticket = "Detalle del pago:\n\n";
+            ticket += "Usuario: " + nombreUsaurio + "\n";
+            ticket += "Cantidad de productos: " + pagoDTO.getCantidad() + "\n";
+            ticket += "Costo total: $" + pagoDTO.getCostoTotal() + "\n";
+            ticket += "Fecha de pago: " + pagoDTO.getFechaDePago() + "\n";
+
+            // Mostrar el ticket en un JOptionPane
+            JOptionPane.showMessageDialog(rootPane, ticket, "Ticket de pago", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
             MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
         }
-// TODO add your handling code here:
     }//GEN-LAST:event_bnFinalizarCompraActionPerformed
 
 

@@ -69,10 +69,8 @@ public class VentanaProductos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        btnRentar = new javax.swing.JButton();
         BtnComprar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        btnAgregarCarrito = new javax.swing.JButton();
         txtPrecio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -93,13 +91,6 @@ public class VentanaProductos extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnRentar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/rentarAhora.jpg"))); // NOI18N
-        btnRentar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRentarActionPerformed(evt);
-            }
-        });
-
         BtnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/comprar.jpg"))); // NOI18N
         BtnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,13 +102,6 @@ public class VentanaProductos extends javax.swing.JFrame {
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        btnAgregarCarrito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/carrito.jpg"))); // NOI18N
-        btnAgregarCarrito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCarritoActionPerformed(evt);
             }
         });
 
@@ -139,9 +123,7 @@ public class VentanaProductos extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRentar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(131, 131, 131))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -163,11 +145,7 @@ public class VentanaProductos extends javax.swing.JFrame {
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRentar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAgregarCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(168, 168, 168))
         );
 
         jScrollPane4.setBackground(new java.awt.Color(227, 227, 227));
@@ -276,10 +254,6 @@ public class VentanaProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void btnAgregarCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCarritoActionPerformed
-
-    }//GEN-LAST:event_btnAgregarCarritoActionPerformed
-
     private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
 
     }//GEN-LAST:event_tblConsultasMouseClicked
@@ -287,62 +261,6 @@ public class VentanaProductos extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
-
-    private void btnRentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentarActionPerformed
-        // Crear un nuevo diálogo modal para seleccionar la fecha de devolución
-        JDialog dialog = new JDialog(this, "Seleccionar Fecha de Devolución", true);
-
-        // Crear un componente JDateChooser para seleccionar la fecha de devolución
-        JDateChooser dateChooser = new JDateChooser();
-
-        // Botón para confirmar la selección de fecha de devolución
-        JButton confirmButton = new JButton("Confirmar");
-        confirmButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Obtener la fecha seleccionada
-                if (dateChooser.getDate() != null) {
-                    // Crear la renta solo si se ha seleccionado una fecha de devolución
-                    RentaDTO rentaProvicional = new RentaDTO();
-                    ProductoDTO producto = ProductoSeleccionado.getPersonaSeleccionada();
-                    List<ProductoDTO> productosDTO = new ArrayList<>();
-                    productosDTO.add(producto);
-                    rentaProvicional.setProductoDTO(productosDTO);
-                    int cantidad = Integer.parseInt(jComboBox1.getSelectedItem().toString());
-                    rentaProvicional.setCantidad(cantidad);
-                    rentaProvicional.setCostoRenta(producto.getPrecio() * cantidad);
-                    rentaProvicional.setFechaDevolucion((Date) dateChooser.getDate()); // Establecer la fecha de devolución
-                    UsuarioDTO usuario = UsuarioSesion.usuarioSesion();
-                    List<UsuarioDTO> usuariosDTO = new ArrayList<>();
-                    usuariosDTO.add(usuario);
-                    rentaProvicional.setUsuarioDTO(usuariosDTO);
-
-                    // Realizar la lógica para rentar con la fecha de devolución seleccionada
-                    System.out.println("Fecha de devolución seleccionada: " + dateChooser.getDate());
-                    dialog.dispose(); // Cerrar el diálogo después de confirmar la selección
-
-                    // Mostrar la ventana para el método de pago
-                    MetodoDeRenta mdr = new MetodoDeRenta();
-                    mdr.setVisible(true);
-                    setVisible(false); // Ocultar la ventana actual
-                } else {
-                    JOptionPane.showMessageDialog(dialog, "Por favor selecciona una fecha de devolución");
-                }
-            }
-        });
-
-        // Crear un panel para organizar los componentes
-        JPanel panel = new JPanel();
-        panel.add(dateChooser);
-        panel.add(confirmButton);
-
-        // Agregar el panel al diálogo
-        dialog.add(panel);
-
-        // Configurar el tamaño y hacer visible el diálogo
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnRentarActionPerformed
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 
@@ -383,9 +301,7 @@ public class VentanaProductos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnComprar;
-    private javax.swing.JButton btnAgregarCarrito;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btnRentar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

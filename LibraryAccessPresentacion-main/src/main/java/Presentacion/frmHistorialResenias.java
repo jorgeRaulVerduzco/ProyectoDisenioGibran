@@ -6,12 +6,15 @@ package Presentacion;
 
 import DTO.ProductoDTO;
 import DTO.UsuarioDTO;
+import GenerarPDF.GenerarPDF;
 import HistorialResenias.ReseniasUsuario;
+import IGenerarPDF.IGenerarPDF;
 import IHistorialResenias.IReseniasUsuario;
 import Negocio.ProductoSeleccionado;
 import Negocio.UsuarioSesion;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmHistorialResenias extends javax.swing.JFrame {
 
+    IGenerarPDF generarPDF;
     IReseniasUsuario resenias;
 
     /**
@@ -27,6 +31,7 @@ public class frmHistorialResenias extends javax.swing.JFrame {
      */
     public frmHistorialResenias() {
         resenias = new ReseniasUsuario();
+        generarPDF = new GenerarPDF();
         initComponents();
         tabla();
         llenarTabla();
@@ -46,6 +51,7 @@ public class frmHistorialResenias extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblConsultas = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
+        btnGenerarPDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +93,15 @@ public class frmHistorialResenias extends javax.swing.JFrame {
             }
         });
 
+        btnGenerarPDF.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnGenerarPDF.setForeground(new java.awt.Color(153, 255, 102));
+        btnGenerarPDF.setText("GENERAR PDF");
+        btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarPDFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,13 +109,17 @@ public class frmHistorialResenias extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(142, 142, 142))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4)
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(242, 242, 242)
+                .addComponent(btnGenerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +129,9 @@ public class frmHistorialResenias extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGenerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -170,13 +191,19 @@ public class frmHistorialResenias extends javax.swing.JFrame {
     }//GEN-LAST:event_tblConsultasMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-frmMenuResenias menuResenias = new frmMenuResenias();
-menuResenias.setVisible(true);
-this.dispose();
+        frmMenuResenias menuResenias = new frmMenuResenias();
+        menuResenias.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnGenerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPDFActionPerformed
+        generarPDF.generarPDF((DefaultTableModel) tblConsultas.getModel());
+        JOptionPane.showMessageDialog(rootPane, "!!!SE GENERO EL PDF EXITOSAMENTE!!!!");
+    }//GEN-LAST:event_btnGenerarPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenerarPDF;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

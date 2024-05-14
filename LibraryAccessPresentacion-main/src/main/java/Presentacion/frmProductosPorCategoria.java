@@ -43,13 +43,18 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
         txtCategoria = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblConsultasCategoria = new javax.swing.JTable();
+        tblConsultas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(java.awt.SystemColor.activeCaptionBorder);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/volver.jpg"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Lybrari.jpg"))); // NOI18N
 
@@ -68,7 +73,7 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
                 return false;
             }
         };
-        tblConsultasCategoria.setModel(new javax.swing.table.DefaultTableModel(
+        tblConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -76,13 +81,13 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
 
             }
         ));
-        tblConsultasCategoria.getTableHeader().setReorderingAllowed(false);
-        tblConsultasCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblConsultas.getTableHeader().setReorderingAllowed(false);
+        tblConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblConsultasCategoriaMouseClicked(evt);
+                tblConsultasMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tblConsultasCategoria);
+        jScrollPane4.setViewportView(tblConsultas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,11 +140,11 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblConsultasCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasCategoriaMouseClicked
+    private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
 
-        int filaSeleccionada = tblConsultasCategoria.getSelectedRow();
+        int filaSeleccionada = tblConsultas.getSelectedRow();
         if (filaSeleccionada != -1) {
-            DefaultTableModel model = (DefaultTableModel) tblConsultasCategoria.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblConsultas.getModel();
             ProductoDTO productoSeleccionado = new ProductoDTO();
             productoSeleccionado.setIsbn((int) model.getValueAt(filaSeleccionada, 0));
             productoSeleccionado.setTitulo((String) model.getValueAt(filaSeleccionada, 1));
@@ -157,20 +162,26 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
             this.dispose();
 
         }
-    }//GEN-LAST:event_tblConsultasCategoriaMouseClicked
+    }//GEN-LAST:event_tblConsultasMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         llenarTabla();
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+MenuPrincipal menu = new MenuPrincipal();
+menu.setVisible(true);
+this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     public void tabla() {
-        tblConsultasCategoria.setDefaultRenderer(Object.class, new RenderTabla());
+        tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        tblConsultasCategoria.setModel(modeloTabla);
+        tblConsultas.setModel(modeloTabla);
 
-        tblConsultasCategoria.setRowHeight(40);
+        tblConsultas.setRowHeight(40);
 
         // Definición de las columnas y sus encabezados
         String[] encabezados = {"ISBN", "Titulo", "Autor", "Tipo", "Editorial", "Precio", "Categoria", "Cantidad"};
@@ -179,14 +190,14 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
         // Configuración del ancho preferido de las columnas
         int[] anchos = {100, 100, 100, 100, 100, 100, 100, 50}; // Ajusta el ancho de la última columna
         for (int i = 0; i < anchos.length; i++) {
-            tblConsultasCategoria.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            tblConsultas.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
     }
 
     public void llenarTabla() {
 
         List<ProductoDTO> productosEncontrados = productos.buscarProductosPorCategoria(txtCategoria.getText());
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultasCategoria.getModel();
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblConsultas.getModel();
 
         modeloTabla.setRowCount(0);
 
@@ -242,14 +253,11 @@ public class frmProductosPorCategoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tblConsultas;
-    private javax.swing.JTable tblConsultasCategoria;
     private javax.swing.JTextField txtCategoria;
     // End of variables declaration//GEN-END:variables
 }

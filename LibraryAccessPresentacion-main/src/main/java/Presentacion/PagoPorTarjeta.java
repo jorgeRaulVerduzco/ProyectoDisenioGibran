@@ -32,6 +32,7 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
     public PagoPorTarjeta() {
         comprarProcuto = new ComprarProducto();
         initComponents();
+        costoTotal();
     }
 
     /**
@@ -53,6 +54,8 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         bnFinalizarCompra = new javax.swing.JButton();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        txtCostoTotal = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +83,9 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("COSTO TOTAL:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,8 +104,12 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
                         .addGap(229, 229, 229)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                            .addComponent(label))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCostoTotal)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,10 +134,17 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -171,7 +188,7 @@ public class PagoPorTarjeta extends javax.swing.JFrame {
         } else {
             String numeroTarjeta = txtNumeroTarjeta.getText();
             String ccv = txtCCV.getText();
-UsuarioDTO usuario= UsuarioSesion.usuarioSesion();
+            UsuarioDTO usuario = UsuarioSesion.usuarioSesion();
             PagoPorTarjetaDTO pagoPorTarjetaDTO = new PagoPorTarjetaDTO();
             pagoPorTarjetaDTO.setNumeroTarjeta(numeroTarjeta);
             pagoPorTarjetaDTO.setCodigoSeguridad(ccv);
@@ -179,7 +196,7 @@ UsuarioDTO usuario= UsuarioSesion.usuarioSesion();
             java.util.Calendar calendario = java.util.Calendar.getInstance();
             java.sql.Date fechaSistema = new java.sql.Date(calendario.getTimeInMillis());
             LocalDate fechaSeleccionada = datePicker1.getDate();
-String nombreUsaurio = usuario.getNombreUsuario();
+            String nombreUsaurio = usuario.getNombreUsuario();
             java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaSeleccionada);
             pagoPorTarjetaDTO.setFechaExpiracion(fechaSQL);
             comprarProcuto.comprarProductoPorTarjeta(pagoPorTarjetaDTO);
@@ -205,17 +222,25 @@ String nombreUsaurio = usuario.getNombreUsuario();
         }
     }//GEN-LAST:event_bnFinalizarCompraActionPerformed
 
+    public void costoTotal() {
+        PagoDTO pagoDTO = PagoProvicional.getPagoProvicional();
+        Double costototal = pagoDTO.getCostoTotal();
+                txtCostoTotal.setText(String.valueOf(costototal));
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnAtras;
     private javax.swing.JButton bnFinalizarCompra;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel label;
     private javax.swing.JTextField txtCCV;
+    private javax.swing.JTextField txtCostoTotal;
     private javax.swing.JTextField txtNumeroTarjeta;
     // End of variables declaration//GEN-END:variables
 }

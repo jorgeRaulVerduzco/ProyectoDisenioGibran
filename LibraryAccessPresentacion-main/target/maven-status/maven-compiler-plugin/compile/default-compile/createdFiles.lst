@@ -7,6 +7,7 @@ Presentacion\IniciarSesion$2.class
 Presentacion\frmProductosDelUsuario$3.class
 Presentacion\frmProductosPorCategoria$3.class
 Presentacion\ProductosEncontrados.class
+Presentacion\VentanaProductos$7.class
 Presentacion\frmProductosPorAutor$3.class
 Presentacion\VentaDeProductosMenu$3.class
 Presentacion\frmMenuResenias.class
@@ -24,6 +25,7 @@ Presentacion\FrmGenerarReseña.class
 Presentacion\VentasProducto$3.class
 Presentacion\MetodoDeRenta.class
 Presentacion\HistorialDeCompras$5.class
+Presentacion\PagoPorTarjeta$3.class
 Presentacion\HistorialDeCompras$6.class
 Presentacion\frmProductosPorAutor$1.class
 Presentacion\MetodoDePago$2.class

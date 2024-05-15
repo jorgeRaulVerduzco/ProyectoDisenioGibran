@@ -47,6 +47,9 @@ public class VentanaProductos extends javax.swing.JFrame {
         llenarTabla();
     }
 
+    ProductoDTO producto = ProductoSeleccionado.getPersonaSeleccionada();
+    double precios = producto.getPrecio();
+
     public void setTextoPrecio() {
         ProductoDTO producto = ProductoSeleccionado.getPersonaSeleccionada();
         double precio = producto.getPrecio();
@@ -70,7 +73,7 @@ public class VentanaProductos extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnComprar = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        boxo = new javax.swing.JComboBox<>();
         txtPrecio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -98,22 +101,28 @@ public class VentanaProductos extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        boxo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        boxo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boxoItemStateChanged(evt);
+            }
+        });
+        boxo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                boxoActionPerformed(evt);
             }
         });
 
+        txtPrecio.setEditable(false);
         txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("PRECIO");
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        jLabel2.setText("PRECIO");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -122,7 +131,7 @@ public class VentanaProductos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(136, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(131, 131, 131))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -142,7 +151,7 @@ public class VentanaProductos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boxo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(168, 168, 168))
@@ -235,7 +244,7 @@ public class VentanaProductos extends javax.swing.JFrame {
         List<ProductoDTO> productosDTO = new ArrayList<>();
         productosDTO.add(producto);
         pagoProvicional.setProductoDTO(productosDTO);
-        int cantidad = Integer.parseInt(jComboBox1.getSelectedItem().toString());
+        int cantidad = Integer.parseInt(boxo.getSelectedItem().toString());
         pagoProvicional.setCantidad(cantidad);
         pagoProvicional.setCostoTotal(producto.getPrecio() * cantidad);
 
@@ -250,9 +259,9 @@ public class VentanaProductos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnComprarActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void boxoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_boxoActionPerformed
 
     private void tblConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultasMouseClicked
 
@@ -261,6 +270,13 @@ public class VentanaProductos extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void boxoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_boxoItemStateChanged
+        if (evt.getStateChange() == evt.SELECTED) {
+            Multi();
+
+        }
+    }//GEN-LAST:event_boxoItemStateChanged
     public void tabla() {
         tblConsultas.setDefaultRenderer(Object.class, new RenderTabla());
 
@@ -296,13 +312,38 @@ public class VentanaProductos extends javax.swing.JFrame {
             int rating = (int) resenaMap.get("rating");
 
             modeloTabla.addRow(new Object[]{reseña, rating, nombreUsuario});
+
         }
+    }
+
+    public void Multi() {
+        switch (boxo.getSelectedItem().toString()) {
+            case "1" :
+                txtPrecio.setText((String.valueOf(precios)));
+                break;
+            case "2": 
+                Double pordos = precios * 2;
+                txtPrecio.setText((String.valueOf(pordos)));
+                break;
+            case "3":
+                Double portres = precios * 3;
+                txtPrecio.setText((String.valueOf(portres)));
+                break;
+            case "4":
+                Double porcuatro = precios * 4;
+                txtPrecio.setText((String.valueOf(porcuatro)));
+                break;
+
+                
+
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnComprar;
+    private javax.swing.JComboBox<String> boxo;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

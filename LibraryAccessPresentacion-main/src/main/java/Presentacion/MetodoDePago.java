@@ -122,7 +122,7 @@ public class MetodoDePago extends javax.swing.JFrame {
     }//GEN-LAST:event_bnOxxoActionPerformed
 
     private void bnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnAtrasActionPerformed
-        BusquedaPorNombre bu = new BusquedaPorNombre();
+        MenuPrincipal bu = new MenuPrincipal();
         bu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bnAtrasActionPerformed

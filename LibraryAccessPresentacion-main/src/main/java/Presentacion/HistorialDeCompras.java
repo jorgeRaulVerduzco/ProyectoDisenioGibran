@@ -40,7 +40,7 @@ import java.text.SimpleDateFormat;
  *
  * @author Bell
  */
-public final class HistorialDeCompras extends javax.swing.JFrame implements Printable {
+public final class HistorialDeCompras extends javax.swing.JFrame  {
 
     IHistorialPDF pdf;
     IHistorialUsuario historial;
@@ -249,7 +249,7 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         pdf.generarPDF((DefaultTableModel) Tabla.getModel());
-        JOptionPane.showMessageDialog(rootPane, "!!!SE GENERO EL PDF EXITOSAMENTE!!!!");
+        JOptionPane.showMessageDialog(rootPane, "Se genero correctamente");
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void ComboBoxMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxMesesActionPerformed
@@ -269,19 +269,5 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
     private javax.swing.JToggleButton jToggleButton4;
     // End of variables declaration//GEN-END:variables
 
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-
-        if (pageIndex == 0) {
-
-            Graphics2D graphics2d = (Graphics2D) graphics;
-            graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            printAll(graphics2d);
-
-            return PAGE_EXISTS;
-        } else {
-
-            return NO_SUCH_PAGE;
-        }
-
-    }
+    
 }

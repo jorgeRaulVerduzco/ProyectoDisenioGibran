@@ -1,17 +1,21 @@
-
 package HistorialPDF;
 
 import IHistorialPDF.IHistorialPDF;
+import com.itextpdf.text.BaseColor;
 import javax.swing.table.DefaultTableModel;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -23,11 +27,11 @@ import java.util.logging.Logger;
  *
  * @author Bell
  */
-public class HistorialPDF implements IHistorialPDF{
+public class HistorialPDF implements IHistorialPDF {
 
-    public HistorialPDF()  {
+    public HistorialPDF() {
     }
-    
+
     public void generarPDF(DefaultTableModel modeloTabla) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String fechaHoraActual = sdf.format(new Date());
@@ -37,14 +41,20 @@ public class HistorialPDF implements IHistorialPDF{
         try {
             PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(nombreArchivo));
 
-            writer.setPageEvent(new PageNumeration());
-
-            
+           
 
             documento.open();
+            PdfContentByte cb = writer.getDirectContent();
+           
+            cb.setColorStroke(BaseColor.RED);
+            cb.rectangle(1, 1, 840, 1000); // Coordenadas x, y, ancho, alto del rectángulo
+            cb.stroke();
+            
 
-            Font fontTitulo = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-            Paragraph titulo = new Paragraph("Registro de Compras", fontTitulo);
+            Paragraph titulo = new Paragraph("Registro de Compras", FontFactory.getFont("Tahoma",
+                    22,
+                    Font.BOLD,
+                    BaseColor.RED));
             titulo.setAlignment(Element.ALIGN_CENTER);
             documento.add(titulo);
 
@@ -83,18 +93,5 @@ public class HistorialPDF implements IHistorialPDF{
         }
     }
 
-    class PageNumeration extends PdfPageEventHelper {
-
-        @Override
-        public void onEndPage(PdfWriter writer, com.itextpdf.text.Document document) {
-            try {
-                int numeroPagina = writer.getPageNumber();
-                Paragraph numeroPaginaParrafo = new Paragraph("Página " + numeroPagina);
-                document.add(numeroPaginaParrafo);
-            } catch (DocumentException ex) {
-                Logger.getLogger(HistorialPDF.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-     
+    
 }

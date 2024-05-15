@@ -8,7 +8,9 @@ import DTO.PagoDTO;
 import DTO.UsuarioDTO;
 import DTO.ProductoDTO;
 import Excepciones.PersistenciaException;
+import HistorialPDF.HistorialPDF;
 import HistorialUsuario.HistorialUsuario;
+import IHistorialPDF.IHistorialPDF;
 import IHistorialUsuario.IHistorialUsuario;
 import IProductosDelUsuario.IProductosUsuario;
 import Negocio.PagoBO;
@@ -40,11 +42,13 @@ import java.text.SimpleDateFormat;
  */
 public final class HistorialDeCompras extends javax.swing.JFrame implements Printable {
 
+    IHistorialPDF pdf;
     IHistorialUsuario historial;
 
     public HistorialDeCompras() {
         initComponents();
         historial = new HistorialUsuario();
+        pdf = new HistorialPDF();
         tabla();
         llenarTabla();
 
@@ -244,19 +248,8 @@ public final class HistorialDeCompras extends javax.swing.JFrame implements Prin
     }//GEN-LAST:event_TablaMouseClicked
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
-        PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setPrintable(this);
-        if (pj.printDialog()) {
-
-            try {
-                pj.print();
-            } catch (Exception e) {
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo imprimir");
-        }
-
+        pdf.generarPDF((DefaultTableModel) Tabla.getModel());
+        JOptionPane.showMessageDialog(rootPane, "!!!SE GENERO EL PDF EXITOSAMENTE!!!!");
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void ComboBoxMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxMesesActionPerformed

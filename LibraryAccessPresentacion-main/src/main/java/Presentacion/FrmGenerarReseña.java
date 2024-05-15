@@ -11,6 +11,7 @@ import GenerarReseña.GenerarReseña;
 import IGenerarReseña.IGenerarReseña;
 import Negocio.ProductoSeleccionado;
 import Negocio.UsuarioSesion;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -143,6 +144,7 @@ public class FrmGenerarReseña extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarReseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReseniaActionPerformed
+        if (!txtResenia.getText().isEmpty()) {
         ReseñaDTO reseñaDTO = new ReseñaDTO();
         ProductoDTO productoDTO = ProductoSeleccionado.getPersonaSeleccionada();
         UsuarioDTO usuario = UsuarioSesion.usuarioSesion();
@@ -151,12 +153,16 @@ public class FrmGenerarReseña extends javax.swing.JFrame {
         reseñaDTO.setUsuario(usuario);
         int cantidad = Integer.parseInt(jComboBox1.getSelectedItem().toString());
         reseñaDTO.setRating(cantidad);
-        
+
         generarReseña.GenerarReseña(reseñaDTO);
         System.out.println(reseñaDTO);
         MenuPrincipal menu = new MenuPrincipal();
         this.dispose();
         menu.setVisible(true);
+    } else {
+        // Mostrar un mensaje de error si el campo está vacío
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese una reseña antes de generarla.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnGenerarReseniaActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
